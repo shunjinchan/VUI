@@ -1,0 +1,122 @@
+@charset "utf-8";
+/**
+ * 模拟一像素
+ * @author: pigsy.chen@vipshop.com
+ */
+
+.border-t {
+    border-top: 1px solid #ddd; /*no*/
+}
+
+.border-b {
+    border-bottom: 1px solid #ddd; /*no*/
+}
+
+.border-tb {
+    border-top: #ddd 1px solid; /*no*/
+    border-bottom: #ddd 1px solid; /*no*/
+    background-image: none;
+}
+
+.border-l {
+    border-left: 1px solid #ddd; /*no*/
+}
+
+.border-r {
+    border-right: 1px solid #ddd; /*no*/
+}
+
+.border {
+    border: 1px solid #ddd; /*no*/
+}
+
+.border-radius {
+    border: 1px solid #ddd; /*no*/
+    border-radius: 3px; /*no*/
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .border-radius {
+        position: relative;
+        border: 0;
+    }
+    .border-radius::before {
+        content: "";
+        width: 200%;
+        height: 200%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid #ddd;
+        -webkit-transform: scale(0.5);
+        -webkit-transform-origin: 0 0;
+        padding: 1px; /*no*/
+        -webkit-box-sizing: border-box;
+        border-radius: 6px; /*no*/
+        pointer-events: none;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .border {
+        position: relative;
+        border: 0;
+    }
+    .border-t,
+    .border-b,
+    .border-l,
+    .border-r,
+    .border-tb {
+        border: 0;
+    }
+    .border-t {
+        background-position: left top;
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd));
+    }
+    .border-b {
+        background-position: left bottom;
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd));
+    }
+    .border-t,
+    .border-b,
+    .border-tb {
+        background-repeat: repeat-x;
+        -webkit-background-size: 100% 1px; /*no*/
+    }
+    .border-tb {
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd));
+        background-position: top, bottom;
+    }
+    .border-l {
+        background-position: left top;
+        background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd));
+    }
+    .border-r {
+        background-position: right top;
+        background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd));
+    }
+    .border-l,
+    .border-r {
+        background-repeat: repeat-y;
+        -webkit-background-size: 1px 100%; /*no*/
+    }
+    .border:after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd)), -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd)), -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, #ddd), to(#ddd));
+        -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
+        background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
+        -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
+        background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
+        background-repeat: no-repeat;
+        background-position: top, right, bottom, left;
+        padding: 1px; /*no*/
+        -webkit-box-sizing: border-box;
+        z-index: 10;
+        pointer-events: none;
+    }
+}

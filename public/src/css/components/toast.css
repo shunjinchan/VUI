@@ -1,0 +1,28 @@
+/**
+ * toast
+ * @author: pigsy.chen@vipshop.com
+ */
+.toast {
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 5px;
+  /*no*/
+  color: #fff;
+  padding: 10px 20px;
+  max-width: 200px;
+  z-index: 1080;
+  width: auto;
+  text-align: center; }
+
+.toast-title {
+  font-weight: normal;
+  font-size: 14px; }
+
+.toast-body {
+  font-size: 12px;
+  margin-top: 5px; }
+
+.toast-white {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #222; }
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbXBvbmVudHMvdG9hc3Quc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTs7O0dBR0c7QUFFSCxNQUFNLENBQUM7RUFDSCxnQkFBZ0IsRUFBRSxtQkFBSTtFQUN0QixhQUFhLEVBQUUsR0FBSTtFQUFFLE1BQU07RUFDM0IsS0FBSyxFQUFFLElBQUs7RUFLWixPQUFPLEVBQUUsU0FBVTtFQUNuQixTQUFTLEVBQUUsS0FBTTtFQUNqQixPQUFPLEVBQUUsSUFBSztFQUNkLEtBQUssRUFBRSxJQUFLO0VBQ1osVUFBVSxFQUFFLE1BQU8sR0FDdEI7O0FBRUQsWUFBWSxDQUFDO0VBQ1QsV0FBVyxFQUFFLE1BQU87RUFDcEIsU0FBUyxFQUFFLElBQUssR0FDbkI7O0FBRUQsV0FBVyxDQUFDO0VBQ1IsU0FBUyxFQUFFLElBQUs7RUFDaEIsVUFBVSxFQUFFLEdBQUksR0FDbkI7O0FBRUQsWUFBWSxDQUFDO0VBQ1QsZ0JBQWdCLEVBQUUseUJBQUk7RUFDdEIsS0FBSyxFQUFFLElBQUssR0FDZiIsImZpbGUiOiJjb21wb25lbnRzL3RvYXN0LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBjaGFyc2V0IFwidXRmLThcIjtcblxuLyoqXG4gKiB0b2FzdFxuICogQGF1dGhvcjogcGlnc3kuY2hlbkB2aXBzaG9wLmNvbVxuICovXG5cbi50b2FzdCB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLCAwLCAwLCAwLjg1KTtcbiAgICBib3JkZXItcmFkaXVzOiA1cHg7IC8qbm8qL1xuICAgIGNvbG9yOiAjZmZmO1xuICAgIC8vIHBvc2l0aW9uOiBmaXhlZDtcbiAgICAvLyB0b3A6IDUwJTtcbiAgICAvLyBsZWZ0OiA1MCU7XG4gICAgLy8gdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgtNTAlLCAtNTAlLCAwKTtcbiAgICBwYWRkaW5nOiAxMHB4IDIwcHg7XG4gICAgbWF4LXdpZHRoOiAyMDBweDtcbiAgICB6LWluZGV4OiAxMDgwO1xuICAgIHdpZHRoOiBhdXRvO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLnRvYXN0LXRpdGxlIHtcbiAgICBmb250LXdlaWdodDogbm9ybWFsO1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbn1cblxuLnRvYXN0LWJvZHkge1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBtYXJnaW4tdG9wOiA1cHg7XG59XG5cbi50b2FzdC13aGl0ZSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjk1KTtcbiAgICBjb2xvcjogIzIyMjtcbn1cbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */

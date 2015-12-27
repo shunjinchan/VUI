@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+/**
+ * toast
+ * @author: pigsy.chen@vipshop.com
+ */
+
+.toast {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 5px; /*no*/
+    color: #fff;
+    // position: fixed;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate3d(-50%, -50%, 0);
+    padding: 10px 20px;
+    max-width: 200px;
+    z-index: 1080;
+    width: auto;
+    text-align: center;
+}
+
+.toast-title {
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.toast-body {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.toast-white {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #222;
+}

@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+/**
+ * tab
+ * @author: pigsy.chen@vipshop.com
+ */
+
+.tab-title {
+    display: table;
+    width: 100%;
+}
+
+.tab-title-item {
+    display: table-cell;
+    height: 27px;
+    line-height: 27px;
+    font-weight: normal;
+    font-size: 14px;
+    text-align: center;
+    color: #585e64;
+    border-top: 1px solid #545e6e; /*no*/
+    border-bottom: 1px solid #545e6e; /*no*/
+    border-right: 1px solid #545e6e; /*no*/
+    &:first-child {
+        border-left: 1px solid #545e6e; /*no*/
+        border-radius: 2px 0 0 2px; /*no*/
+    }
+
+    &:last-child {
+        border-radius: 0 2px 2px 0; /*no*/
+    }
+
+    &.active {
+        background-color: #545e6e;
+        color: #fff;
+    }
+
+    > a {
+        display: block;
+        height: 100%;
+    }
+
+    &.active > a {
+        color: #fff;
+    }
+
+}
+
+.tab-content-pane {
+    width: 100%;
+    display: none;
+    &.active {
+        display: block;
+    }
+}

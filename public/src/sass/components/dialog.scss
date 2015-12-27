@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+/**
+ * dialog
+ * @author: pigsy.chen@vipshop.com
+ * require: _popup.scss
+ */
+
+@import "../_setting.scss";
+@import "../ext/_mixin.scss";
+
+.dialog {
+    width: 270px;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.dialog, .toast {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.dialog-header {
+    padding: 20px 15px 0 15px;
+    strong {
+        font-size: 17px;
+        line-height: 22px;
+        font-weight: normal;
+    }
+}
+
+.dialog-body {
+    font-size: 13px;
+    line-height: 16px;
+}
+
+.dialog-footer {
+    margin-top: 20px;
+    height: 44px;
+    @include equal-flex(a);
+    a {
+        height: 44px;
+        line-height: 44px;
+        font-size: 17px;
+    }
+}
