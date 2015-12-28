@@ -1,4 +1,4 @@
-/* 
+/*
 * @Author: shunjinchan
 * @Date:   2015-12-28 15:21:49
 * @Last Modified by:   shunjinchan
@@ -7,39 +7,39 @@
 
 require('../../css/components/backdrop.css');
 
-function Backdrop(configs) {
-    this.configs = $.extend({}, Backdrop.configs, configs);
-}
-
-Backdrop.configs = {
-    html: '<div id="backdrop" class="backdrop"></div>',
-    isShown: false
+// 默认配置
+configs = {
+    html: '<div id="backdrop" class="backdrop"></div>'
 };
+
+function Backdrop(params) {
+    configs = $.extend({}, configs, params);
+}
 
 Backdrop.prototype = {
     render: function() {
         if ($('#backdrop').length > 0) {
             this.$backdrop = $('#backdrop');
         } else {
-            this.$backdrop = $(Backdrop.configs.html).appendTo($('body'));
+            this.$backdrop = $(configs.html).appendTo($('body'));
         }
     },
 
     open: function() {
-        if (this.configs.isShown ===  true) return false;
+        if (this.isShown ===  true) return false;
 
         this.render();
         this.$backdrop.addClass('visible');
 
         this.$backdrop.on('touchmove', onTouchmove);
 
-        this.configs.isShown = true;
+        this.isShown = true;
     },
 
     close: function() {
         this.$backdrop.removeClass('visible');
 
-        this.configs.isShown = false;
+        this.isShown = false;
     }
 };
 

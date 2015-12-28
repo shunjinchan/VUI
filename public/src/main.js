@@ -14,14 +14,12 @@ var win = window;
 var doc = win.document;
 
 function init() {
-    var popup = new Popup({
-        html: 'nimabi'
-    });
+    var popup = new Popup();
 
     $(document).on('click', '.open-popup', function(e) {
         e.preventDefault();
 
-        popup.open();
+        popup.open($('.popup-about'));
     });
 
     // var backdrop = new Backdrop();

@@ -7,25 +7,32 @@
 
 require('../../css/components/popup.css');
 
-function Popup(configs) {
-    this.configs = $.extend({}, Popup.configs, configs);
-}
+var Backdrop = require('./backdrop.js');
+var backdrop = new Backdrop();
 
-Popup.configs = {
+// 默认配置
+var configs = {
     target: null, // 目标 popup
     backdrop: true, // 蒙层
     extraClass: null, // 节点附加 class，方便自行控制不同场景的样式
-    html: null
+    box: '<div class="popup"><div class="popup-container"></div></div>', // popup box
+    html: null, // 要插入的 html
+    transitionOpen: 'slide-in',
+    transitionClose: 'slide-out'
 };
+
+function Popup(params) {
+    configs = $.extend({}, configs, params);
+}
 
 Popup.prototype = {
     constructor: Popup,
 
     render: function() {
-        this.configs.extraClass && this.configs.target.addClass(this.configs.extraClass);
+        configs.extraClass && configs.target.addClass(configs.extraClass);
 
-        if (this.configs.html) {
-            this.configs.target.find('.popup-container').html(this.configs.html);
+        if (configs.html) {
+            configs.target.find('.popup-container').html(configs.html);
         }
     },
 
@@ -43,26 +50,23 @@ Popup.prototype = {
         // obj: String，则默认认为这是要插入到 popup 的 html 内容
         // obj: undefined
         if (typeof obj === 'string' || obj === undefined) {
-            popup = $('<div class="popup"><div class="popup-container"></div></div>');
+            popup = $(configs.box);
 
             $('body').append(popup);
 
-            this.configs.html = obj || this.configs.html;
-            this.configs.destory = true;
+            configs.html = obj || configs.html;
+            configs.destory = true; // destory 为 true，该 popup 关闭时会被移除出 dom
 
             $target = popup;
         }
 
-        if (this.configs.backdrop) {
-            var Backdrop = require('../../js/components/backdrop.js');
-
-            this.backdrop = new Backdrop();
-
-            this.backdrop.open();
+        if (configs.backdrop) {
+            backdrop.open();
         }
 
         $target.show();
-        this.configs.target = $target;
+        configs.target = $target;
+        this.$box = $target; // this.$box 是当前 popup
 
         this.render();
         this.bind();
@@ -73,13 +77,14 @@ Popup.prototype = {
         // 触发 open 事件
         $target.trigger('open');
 
-        $target.removeClass('slide-out').addClass('slide-in').transitionEnd(function(e) {
-            if ($target.hasClass('slide-out')) {
-                // 触发 closed 事件
-                $target.trigger('closed');
-            } else {
-                $target.trigger('opened');
-            }
+        $target.removeClass(configs.transitionClose).addClass(configs.transitionOpen)
+            .transitionEnd(function(e) {
+                if ($target.hasClass(configs.transitionClose)) {
+                    // 触发 closed 事件
+                    $target.trigger('closed');
+                } else {
+                    $target.trigger('opened');
+                }
         });
 
         this.isShown = true;
@@ -88,23 +93,24 @@ Popup.prototype = {
     close: function(obj) {
         var self = this;
 
-        $target = obj || this.configs.target;
+        $target = obj || configs.target;
 
         if (!$target) return;
 
         $target.trigger('close');
 
-        this.backdrop.close();
+        backdrop.close();
 
-        $target.removeClass('slide-in').addClass('slide-out').transitionEnd(function(e) {
-            if ($target.hasClass('slide-out')) {
-                $target.trigger('closed');
-                $target.removeClass('slide-out').hide();
+        $target.removeClass(configs.transitionOpen).addClass(configs.transitionClose)
+            .transitionEnd(function(e) {
+                if ($target.hasClass(configs.transitionClose)) {
+                    $target.trigger('closed');
+                    $target.removeClass(configs.transitionClose).hide();
 
-                self.configs.destory && $target.remove();
-            } else {
-                $target.trigger('opened');
-            }
+                    configs.destory && $target.remove();
+                } else {
+                    $target.trigger('opened');
+                }
         });
 
         this.isShown = false;
@@ -113,7 +119,7 @@ Popup.prototype = {
     bind: function() {
         var self = this;
 
-        this.configs.target.on('click', '[data-toggle="popup"]', function(e) {
+        configs.target.on('click', '[data-toggle="popup"]', function(e) {
             var $target = $(e.currentTarget);
 
             if ($target[0].nodeName.toLowerCase() === 'a') {
