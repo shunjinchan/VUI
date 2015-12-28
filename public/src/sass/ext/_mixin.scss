@@ -108,14 +108,11 @@
 
 // disabled
 // 禁用样式，加!important
-@mixin disabled($textColor: nth($colorDisabled, 1), $bgColor: nth($colorDisabled, 2), $borderColor: false) {
-    background-color: $bgColor !important;
-    color: $textColor !important;
+@mixin disabled() {
+    background-color: #ddd !important;
+    color: #666 !important;
     cursor: default !important;
     pointer-events: none !important;
-    @if $borderColor {
-        border: 1px solid nth($colorDisabled, 3);
-    }
 }
 
 %disabled {
@@ -156,36 +153,6 @@
 
 %justify {
     @include justify(false);
-}
-
-// bar line
-%bar-line-basic {
-    border-bottom: 1px solid $colorBorder;
-    background-color: #fff;
-    line-height: $barHeight - 11px;
-    padding: 5px 10px;
-    position: relative;
-    display: block;
-    cursor: pointer;
-    &:active, &:hover {
-        background-color: $grayC;
-    }
-}
-
-// 第一个和最后一个都有边框
-@mixin bar-line-outer {
-    @extend %bar-line-basic;
-    &::first-child {
-        border-top: 1px solid $colorBorder;
-    }
-}
-
-// 第一个和最后一个都没有边框
-@mixin bar-line-inner {
-    @extend %bar-line-basic;
-    &::last-child {
-        border-bottom: none;
-    }
 }
 
 // mixin
@@ -270,7 +237,7 @@
     overflow: hidden;
 }
 
-@mixin triangle($direction: top, $borderWidth: 6px, $borderColor: $grayC) {
+@mixin triangle($direction: top, $borderWidth: 6px, $borderColor: #dedede) {
     @extend %triangle-basic;
     @if $direction == top {
         border-bottom: $borderWidth solid $borderColor;
@@ -295,7 +262,7 @@
 }
 
 // arrow 方向箭头
-@mixin arrow($size: 10px, $direction: right, $borderWidth: 2px, $borderColor: $grayC) {
+@mixin arrow($size: 10px, $direction: right, $borderWidth: 2px, $borderColor: #dedede) {
     display: inline-block;
     vertical-align: middle;
     width: $size;
@@ -343,25 +310,6 @@
         src: url("#{$fontFacePath}.eot?#iefix") format("eot"), url("#{$fontFacePath}.svg##{$fontFaceFamily}") format("svg"), url("#{$fontFacePath}.woff") format("woff"), url("#{$fontFacePath}.ttf") format("truetype");
     }
 }
-
-// selector
-// 父元素不能有组合选择器
-// 详见 https://github.com/W3cplus/Sass-Resources/blob/master/mixins/_selector-replace.scss
-// @mixin selector-context($selectorOld, $selectorNew) {
-//     @at-root #{selector-replace(&, $selectorOld, $selectorNew)} {
-//         @content;
-//     }
-// }
-
-// @mixin selector-parent-state($states...) {
-//     $parent: nth(nth(&, 1), (length(nth(&, 1))-1));
-    
-//     @each $state in $states {    
-//       @at-root #{selector-replace(&, $parent, ($parent#{$state}))} {
-//           @content;
-//       }
-//     }
-// }
 
 // %
 // 只定义了%，所以只能通过@extend来调用
@@ -412,19 +360,6 @@
     transition: transform 0.3s cubic-bezier(0.42, 0, 0.58, 1);
 }
 
-//function
-//-----------------------------------------------------
-
-// 为颜色添加白色，以百分比形式
-@function tint($color, $percent) {
-    @return mix(white, $color, $percent);
-}
-
-// 为颜色添加黑色，以百分比形式
-@function shade($color, $percent) {
-    @return mix(black, $color, $percent);
-}
-
 // btn
 //----------------------------------------------------
 // btn-basic
@@ -437,103 +372,4 @@
     border: 0 none;
     box-sizing: border-box;
     user-select: none;
-}
-
-// btn-size
-// 按钮大小
-@mixin btn-size($padding: nth($btnSize, 1), $height: nth($btnSize, 2), $radius: $btnRadius, $border: false) {
-    padding: 0 $padding;
-    height: $height;
-    line-height: $height;
-    @if $radius {
-        border-radius: $btnRadius;
-    }
-    @if $border {
-        line-height: $height - 2;
-    }
-}
-
-// btn-color
-// 包括按钮背景色，文本色，是否有边框
-@mixin btn-color($textColor: nth($btnColor, 1), $bgColor: nth($btnColor, 2), $borderColor: false) {
-    color: $textColor;
-    background-color: $bgColor;
-    @if $borderColor {
-        @if length($borderColor) == 1 { // $borderColor: #dbdbdb
-            border: 1px solid $borderColor;
-        }
-        @else if length($borderColor) == 2 { // $borderColor: #dbdbdb #ccc => #dbdbdb
-            border: 1px solid nth($borderColor, 1);
-        }
-        @else {
-            border: $borderColor; // $borderColor: 1px solid #dbdbdb
-        }
-    }
-    &:hover {
-        @if lightness($bgColor) > 40% {
-            background-color: darken($bgColor, 5%);
-        }
-        @else {
-            background-color: lighten($bgColor, 5%);
-        }
-        @if length($borderColor) == 2 {
-            border-color: nth($borderColor, 2); // $borderColor: #dbdbdb #ccc => #ccc
-        }
-    }
-}
-
-// pc ie8+
-//----------------------------------------------------
-// 图片替换文字
-// 高级浏览器直接2就可以
-// 原生7,8不支持color的transparent，所以采用1;
-@mixin ir($extend: true) {
-    @if $extend {
-        @extend %ir;
-    }
-    @else {
-        font: 0/0 a; // 1
-        text-shadow: none;
-        border: 0 none;
-        color: transparent; // 2
-    }
-}
-
-%ir {
-    @include ir(false);
-}
-
-
-// opacity
-@mixin opacity($opacity: 50, $filter: true) {
-    opacity: $opacity / 100;
-    @if $filter {
-        filter: alpha(opacity = $opacity);
-    }
-}
-
-// rgba 兼容ie8
-%filter-gradient-none {
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
-}
-
-@mixin filter-gradient($startColor, $endColor) {
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#{ie-hex-str($startColor)}', endColorstr='#{ie-hex-str($endColor)}');
-    :root & {
-        @extend %filter-gradient-none;
-    }
-}
-
-@mixin background-rgba($bgcolor: rgba(0, 0, 0, 0.5), $filter: true) {
-    @if $filter {
-        @include filter-gradient($bgcolor, $bgcolor);
-    }
-    @else {
-        background-color: rgb(red($bgcolor), green($bgcolor), blue($bgcolor));
-        background-color: $bgcolor;
-    }
-}
-
-%bgcolor-rgba {
-    @include background-rgba;
 }
