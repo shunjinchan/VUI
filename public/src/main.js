@@ -1,25 +1,26 @@
 /*
 * @Author: shunjinchan
 * @Date:   2015-12-25 11:23:14
-* @Last Modified by:   shunjinchan
-* @Last Modified time: 2015-12-28 17:32:53
+* @Last Modified by:   pigsy.chen
+* @Last Modified time: 2015-12-31 03:39:09
 */
 
 var Zepto = require('./js/lib/zepto.js');
 
 var Router = require('./js/components/router.js');
-var Popup = require('./js/components/popup.js');
+var popup = require('./js/components/popup.js')();
 
 var win = window;
 var doc = win.document;
 
 function init() {
-    var popup = new Popup();
-
     $(document).on('click', '.open-popup', function(e) {
         e.preventDefault();
 
-        popup.open($('.popup-about'));
+        popup.conf({
+            extraClass: 'nimabi',
+            title: '你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹'
+        }).open($('.popup-about'));
     });
 
     // var backdrop = new Backdrop();

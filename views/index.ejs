@@ -4,9 +4,11 @@
     <% include ./includes/head.ejs %>
     <title><%= title %></title>
     <link rel='stylesheet' href='src/css/base.css' />
+    <link rel='stylesheet' href='src/demos/style.css' />
   </head>
   <body>
     <% include ./modules/index/header.ejs %>
+    <% include ./modules/index/bottom-bar.ejs %>
 
     <div class="page">
         <div class="page-container">
@@ -16,6 +18,9 @@
                 <ul>
                     <li class="list-item border-b">
                         <a href="src/demos/popup.html" title="" data-toggle="route" data-action="load">弹窗</a>
+                    </li>
+                    <li class="list-item border-b">
+                        <a href="src/demos/dialog.html" title="" data-toggle="route" data-action="load">对话框</a>
                     </li>
                     <li class="list-item border-b">
                         <a href="src/demos/tab.html" title="" data-toggle="route" data-action="load">tab 切换</a>
@@ -28,7 +33,6 @@
         </div>
     </div>
 
-    <% include ./modules/index/bottom-bar.ejs %>
     <script src="assets/bundle.js"></script>
 
   </body>

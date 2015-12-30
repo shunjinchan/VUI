@@ -1,8 +1,8 @@
 /*
 * @Author: shunjinchan
 * @Date:   2015-12-28 15:21:49
-* @Last Modified by:   shunjinchan
-* @Last Modified time: 2015-12-28 17:12:05
+* @Last Modified by:   pigsy.chen
+* @Last Modified time: 2015-12-30 23:25:22
 */
 
 require('../../css/components/backdrop.css');
@@ -12,6 +12,10 @@ configs = {
     html: '<div id="backdrop" class="backdrop"></div>'
 };
 
+/**
+ * 蒙层
+ * @param {Object} params 自定义配置
+ */
 function Backdrop(params) {
     configs = $.extend({}, configs, params);
 }
@@ -26,20 +30,20 @@ Backdrop.prototype = {
     },
 
     open: function() {
-        if (this.isShown ===  true) return false;
+        if (this.isOpen ===  true) return false;
 
         this.render();
         this.$backdrop.addClass('visible');
 
         this.$backdrop.on('touchmove', onTouchmove);
 
-        this.isShown = true;
+        this.isOpen = true;
     },
 
     close: function() {
         this.$backdrop.removeClass('visible');
 
-        this.isShown = false;
+        this.isOpen = false;
     }
 };
 

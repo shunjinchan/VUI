@@ -1,9 +1,13 @@
+/* 
+* @Author: shunjinchan
+* @Date:   2015-12-30 23:40:12
+* @Last Modified by:   shunjinchan
+* @Last Modified time: 2015-12-31 03:41:24
+*/
+
 @charset "utf-8";
 
-/**
- * popup
- * @author: pigsy.chen@vipshop.com
- */
+@import "../_setting.scss";
 
 .popup {
     position: absolute;
@@ -21,27 +25,35 @@
     transition-property: -webkit-transform;
     transition-property: transform;
     transition-property: transform, -webkit-transform;
-    -webkit-transform: translate3d(0, 100%, 0);
-            transform: translate3d(0, 100%, 0);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     background-color: #f3f4f5;
-    &.slide-in,
-    &.slide-out {
+    
+    /* 底部滑入动画 */
+    -webkit-transform: translate3d(0, 100%, 0);
+            transform: translate3d(0, 100%, 0);
+    &.slide-from-bottom-to-top,
+    &.slide-from-top-to-bottom {
         -webkit-transition-duration: 400ms;
                 transition-duration: 400ms;
     }
-    &.slide-in {
+    &.slide-from-bottom-to-top {
         -webkit-transform: translate3d( 0, 0, 0);
                 transform: translate3d( 0, 0, 0);
     }
-    &.slide-out {
+    &.slide-from-top-to-bottom {
         -webkit-transform: translate3d( 0, 100%, 0);
                 transform: translate3d( 0, 100%, 0);
     }
 }
 
 .popup-body {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
     padding: 10px;
 }
 .popup-header {
@@ -51,6 +63,9 @@
     background-color: #fbfbfa;
     &.top-bar {
         position: absolute;
+        & ~ .popup-body {
+            top: 44px;
+        }
     }
     .close {
         position: absolute;
@@ -74,4 +89,9 @@
     .close:active {
         color: #ccc;
     }
+}
+.popup-title {
+    line-height: 24px;
+    padding: 10px 50px 10px 15px;
+    @include ellipsis();
 }

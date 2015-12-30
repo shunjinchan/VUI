@@ -1,8 +1,8 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-10-29 17:22:40
- * @Last Modified by:   shunjinchan
- * @Last Modified time: 2015-12-28 17:28:10
+ * @Last Modified by:   pigsy.chen
+ * @Last Modified time: 2015-12-31 03:42:50
  */
 
 require('../../css/components/popup.css');
@@ -10,125 +10,133 @@ require('../../css/components/popup.css');
 var Backdrop = require('./backdrop.js');
 var backdrop = new Backdrop();
 
+var instance;
+
 // 默认配置
 var configs = {
     target: null, // 目标 popup
     backdrop: true, // 蒙层
     extraClass: null, // 节点附加 class，方便自行控制不同场景的样式
-    box: '<div class="popup"><div class="popup-container"></div></div>', // popup box
-    html: null, // 要插入的 html
-    transitionOpen: 'slide-in',
-    transitionClose: 'slide-out'
+    box: '<div class="popup"><div class="popup-body"></div></div>', // popup box，当没有传入 target 为空时使用
+    title: null,
+    html: null, // 要插入到 popup-body 的 html
+    transitionOpen: 'slide-from-bottom-to-top',
+    transitionClose: 'slide-from-top-to-bottom'
 };
 
+/**
+ * 弹窗
+ * @param {Object} params 自定义配置
+ */
 function Popup(params) {
-    configs = $.extend({}, configs, params);
+    if(!(this instanceof Popup)) return new Popup();
 }
 
 Popup.prototype = {
     constructor: Popup,
 
-    render: function() {
-        configs.extraClass && configs.target.addClass(configs.extraClass);
+    conf: function(params) {
+        configs = $.extend({}, configs, params);
 
-        if (configs.html) {
-            configs.target.find('.popup-container').html(configs.html);
-        }
+        return this;
     },
 
-    // target 为空时会创建一个popup，这种类型的在 close 时会被移除
-    // obj 是一个 jquery 对象
+    /**
+     * 打开弹窗
+     * @param  {zepto 对象} obj 弹窗，obj 为空时会创建一个popup，这种类型的在 close 时会被移除
+     * @return {undfined}     
+     */
     open: function(obj) {
-        if (this.isShown) return;
+        if (this.isOpen) return;
 
-        // 传入页面上不存在的 jqeury 对象，直接返回
-        if (obj && obj.length === 0) return false;
+        var self = this;
+        instance = this;
+        this.$box = obj ? obj : configs.target;
 
-        $target = obj;
-
-        // obj 为类型是 string 或为 undefine 时，新建一个 popup
-        // obj: String，则默认认为这是要插入到 popup 的 html 内容
-        // obj: undefined
-        if (typeof obj === 'string' || obj === undefined) {
-            popup = $(configs.box);
-
-            $('body').append(popup);
-
-            configs.html = obj || configs.html;
-            configs.destory = true; // destory 为 true，该 popup 关闭时会被移除出 dom
-
-            $target = popup;
+        if (!this.$box) {
+            this.$box = $(configs.box).appendTo('body');
+            configs.destory = true;
         }
 
-        if (configs.backdrop) {
-            backdrop.open();
-        }
+        configs.backdrop && backdrop.open();
 
-        $target.show();
-        configs.target = $target;
-        this.$box = $target; // this.$box 是当前 popup
+        configs.target = this.$box;
 
-        this.render();
-        this.bind();
+        this.$box.show();
+        render();
+        bindEvents();
 
-        // 触发 relayout，少了这玩意 slide-in 动画不执行
-        var clientLeft = $target[0].clientLeft;
+        // 触发 relayout，少了这玩意 css 动画不执行
+        var clientLeft = this.$box[0].clientLeft;
 
         // 触发 open 事件
-        $target.trigger('open');
+        this.$box.trigger('open');
 
-        $target.removeClass(configs.transitionClose).addClass(configs.transitionOpen)
+        this.$box.removeClass(configs.transitionClose).addClass(configs.transitionOpen)
             .transitionEnd(function(e) {
-                if ($target.hasClass(configs.transitionClose)) {
+                if (self.$box.hasClass(configs.transitionClose)) {
                     // 触发 closed 事件
-                    $target.trigger('closed');
+                    self.$box.trigger('closed');
                 } else {
-                    $target.trigger('opened');
+                    self.$box.trigger('opened');
                 }
         });
 
-        this.isShown = true;
+        this.isOpen = true;
+
+        return this;
     },
 
-    close: function(obj) {
+    close: function() {
         var self = this;
 
-        $target = obj || configs.target;
+        if (!this.$box) return;
 
-        if (!$target) return;
+        this.$box.trigger('close');
 
-        $target.trigger('close');
+        configs.backdrop && backdrop.close();
 
-        backdrop.close();
-
-        $target.removeClass(configs.transitionOpen).addClass(configs.transitionClose)
+        this.$box.removeClass(configs.transitionOpen).addClass(configs.transitionClose)
             .transitionEnd(function(e) {
-                if ($target.hasClass(configs.transitionClose)) {
-                    $target.trigger('closed');
-                    $target.removeClass(configs.transitionClose).hide();
+                if (self.$box.hasClass(configs.transitionClose)) {
+                    self.$box.trigger('closed');
+                    self.$box.removeClass(configs.transitionClose).hide();
 
-                    configs.destory && $target.remove();
+                    configs.destory && self.$box.remove();
                 } else {
-                    $target.trigger('opened');
+                    self.$box.trigger('opened');
                 }
         });
 
-        this.isShown = false;
-    },
+        this.isOpen = false;
 
-    bind: function() {
-        var self = this;
+        return this;
+    }
+};
 
-        configs.target.on('click', '[data-toggle="popup"]', function(e) {
-            var $target = $(e.currentTarget);
+function render() {
+    configs.extraClass && 
+    configs.target.addClass(configs.extraClass);
 
+    configs.title && 
+    configs.target.find('.popup-title').html(configs.title);
+
+    configs.html && 
+    configs.target.find('.popup-body').html(configs.html);
+}
+
+function bindEvents() {
+    instance.$box.on('click', '[data-toggle="popup"]', function(e) {
+        var $target = $(e.currentTarget);
+
+        if ($target.data('action') 
+            && $target.data('action') === 'close') {
             if ($target[0].nodeName.toLowerCase() === 'a') {
                 e.preventDefault();
             }
-
-            self.close();
-        });
-    }
-};
+            instance.close();
+        }
+    });
+}
 
 module.exports = Popup;
