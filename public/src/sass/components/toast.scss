@@ -2,14 +2,17 @@
 * @Author: shunjinchan
 * @Date:   2015-12-27 17:37:48
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2015-12-30 23:50:03
+* @Last Modified time: 2016-01-03 00:00:44
 */
 
 @charset "utf-8";
 
+/* toast begin */
+
 .toast {
     background-color: rgba(0, 0, 0, 0.85);
-    border-radius: 5px; /*no*/
+    border-radius: 5px;
+    /*no*/
     color: #fff;
     // position: fixed;
     // top: 50%;
@@ -36,3 +39,6 @@
     background-color: rgba(255, 255, 255, 0.95);
     color: #222;
 }
+
+
+/* toast end */

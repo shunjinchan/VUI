@@ -1,17 +1,21 @@
 /*
 * @Author: shunjinchan
 * @Date:   2015-12-25 11:23:14
-* @Last Modified by:   pigsy.chen
-* @Last Modified time: 2015-12-31 03:39:09
+* @Last Modified by:   shunjinchan
+* @Last Modified time: 2016-01-03 18:45:31
 */
 
 var Zepto = require('./js/lib/zepto.js');
 
 var Router = require('./js/components/router.js');
-var popup = require('./js/components/popup.js')();
+var Popup = require('./js/components/popup.js');
+var Dialog = require('./js/components/dialog.js');
 
 var win = window;
 var doc = win.document;
+
+var popup = new Popup();
+var dialog = new Dialog();
 
 function init() {
     $(document).on('click', '.open-popup', function(e) {
@@ -19,30 +23,60 @@ function init() {
 
         popup.conf({
             extraClass: 'nimabi',
-            title: '你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹'
-        }).open($('.popup-about'));
+            title: '你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹你麻痹',
+            direction: 'from-top',
+            body: '<a href="" data-toggle="popup" data-action="close">close</a>'
+        }).open();
+
+        popup.$box.on('closed', function() {
+            console.log('nimabi');
+        });
     });
 
-    // var backdrop = new Backdrop();
+    $(document).on('click', '.open-alert', function(e) {
+        e.preventDefault();
 
-    // backdrop.open();
+        dialog.alert('wokaoa', 'dasdaada', function() {
+            console.log('nimabi');
+        });
+    }); 
 
+    $(document).on('click', '.open-confirm', function(e) {
+        e.preventDefault();
 
-    // $(document).on('click', '.open-popup-b', function(e) {
-    //     e.preventDefault();
+        dialog.confirm('wokaoa', 'wodasdsaadssasda', function() {
+            console.log('ok');
+        }, function() {
+            console.log('cancel');
+        });
+    }); 
 
-    //     popup.open('.popup-b');
-    // });
+    $(document).on('click', '.open-prompt', function(e) {
+        e.preventDefault();
 
-    // var popupC = new Popup({
-    //     template: '<a href="" class="close-popup" data-toggle="popup" data-action="close">close popup</a>'
-    // });
+        dialog.prompt('请填写收到的邀请码', function(val) {
+            console.log('确定' + val);
+            dialog.close();
+        }, function(val) {
+            console.log('取消' + val);
+        });
+    });  
 
-    // $(document).on('click', '.open-popup-c', function(e) {
-    //     e.preventDefault();
+    $(document).on('click', '.open-password', function(e) {
+        e.preventDefault();
 
-    //     popupC.open();
-    // });
+        dialog.password('请填写收到的邀请码', function(val) {
+            console.log('密码是' + val);
+        }, function(val) {
+            console.log('密码是' + val);
+        });
+    });  
+
+    $(document).on('click', '.open-preloader', function(e) {
+        e.preventDefault();
+
+        dialog.preloader();
+    });    
 }
 
 doc.addEventListener('DOMContentLoaded', init);

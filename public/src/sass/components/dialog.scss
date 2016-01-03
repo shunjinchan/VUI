@@ -2,51 +2,69 @@
 * @Author: shunjinchan
 * @Date:   2015-12-27 17:37:48
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2015-12-30 23:52:27
+* @Last Modified time: 2016-01-03 14:01:03
 */
 
 @charset "utf-8";
-
 @import "../_setting.scss";
+
+/* dialog begin */
 
 .dialog {
     width: 270px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
     text-align: center;
     border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -135px;
+    z-index: 1080;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185);
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-property: opacity, -webkit-transform;
+    transition-property: opacity, -webkit-transform;
+    transition-property: transform, opacity;
+    transition-property: transform, opacity, -webkit-transform;
 }
 
-.dialog, .toast {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-direction: normal;
-    -webkit-box-orient: vertical;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-}
-
-.dialog-header {
-    padding: 20px 15px 0 15px;
-    strong {
-        font-size: 17px;
-        line-height: 22px;
-        font-weight: normal;
+.dialog.scale {
+    &.transition-in {
+        opacity: 1;
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transform: translate3d(0, 0, 0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    &.transition-out {
+        opacity: 0;
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transform: translate3d(0, 0, 0) scale(0.815);
+        transform: translate3d(0, 0, 0) scale(0.815);
     }
 }
 
+.dialog-container {
+    padding: 20px 0;
+}
+
+.dialog-title {
+    padding: 0 15px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: normal;
+}
+
 .dialog-body {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 16px;
+    padding: 0 15px;
 }
 
 .dialog-footer {
-    margin-top: 20px;
     height: 44px;
     @include equal-flex(a);
     a {
@@ -55,3 +73,26 @@
         font-size: 17px;
     }
 }
+
+.dialog-prompt-input {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 30px;
+    background: #fff;
+    margin: 0;
+    margin-top: 15px;
+    padding: 0 5px;
+    border: 1px solid #a0a0a0;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 14px;
+    display: block;
+    -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+/* dialog end */

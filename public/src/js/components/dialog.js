@@ -2,224 +2,244 @@
  * @Author: shunjinchan
  * @Date:   2015-10-15 15:08:08
  * @Last Modified by:   shunjinchan
- * @Last Modified time: 2015-12-31 00:31:01
+ * @Last Modified time: 2016-01-03 17:36:47
  */
 
-require('../../css/components/popup.css');
+require('../../css/components/dialog.css');
 
 var Backdrop = require('./backdrop.js');
 var backdrop = new Backdrop();
 
-var timer = null;
+var dialogTemplateTempDiv = document.createElement('div');
 
-var html = '<div class="dialog show">' +
-    '<div class="dialog-container">' +
-    '<div class="dialog-header"><strong class="dialog-title"></strong></div>' +
-    '<div class="dialog-body"></div>' +
-    '<div class="dialog-footer border-t"></div>' +
-    '</div>' +
-    '</div>';
-
-var configs = {
+var defaults = {
     backdrop: true,
-    buttons: [{
-        text: '确认',
-        type: 'button-confirm',
-        // onTap(obj, ele, event)
-        // 第一个参数是当前 Dialog 对象
-        // 第二个参数是当前点击对象
-        // 第二个参数是当前点事件
-        onTap: function(obj, ele, e) {
-            obj.hide();
-        }
-    }, ],
-    cssClass: 'dialog-alert' // theme，默认 alert 对话框
+    dialogButtonOk: '确认',
+    dialogButtonCancel: '取消',
+    animation: 'scale'
 };
 
-function Dialog(params) {
-    this.configs = $.extend({}, configs, params);
-
-    this.html = {
-        backdrop: '<div class="modal-backdrop"></div>',
-        box: '<div class="popup-container show">' +
-            '<div class="dialog">' +
-            '<div class="dialog-header"><strong class="dialog-title"></strong></div>' +
-            '<div class="dialog-body"></div>' +
-            '<div class="dialog-footer border-t"></div>' +
-            '</div>' +
-            '</div>'
-    };
-}
+function Dialog() {}
 
 Dialog.prototype = {
     constructor: Dialog,
 
-    render: function() {
-        if (this.isShown) return;
+    /**
+     * render dialog
+     * @param  {Object} configs 配置信息
+     * @return {[type]}         [description]
+     */
+    _render: function(configs) {
+        if (this.isOpen) return;
 
-        this.$box = $(this.html.box);
-        this.$dialog = this.$box.find('.dialog');
-
-        // 插入对话框
-        $('body').append(this.$box);
-
-        // 是否需要蒙层
-        if (this.configs.backdrop) {
-            this.backdrop();
-        }
-
-        // template
-        if (this.configs.template) {
-            this.$dialog.html(this.configs.template);
-
-            return false;
-        }
-
-        if (this.configs.templateUrl) {
-            $.get(this.configs.templateUrl, function(data) {
-                self.$dialog.html(data);
-            });
-
-            return false;
-        }
-
-        var type; // 按钮类型
         var self = this;
-
-        function buttonsRender() {
-            // 根据 buttons 长度添加按钮
-            for (var i = 0; i < counts; i++) {
-                type = self.configs.buttons[i].type ? self.configs.buttons[i].type : '';
-                text = self.configs.buttons[i].text ? self.configs.buttons[i].text : '';
-
+        var dialogHTML = '';
+        var buttonsHTML = '';
+        var buttonText = '';
+        var footerHTML = '';
+        var $buttons = '';
+        var titleHTML = configs.title ? '<div class="dialog-title">' + configs.title + '</div>' : '';
+        var content = configs.content ? configs.content : '';
+        var afterContent = configs.afterContent ? configs.afterContent : '';
+        var extraClass = configs.extraClass || '';
+        var animation = configs.animation || defaults.animation;
+        
+        if (configs.buttons && configs.buttons.length > 0) {
+            for (var i = 0; i < configs.buttons.length; i++) {
                 // 只有一个 buttons 时，不需要加左边框
                 if (i === 0) {
-                    buttons += '<a href="javascript:;" class="' +
-                        type +
-                        '">' +
-                        text +
-                        '</a>';
+                    buttonsHTML += '<a href="javascript:;" class="dialog-button">' + configs.buttons[i].text + '</a>';
                 } else {
-                    buttons += '<a href="javascript:;" class="border-l ' +
-                        type +
-                        '">' +
-                        text +
-                        '</a>';
+                    buttonsHTML += '<a href="javascript:;" class="dialog-button border-l">' + configs.buttons[i].text + '</a>';
                 }
             }
+
+            footerHTML = '<div class="dialog-footer border-t">' + buttonsHTML + '</div>';
         }
 
-        // 当 buttons 有且为数组的时候
-        if (this.configs.buttons && Array.isArray(this.configs.buttons)) {
-            var counts = this.configs.buttons.length; // 按钮个数
-            var buttons = ''; // 存放按钮 html
-            var text; // 按钮文案
+        dialogHTML = '<div class="dialog ' + animation + ' ' + extraClass + '"><div class="dialog-container">' + titleHTML + '<div class="dialog-body">' + content + afterContent + '</div></div>' + footerHTML + '</div>';
 
-            buttonsRender();
+        dialogTemplateTempDiv.innerHTML = dialogHTML;
+        this.$box = $(dialogTemplateTempDiv).children();
+        $('body').append($(dialogTemplateTempDiv).children()[0]);
+
+        // setSize
+        if (animation === 'scale') {
+            this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
+        } else {
+            this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2) + 'px');
         }
 
-        // 设置 title 跟 subtitle
-        this.configs.title && this.$box.find('.dialog-title').html(this.configs.title);
-        this.configs.subTitle && this.$box.find('.dialog-body').html(this.configs.subTitle);
+        // bindEvents
+        $buttons = this.$box.find(".dialog-button");
 
-        // 插入 dialog-footer
-        this.configs.buttons && this.$box.find(".dialog-footer").html(buttons);
-
-        // 独有id
-        this.configs.id && this.$dialog.attr('id', this.configs.id);
-
-        // 主题
-        this.configs.cssClass && this.$dialog.addClass(this.configs.cssClass);
-
-        // zIndex
-        this.configs.zIndex && this.$box.css('zIndex', this.configs.zIndex);
-
-        this.bind();
-    },
-
-    // 事件绑定
-    bind: function() {
-        // 按钮
-        var $buttons = this.$box.find(".dialog-footer a");
-        var self = this;
-
-        // 为按钮添加点击时的函数
         $.each($buttons, function(index, ele) {
-            $(ele).on('touchend', function(e) {
-                self.configs.buttons[index].onTap && self.configs.buttons[index].onTap(self, this, e);
-
+            $(ele).on('click', function(e) {
                 e.preventDefault();
-            });
-        });
 
-        // 阻止页面滚动
-        this.$box.on('touchmove', function(e) {
-            e.preventDefault();
+                if (configs.buttons[index].close !== false) self.close();
+                configs.buttons[index].onClick && configs.buttons[index].onClick(self, e);
+                configs.onClick && configs.onClick(self.$box, index);
+            });
         });
     },
 
     /**
-     * 当使用 alert 与 confirm 方式调用的时候
-     * 默认会被认为接受默认设置
-     **/
-    // 警告对话框，单个按钮
-    // callback 为确定按钮点击时的回调函数
-    alert: function(str, callback) {
-        if (this.isShown) return;
+     * open dialog
+     * @param  {Object} configs 配置信息
+     * @return {[type]}         [description]
+     */
+    open: function(configs) {
+        this._render(configs);
+        // show backdrop and dialog
+        this.backdrop = configs.backdrop || defaults.backdrop;
 
-        // 如果 undefined 或者空值
-        if (str === undefined || str === '') {
-            return false;
-        }
+        this.backdrop && backdrop.open();
+        this.$box.show().removeClass('transition-out').addClass('transition-in');
 
-        // 对话框 title
-        var title = typeof str === 'string' ? str : str.toString();
-
-        var configs = {
-            title: title, // dialog-header 内容
-            buttons: [{
-                text: '确认',
-                type: 'button-confirm',
-                onTap: callback ? callback : null
-            }],
-            cssClass: 'dialog-alert'
-        };
-
-        configs = $.extend({}, this.configs, configs);
-
-        this.show(configs);
+        this.isOpen = true;
     },
 
-    // 确认对话框，两个按钮
-    // cancelCallback 为取消按钮点击时的回调函数
-    // confirmCallback 为确定按钮点击时的回调函数
-    confirm: function(str, cancelCallback, confirmCallback) {
-        if (this.isShown) return;
+    /**
+     * close dialog
+     * @param  {Object} configs 配置
+     * @return {[type]}         [description]
+     */
+    close: function() {
+        var self = this;
 
-        // 如果undefined或者空值
-        if (str === undefined || str === '') {
-            return false;
+        if (this.$box.length === 0) {
+            return;
         }
 
-        // 对话框 title，如果不是字符串则将其转换成字符串
-        var title = typeof str === 'string' ? str : str.toString();
+        this.backdrop && backdrop.close();
+        this.$box.removeClass('transition-in').addClass('transition-out')
+            .transitionEnd(function(e) {
+                self.$box.off();
+                self.$box.remove();
+                self.$box = null;
+                self.isOpen = false;
+            });
+    },
 
-        var configs = {
-            title: title, // dialog-header 内容
+    /**
+     * alert 对话框
+     * @param  {String} content    对话框内容
+     * @param  {String} title      对话框标题
+     * @param  {function} callbackOk 确定按钮回调函数
+     * @return {[type]}            [description]
+     */
+    alert: function(content, title, callbackOk) {
+        if (typeof title === 'function') {
+            callbackOk = arguments[1];
+            title = undefined;
+        }
+
+        this.open({
+            title: title || '',
+            content: content || '',
             buttons: [{
-                text: '取消',
-                type: 'button-cancel',
-                onTap: cancelCallback
+                text: defaults.dialogButtonOk,
+                onClick: callbackOk
+            }]
+        });
+    },
+
+    /**
+     * confirm 对话框
+     * @param  {String} content        对话框内容
+     * @param  {String} title          对话框标题
+     * @param  {function} callbackOk     确定按钮回调函数
+     * @param  {function} callbackCancel 取消按钮回调函数
+     * @return {[type]}                [description]
+     */
+    confirm: function(content, title, callbackOk, callbackCancel) {
+        if (typeof title === 'function') {
+            callbackCancel = arguments[2];
+            callbackOk = arguments[1];
+            title = undefined;
+        }
+
+        this.open({
+            title: title || '',
+            content: content || '',
+            buttons: [{
+                text: defaults.dialogButtonCancel,
+                onClick: callbackCancel
             }, {
-                text: '确认',
-                type: 'button-confirm',
-                onTap: confirmCallback
+                text: defaults.dialogButtonOk,
+                onClick: callbackOk
+            }]
+        });
+    },
+
+    /**
+     * prompt 对话框，有文本输入框
+     * @param  {String} content        对话框内容
+     * @param  {String} title          对话框标题
+     * @param  {function} callbackOk     确定按钮回调函数
+     * @param  {function} callbackCancel 取消按钮回调函数
+     * @return {[type]}                [description]
+     */
+    prompt: function(content, title, callbackOk, callbackCancel) {
+        if (typeof title === 'function') {
+            callbackCancel = arguments[2];
+            callbackOk = arguments[1];
+            title = undefined;
+        }
+
+        this.open({
+            title: title || '',
+            content: content || '',
+            afterContent: '<input type="text" class="dialog-prompt-input">',
+            buttons: [{
+                text: defaults.dialogButtonCancel,
+            }, {
+                text: defaults.dialogButtonOk,
+                close: false // prompt 组件点击确认按钮默认不关闭，需要手动调用 close
             }],
-            cssClass: 'dialog-confirm'
-        };
+            onClick: function(box, index) {
+                var value = box.find('.dialog-prompt-input').val();
 
-        configs = $.extend({}, this.configs, configs);
+                if (index === 0 && callbackCancel) callbackCancel(value);
+                if (index === 1 && callbackOk) callbackOk(value);
+            }
+        });
+    },
 
-        this.show(configs);
+    /**
+     * prompt 对话框，有密码输入框
+     * @param  {String} content        对话框内容
+     * @param  {String} title          对话框标题
+     * @param  {function} callbackOk     确定按钮回调函数
+     * @param  {function} callbackCancel 取消按钮回调函数
+     * @return {[type]}                [description]
+     */
+    password: function(content, title, callbackOk, callbackCancel) {
+        if (typeof title === 'function') {
+            callbackCancel = arguments[2];
+            callbackOk = arguments[1];
+            title = undefined;
+        }
+
+        this.open({
+            title: title || '',
+            content: content || '',
+            afterContent: '<input type="password" class="dialog-prompt-input" name="dialog-password" placeholder="请输入密码">',
+            buttons: [{
+                text: defaults.dialogButtonCancel,
+            }, {
+                text: defaults.dialogButtonOk,
+                close: false // password 组件点击确认按钮默认不关闭，需要手动调用 close
+            }],
+            onClick: function(box, index) {
+                var password = box.find('.dialog-prompt-input[name="dialog-password"]').val();
+
+                if (index === 0 && callbackCancel) callbackCancel(password);
+                if (index === 1 && callbackOk) callbackOk(password);
+            }
+        });
     }
 };
+
+module.exports = Dialog;

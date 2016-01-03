@@ -1,8 +1,8 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-10-29 17:22:40
- * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2015-12-31 03:42:50
+ * @Last Modified by:   shunjinchan
+ * @Last Modified time: 2016-01-03 18:41:39
  */
 
 require('../../css/components/popup.css');
@@ -19,24 +19,23 @@ var configs = {
     extraClass: null, // 节点附加 class，方便自行控制不同场景的样式
     box: '<div class="popup"><div class="popup-body"></div></div>', // popup box，当没有传入 target 为空时使用
     title: null,
-    html: null, // 要插入到 popup-body 的 html
-    transitionOpen: 'slide-from-bottom-to-top',
-    transitionClose: 'slide-from-top-to-bottom'
+    body: null, // 要插入到 popup-body 的 html
+    animation: 'from-bottom', // 动画
+    transitionOpen: 'slide-in',
+    transitionClose: 'slide-out'
 };
 
 /**
  * 弹窗
- * @param {Object} params 自定义配置
+ * @param {Object} options 自定义配置
  */
-function Popup(params) {
-    if(!(this instanceof Popup)) return new Popup();
-}
+function Popup() {}
 
 Popup.prototype = {
     constructor: Popup,
 
-    conf: function(params) {
-        configs = $.extend({}, configs, params);
+    conf: function(options) {
+        configs = $.extend({}, configs, options);
 
         return this;
     },
@@ -44,7 +43,7 @@ Popup.prototype = {
     /**
      * 打开弹窗
      * @param  {zepto 对象} obj 弹窗，obj 为空时会创建一个popup，这种类型的在 close 时会被移除
-     * @return {undfined}     
+     * @return {undfined}
      */
     open: function(obj) {
         if (this.isOpen) return;
@@ -115,21 +114,24 @@ Popup.prototype = {
 };
 
 function render() {
-    configs.extraClass && 
+    configs.animation &&
+    configs.target.addClass(configs.animation);
+
+    configs.extraClass &&
     configs.target.addClass(configs.extraClass);
 
-    configs.title && 
+    configs.title &&
     configs.target.find('.popup-title').html(configs.title);
 
-    configs.html && 
-    configs.target.find('.popup-body').html(configs.html);
+    configs.body &&
+    configs.target.find('.popup-body').html(configs.body);
 }
 
 function bindEvents() {
     instance.$box.on('click', '[data-toggle="popup"]', function(e) {
         var $target = $(e.currentTarget);
 
-        if ($target.data('action') 
+        if ($target.data('action')
             && $target.data('action') === 'close') {
             if ($target[0].nodeName.toLowerCase() === 'a') {
                 e.preventDefault();

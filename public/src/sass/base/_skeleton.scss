@@ -6,7 +6,7 @@
  */
 
 .top-bar,
-.bottom-bar {
+.tab-bar {
     position: absolute;
     left: 0;
     right: 0;
@@ -21,7 +21,7 @@
     top: 0;
 }
 
-.bottom-bar {
+.tab-bar {
     bottom: 0;
 }
 
@@ -29,6 +29,6 @@
     top: 44px;
 }
 
-.bottom-bar ~ .page > .page-container {
+.tab-bar ~ .page > .page-container {
     bottom: 44px;
 }

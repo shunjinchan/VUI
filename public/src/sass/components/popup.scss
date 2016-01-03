@@ -2,12 +2,13 @@
 * @Author: shunjinchan
 * @Date:   2015-12-30 23:40:12
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2015-12-31 03:41:24
+* @Last Modified time: 2016-01-03 00:00:13
 */
 
 @charset "utf-8";
-
 @import "../_setting.scss";
+
+/* popup begin */
 
 .popup {
     position: absolute;
@@ -19,7 +20,7 @@
     z-index: 1050;
     background: #fff;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
     display: none;
     -webkit-transition-property: -webkit-transform;
     transition-property: -webkit-transform;
@@ -28,22 +29,91 @@
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     background-color: #f3f4f5;
-    
+}
+
+.popup.from-top {
+    /* 顶部滑入动画 */
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    &.slide-in,
+    &.slide-out {
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transition-delay: 0s;
+        transition-delay: 0s;
+        -webkit-transition-timing-function: cubic-bezier(.175, .885, .32, 1.1);
+        transition-timing-function: cubic-bezier(.175, .885, .32, 1.1);
+    }
+    &.slide-in {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    &.slide-out {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+}
+
+.popup.from-bottom {
     /* 底部滑入动画 */
     -webkit-transform: translate3d(0, 100%, 0);
-            transform: translate3d(0, 100%, 0);
-    &.slide-from-bottom-to-top,
-    &.slide-from-top-to-bottom {
+    transform: translate3d(0, 100%, 0);
+    &.slide-in,
+    &.slide-out {
         -webkit-transition-duration: 400ms;
-                transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transition-delay: 0s;
+        transition-delay: 0s;
     }
-    &.slide-from-bottom-to-top {
-        -webkit-transform: translate3d( 0, 0, 0);
-                transform: translate3d( 0, 0, 0);
+    &.slide-in {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
-    &.slide-from-top-to-bottom {
-        -webkit-transform: translate3d( 0, 100%, 0);
-                transform: translate3d( 0, 100%, 0);
+    &.slide-out {
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+}
+
+.popup.from-left {
+    /* 从左向右滑入动画 */
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    &.slide-in,
+    &.slide-out {
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transition-delay: 0s;
+        transition-delay: 0s;
+    }
+    &.slide-in {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    &.slide-out {
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+.popup.from-right {
+    /* 从左向右滑入动画 */
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+    &.slide-in,
+    &.slide-out {
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transition-delay: 0s;
+        transition-delay: 0s;
+    }
+    &.slide-in {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    &.slide-out {
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
     }
 }
 
@@ -56,6 +126,7 @@
     overflow: auto;
     padding: 10px;
 }
+
 .popup-header {
     height: 44px;
     line-height: 44px;
@@ -90,8 +161,12 @@
         color: #ccc;
     }
 }
+
 .popup-title {
     line-height: 24px;
     padding: 10px 50px 10px 15px;
     @include ellipsis();
 }
+
+
+/* popup end */

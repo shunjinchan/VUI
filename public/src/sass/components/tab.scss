@@ -2,14 +2,15 @@
 * @Author: shunjinchan
 * @Date:   2015-12-30 23:47:50
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2015-12-31 00:22:23
+* @Last Modified time: 2016-01-03 00:00:31
 */
 
 @charset "utf-8";
 
+/* tab begin */
+
 $textColor: #545e6e;
 $borderColor: #545e6e;
-
 .tab-title {
     display: table;
     width: 100%;
@@ -23,15 +24,21 @@ $borderColor: #545e6e;
     font-size: 0.28rem;
     text-align: center;
     color: $textColor;
-    border-top: 1px solid $borderColor; /*no*/
-    border-bottom: 1px solid $borderColor; /*no*/
-    border-right: 1px solid $borderColor; /*no*/
+    border-top: 1px solid $borderColor;
+    /*no*/
+    border-bottom: 1px solid $borderColor;
+    /*no*/
+    border-right: 1px solid $borderColor;
+    /*no*/
     &:first-child {
-        border-radius: 2px 0 0 2px; /*no*/
+        border-radius: 2px 0 0 2px;
+        /*no*/
     }
     &:last-child {
-        border-radius: 0 2px 2px 0; /*no*/
-        border-right: 1px solid $borderColor; /*no*/
+        border-radius: 0 2px 2px 0;
+        /*no*/
+        border-right: 1px solid $borderColor;
+        /*no*/
     }
     > a {
         display: block;
@@ -59,3 +66,4 @@ $borderColor: #545e6e;
 }
 
 
+/* tab end */
