@@ -2,7 +2,7 @@
 * @Author: shunjinchan
 * @Date:   2015-12-27 17:37:48
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-03 14:01:03
+* @Last Modified time: 2016-01-05 19:59:18
 */
 
 @charset "utf-8";
@@ -19,7 +19,7 @@
     top: 50%;
     left: 50%;
     margin-left: -135px;
-    z-index: 1080;
+    z-index: $zindex-dialog;
     opacity: 0;
     -webkit-transform: translate3d(0, 0, 0) scale(1.185);
     transform: translate3d(0, 0, 0) scale(1.185);
@@ -28,6 +28,28 @@
     transition-property: opacity, -webkit-transform;
     transition-property: transform, opacity;
     transition-property: transform, opacity, -webkit-transform;
+    &.vertical-button {
+        .dialog-footer {
+            height: auto;
+            display: block;
+        }
+        .dialog-button {
+            display: block;
+            width: 100%;
+            &:not(:first-child)::before {
+                position: absolute;
+                content: "";
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: auto;
+                width: 100%;
+                border-top: 1px solid $colorBorder;
+                -webkit-transform: scaleY(0.5);
+                transform: scaleY(0.5);
+            }
+        }
+    }
 }
 
 .dialog.scale {
@@ -66,11 +88,35 @@
 
 .dialog-footer {
     height: 44px;
+    position: relative;
     @include equal-flex(a);
-    a {
+    &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-top: 1px solid $colorBorder;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+    }
+    .dialog-button {
         height: 44px;
         line-height: 44px;
         font-size: 17px;
+        position: relative;
+        &:not(:first-child)::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            border-left: 1px solid $colorBorder;
+            -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+        }
     }
 }
 

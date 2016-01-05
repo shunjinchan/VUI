@@ -2,88 +2,94 @@
  * @Author: shunjinchan
  * @Date:   2015-10-29 17:22:40
  * @Last Modified by:   shunjinchan
- * @Last Modified time: 2016-01-03 18:41:39
+ * @Last Modified time: 2016-01-06 00:30:57
  */
 
 require('../../css/components/popup.css');
 
-var Backdrop = require('./backdrop.js');
-var backdrop = new Backdrop();
+// 默认配置
+var defaults = {
+    backdrop: true, // 蒙层
+    animation: 'from-bottom', // 动画
+    box: '<div class="popup"></div>', // popup box，当没有传入 target 为空时使用
+};
 
 var instance;
-
-// 默认配置
-var configs = {
-    target: null, // 目标 popup
-    backdrop: true, // 蒙层
-    extraClass: null, // 节点附加 class，方便自行控制不同场景的样式
-    box: '<div class="popup"><div class="popup-body"></div></div>', // popup box，当没有传入 target 为空时使用
-    title: null,
-    body: null, // 要插入到 popup-body 的 html
-    animation: 'from-bottom', // 动画
-    transitionOpen: 'slide-in',
-    transitionClose: 'slide-out'
-};
 
 /**
  * 弹窗
  * @param {Object} options 自定义配置
  */
-function Popup() {}
+function Popup() {
+    //如果已经缓存了实例，则直接返回缓存的实例 
+    if (instance instanceof Popup) {
+        return instance;
+    }
+
+    this.createTime = new Date();
+    //缓存实例 
+    instance = this;
+
+    return this;
+}
 
 Popup.prototype = {
     constructor: Popup,
 
-    conf: function(options) {
-        configs = $.extend({}, configs, options);
-
-        return this;
-    },
-
-    /**
-     * 打开弹窗
-     * @param  {zepto 对象} obj 弹窗，obj 为空时会创建一个popup，这种类型的在 close 时会被移除
-     * @return {undfined}
-     */
-    open: function(obj) {
-        if (this.isOpen) return;
-
+    _render: function(configs) {
         var self = this;
-        instance = this;
-        this.$box = obj ? obj : configs.target;
+        var animation = configs.animation || defaults.animation;
+        var extraClass = configs.extraClass || '';
+        var popupHTML = configs.html || '';
+        var titleHTML = configs.title ? '<div class="popup-header top-bar border-b"><h3 class="popup-title">' 
+            + configs.title + '</h3><a href="" class="close" data-toggle="popup" data-action="close"></a></div>' : '';
+        var bodyHTML = configs.body ? '<div class="popup-body">' + configs.body + '</div>' : '';
+        var footerHTML = configs.footer ? '<div class="popup-footer bottom-bar border-t">' + configs.footer + '</div>' : '';
 
-        if (!this.$box) {
-            this.$box = $(configs.box).appendTo('body');
-            configs.destory = true;
+        if (configs.target && configs.target.length > 0) {
+            this.$box = configs.target;
+
+            this.destory = false;
+        } else {
+            this.$box = $(defaults.box).appendTo('body');
+            
+            if (!popupHTML) {
+                this.$box.html(titleHTML + bodyHTML + footerHTML);
+            }
+
+            this.destory = true;
         }
 
-        configs.backdrop && backdrop.open();
-
-        configs.target = this.$box;
+        popupHTML && this.$box.html(popupHTML);
 
         this.$box.show();
-        render();
-        bindEvents();
+        extraClass && this.$box.addClass(extraClass);
+        animation && this.$box.addClass(animation);
 
         // 触发 relayout，少了这玩意 css 动画不执行
         var clientLeft = this.$box[0].clientLeft;
 
-        // 触发 open 事件
         this.$box.trigger('open');
-
-        this.$box.removeClass(configs.transitionClose).addClass(configs.transitionOpen)
+        this.$box.removeClass('transition-out').addClass('transition-in')
             .transitionEnd(function(e) {
-                if (self.$box.hasClass(configs.transitionClose)) {
+                if (self.$box.hasClass('transition-out')) {
                     // 触发 closed 事件
                     self.$box.trigger('closed');
                 } else {
                     self.$box.trigger('opened');
                 }
-        });
+            });
 
+        this.$backdrop = $('<div id="backdrop" class="backdrop"></div>');
+        $('body').append(this.$backdrop);
+    },
+
+    open: function(configs) {
+        if (this.isOpen) return;
+
+        this._render(configs);
+        bindEvents();
         this.isOpen = true;
-
-        return this;
     },
 
     close: function() {
@@ -93,51 +99,41 @@ Popup.prototype = {
 
         this.$box.trigger('close');
 
-        configs.backdrop && backdrop.close();
-
-        this.$box.removeClass(configs.transitionOpen).addClass(configs.transitionClose)
+        this.$backdrop && this.$backdrop.removeClass('visible');
+        this.$box.removeClass('transition-in').addClass('transition-out')
             .transitionEnd(function(e) {
-                if (self.$box.hasClass(configs.transitionClose)) {
+                if (self.$box.hasClass('transition-out')) {
                     self.$box.trigger('closed');
-                    self.$box.removeClass(configs.transitionClose).hide();
+                    self.$box.removeClass('transition-out').hide();
 
-                    configs.destory && self.$box.remove();
+                    self.$backdrop.off();
+                    self.$backdrop.remove();
+
+                    this.destory && self.$box.remove();
                 } else {
                     self.$box.trigger('opened');
                 }
-        });
+            });
 
         this.isOpen = false;
-
-        return this;
     }
 };
-
-function render() {
-    configs.animation &&
-    configs.target.addClass(configs.animation);
-
-    configs.extraClass &&
-    configs.target.addClass(configs.extraClass);
-
-    configs.title &&
-    configs.target.find('.popup-title').html(configs.title);
-
-    configs.body &&
-    configs.target.find('.popup-body').html(configs.body);
-}
 
 function bindEvents() {
     instance.$box.on('click', '[data-toggle="popup"]', function(e) {
         var $target = $(e.currentTarget);
 
-        if ($target.data('action')
-            && $target.data('action') === 'close') {
+        if ($target.data('action') && $target.data('action') === 'close') {
             if ($target[0].nodeName.toLowerCase() === 'a') {
                 e.preventDefault();
             }
             instance.close();
         }
+    });
+
+    instance.$backdrop.on('touchmove', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
     });
 }
 

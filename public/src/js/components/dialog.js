@@ -2,24 +2,36 @@
  * @Author: shunjinchan
  * @Date:   2015-10-15 15:08:08
  * @Last Modified by:   shunjinchan
- * @Last Modified time: 2016-01-03 17:36:47
+ * @Last Modified time: 2016-01-05 23:08:46
  */
 
 require('../../css/components/dialog.css');
 
-var Backdrop = require('./backdrop.js');
-var backdrop = new Backdrop();
-
 var dialogTemplateTempDiv = document.createElement('div');
 
 var defaults = {
-    backdrop: true,
-    dialogButtonOk: '确认',
-    dialogButtonCancel: '取消',
-    animation: 'scale'
+    backdrop: true, // 蒙层
+    dialogButtonOk: '确认', // 确认按钮文案
+    dialogButtonCancel: '取消', // 取消按钮文案
+    animation: 'scale', // 动画，需与 css 动画配合
+    verticalButton: 'vertical-button'
 };
 
-function Dialog() {}
+// 实例
+var instance;
+
+function Dialog() {
+    //如果已经缓存了实例，则直接返回缓存的实例 
+    if(instance instanceof Dialog){
+        return instance;
+    } 
+
+    this.createTime = new Date();
+    //缓存实例 
+    instance = this; 
+
+    return this;
+}
 
 Dialog.prototype = {
     constructor: Dialog,
@@ -30,48 +42,49 @@ Dialog.prototype = {
      * @return {[type]}         [description]
      */
     _render: function(configs) {
-        if (this.isOpen) return;
-
         var self = this;
         var dialogHTML = '';
         var buttonsHTML = '';
         var buttonText = '';
         var footerHTML = '';
-        var $buttons = '';
         var titleHTML = configs.title ? '<div class="dialog-title">' + configs.title + '</div>' : '';
         var content = configs.content ? configs.content : '';
         var afterContent = configs.afterContent ? configs.afterContent : '';
         var extraClass = configs.extraClass || '';
         var animation = configs.animation || defaults.animation;
-        
+        var verticalButton = configs.verticalButton ? defaults.verticalButton : '';
+
         if (configs.buttons && configs.buttons.length > 0) {
             for (var i = 0; i < configs.buttons.length; i++) {
-                // 只有一个 buttons 时，不需要加左边框
-                if (i === 0) {
-                    buttonsHTML += '<a href="javascript:;" class="dialog-button">' + configs.buttons[i].text + '</a>';
-                } else {
-                    buttonsHTML += '<a href="javascript:;" class="dialog-button border-l">' + configs.buttons[i].text + '</a>';
-                }
+                buttonsHTML += '<a href="javascript:;" class="dialog-button">' + configs.buttons[i].text + '</a>';
             }
 
-            footerHTML = '<div class="dialog-footer border-t">' + buttonsHTML + '</div>';
+            footerHTML = '<div class="dialog-footer">' + buttonsHTML + '</div>';
         }
 
-        dialogHTML = '<div class="dialog ' + animation + ' ' + extraClass + '"><div class="dialog-container">' + titleHTML + '<div class="dialog-body">' + content + afterContent + '</div></div>' + footerHTML + '</div>';
+        dialogHTML = '<div class="dialog ' + animation + ' ' + extraClass + ' ' + verticalButton + '"><div class="dialog-container">' + titleHTML + '<div class="dialog-body">' + content + afterContent + '</div></div>' + footerHTML + '</div>';
 
         dialogTemplateTempDiv.innerHTML = dialogHTML;
         this.$box = $(dialogTemplateTempDiv).children();
         $('body').append($(dialogTemplateTempDiv).children()[0]);
 
-        // setSize
-        if (animation === 'scale') {
-            this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
-        } else {
-            this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2) + 'px');
-        }
+        this.$backdrop = $('<div id="backdrop" class="backdrop"></div>');
+        $('body').append(this.$backdrop);
 
-        // bindEvents
-        $buttons = this.$box.find(".dialog-button");
+        this._setSize(animation);
+    },
+
+    _setSize: function(animation) {
+        if (animation === 'scale') {
+            this.$box.css('marginTop', - Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
+        } else {
+            this.$box.css('marginTop', - Math.round(this.$box.outerHeight() / 2) + 'px');
+        }
+    },
+
+    _bindEvents: function(configs) {
+        var self = this;
+        var $buttons = this.$box.find(".dialog-button");
 
         $.each($buttons, function(index, ele) {
             $(ele).on('click', function(e) {
@@ -82,6 +95,11 @@ Dialog.prototype = {
                 configs.onClick && configs.onClick(self.$box, index);
             });
         });
+
+        this.$backdrop.on('touchmove', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
     },
 
     /**
@@ -90,11 +108,11 @@ Dialog.prototype = {
      * @return {[type]}         [description]
      */
     open: function(configs) {
+        if (this.isOpen) return;
+        
         this._render(configs);
-        // show backdrop and dialog
-        this.backdrop = configs.backdrop || defaults.backdrop;
-
-        this.backdrop && backdrop.open();
+        this._bindEvents(configs);
+        this.$backdrop && this.$backdrop.addClass('visible');
         this.$box.show().removeClass('transition-out').addClass('transition-in');
 
         this.isOpen = true;
@@ -102,23 +120,29 @@ Dialog.prototype = {
 
     /**
      * close dialog
-     * @param  {Object} configs 配置
+     * @param  {function} 关闭之后的回调函数
      * @return {[type]}         [description]
      */
-    close: function() {
+    close: function(callback) {
         var self = this;
 
         if (this.$box.length === 0) {
             return;
         }
 
-        this.backdrop && backdrop.close();
+        this.$backdrop && this.$backdrop.removeClass('visible');
         this.$box.removeClass('transition-in').addClass('transition-out')
             .transitionEnd(function(e) {
                 self.$box.off();
                 self.$box.remove();
                 self.$box = null;
+                
+                self.$backdrop.off();
+                self.$backdrop.remove();
+
                 self.isOpen = false;
+
+                callback && typeof callback === 'function' && callback();
             });
     },
 
