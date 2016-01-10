@@ -1,52 +1,84 @@
 /* 
  * @Author: shunjinchan
  * @Date:   2016-01-03 19:19:17
- * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-01-03 23:31:15
+ * @Last Modified by:   shunjinchan
+ * @Last Modified time: 2016-01-06 19:30:51
  */
 
 require('../../css/components/loader.css');
 
-var box = '<div class="loader-container"><div class="loader-body"><div class="activity activity-white"></div></div><div class="loader-title"></div></div>';
-
 var defaults = {
-    title: '加载中...'
+    title: '加载中...',
+    box: '<div class="loader-container"><div class="loader-body"><div class="activity activity-white"></div></div><div class="loader-title"></div></div>'
 };
 
+var instance;
+
 /**
- * Loader，不提供定时关闭功能
+ * Loader
  */
-function Loader() {}
+function Loader() {
+    if (instance instanceof Loader) {
+        return instance;
+    }
+
+    this.createTime = new Date();
+    //缓存实例 
+    instance = this;
+
+    return this;
+}
 
 Loader.prototype = {
     constructor: Loader,
 
     /**
      * open loader
-     * @param  {String} title 标题
+     * @param  {String 或者 Object} params，为 string 时默认是 title，为 Object 是配置
      * @return {[type]}         [description]
      */
-    open: function(title) {
+    open: function(params) {
         if (this.isOpen) return;
 
-        this.$box = $(box).appendTo('body');
-
-        if (arguments.length === 2) {
-            console.log('nimabi');
-        }
-
-        title = title || defaults.title;
-        this.$box.find('.loader-title').html(title);
-
-        this.$backdrop = $('<div id="backdrop" class="backdrop"></div>');
-        $('body').append(this.$backdrop);
-        this.$backdrop && this.$backdrop.addClass('visible').css('opacity', '0');
-
+        this._render(params);
         this._setSize();
         this._bindEvents();
 
         this.$box.show().removeClass('transition-out').addClass('transition-in');
+
         this.isOpen = true;
+    },
+
+    _render: function(params) {
+        this.$box = $(defaults.box).appendTo('body');
+
+        var self = this;
+        var title = defaults.title;
+        var extraClass;
+        var timer;
+
+        if (params && typeof params === 'string') {
+            title = params;
+        }
+
+        if (params && Array.prototype.toString.call(params) === '[object Object]') {
+            title = params.title ? params.title : defaults.title;
+            extraClass = params.extraClass ? params.extraClass : '';
+            timer = params.timer ? params.timer : '';
+        }
+
+        this.$box.find('.loader-title').html(title);
+        extraClass && this.$box.addClass(extraClass);
+
+        if (timer && typeof timer === 'number') {
+            this.timeID = window.setTimeout(function() {
+                self.close();
+            }, timer);
+        }
+
+        this.$backdrop = $('<div id="backdrop" class="backdrop"></div>');
+        $('body').append(this.$backdrop);
+        this.$backdrop && this.$backdrop.addClass('visible').css('opacity', '0');
     },
 
     _setSize: function(e) {
@@ -84,6 +116,8 @@ Loader.prototype = {
                 self.$backdrop.remove();
 
                 self.isOpen = false;
+
+                window.clearTimeout(self.timeID);
 
                 callback && typeof callback === 'function' && callback();
             });

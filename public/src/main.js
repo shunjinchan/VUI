@@ -2,7 +2,7 @@
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
  * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-01-06 00:30:19
+ * @Last Modified time: 2016-01-10 11:25:15
  */
 
 var Zepto = require('./js/lib/zepto.js');
@@ -11,6 +11,8 @@ var Router = require('./js/components/router.js');
 var Popup = require('./js/components/popup.js');
 var Dialog = require('./js/components/dialog.js');
 var Loader = require('./js/components/loader.js');
+var Toast = require('./js/components/toast.js');
+var Tab = require('./js/components/tab.js');
 
 var win = window;
 var doc = win.document;
@@ -18,6 +20,8 @@ var doc = win.document;
 var popup = new Popup();
 var dialog = new Dialog();
 var loader = new Loader();
+var toast = new Toast();
+var tab = new Tab();
 
 function init() {
     $(document).on('click', '.open-popup-about', function(e) {
@@ -25,6 +29,21 @@ function init() {
 
         popup.open({
             target: $('.popup-about')
+        });
+
+        popup.$box.on('closed', function() {
+            console.log('nimabi');
+        });
+    });
+
+    $(document).on('click', '.open-popup-list', function(e) {
+        e.preventDefault();
+
+        popup.open({
+            target: $('.popup-list'),
+            css: {
+                top: 'auto'
+            }
         });
 
         popup.$box.on('closed', function() {
@@ -51,7 +70,7 @@ function init() {
         e.preventDefault();
 
         popup.open({
-            html: 0
+            html: 'popup html'
         });
 
         popup.$box.on('closed', function() {
@@ -82,7 +101,7 @@ function init() {
     $(document).on('click', '.open-prompt', function(e) {
         e.preventDefault();
 
-        dialog.prompt('请填写收到的邀请码', function(val) {
+        dialog.prompt('请填写收到的1024邀请码', function(val) {
             console.log('确定' + val);
         }, function(val) {
             console.log('取消' + val);
@@ -96,7 +115,7 @@ function init() {
     $(document).on('click', '.open-password', function(e) {
         e.preventDefault();
 
-        dialog.password('请填写收到的邀请码', function(val) {
+        dialog.password('输入密码', function(val) {
             if (val !== '') {
                 console.log('密码是' + val);
             } else {
@@ -104,6 +123,32 @@ function init() {
             }
         }, function(val) {
             console.log('密码是' + val);
+        });
+    });
+
+    $(document).on('click', '.open-login', function(e) {
+        e.preventDefault();
+
+        dialog.login('登录你妹啊', function(username, password) {
+            console.log('密码是' + username);
+            console.log('密码是' + password);
+        }, function(username, password) {
+            console.log('密码是' + username);
+            console.log('密码是' + password);
+        });
+    });
+
+    $(document).on('click', '.open-register', function(e) {
+        e.preventDefault();
+
+        dialog.register('妈勒个蛋你倒是注册啊', function(username, password, authCode) {
+            console.log('用户名是' + username);
+            console.log('密码是' + password);
+            console.log('验证码是' + authCode);
+        }, function(username, password, authCode) {
+            console.log('用户名是' + username);
+            console.log('密码是' + password);
+            console.log('验证码是' + authCode);
         });
     });
 
@@ -134,14 +179,59 @@ function init() {
         });
     });
 
+    $(document).on('click', '.open-actionSheet', function(e) {
+        e.preventDefault();
+
+        dialog.actionSheet({
+            animation: 'from-bottom',
+            title: '确定要删除？',
+            type: 'actionSheet',
+            buttons: [{
+                text: '删除',
+                onClick: function() {
+                    console.log('删除');
+                },
+                close: false
+            }, {
+                text: '删除2',
+                onClick: function() {
+                    console.log('删除2');
+                },
+                close: false
+            }]
+        });
+    });
+
     $(document).on('click', '.open-loader', function(e) {
         e.preventDefault();
 
-        loader.open();
+        loader.open('nimabi');
+    });
 
-        setTimeout(function() {
-            loader.close();
-        }, 2000);
+    $(document).on('click', '.open-loader2', function(e) {
+        e.preventDefault();
+
+        loader.open({
+            title: 'hhjhjjj',
+            extraClass: 'nimabi',
+            timer: 2000
+        });
+    });
+
+    $(document).on('click', '.open-toast', function(e) {
+        e.preventDefault();
+
+        toast.open('nimabi');
+    });
+
+    $(document).on('click', '.open-toast2', function(e) {
+        e.preventDefault();
+
+        toast.open({
+            title: 'hhjhjjj',
+            extraClass: 'toast-white',
+            timer: 2000
+        });
     });
 }
 

@@ -2,67 +2,69 @@
  * @Author: shunjinchan
  * @Date:   2015-10-15 15:08:08
  * @Last Modified by:   shunjinchan
- * @Last Modified time: 2015-12-28 10:43:09
+ * @Last Modified time: 2016-01-06 23:41:00
  */
 
 require('../../css/components/tab.css');
 
-function Tab(options) {
-    this.options = $.extend({}, Tab.options, options);
-
-    this.render();
-}
-
-Tab.options = {
-    control: null,
-    onchange: null,
+var defaults = {
     activeClass: 'active'
 };
 
-Tab.prototype.render = function() {
-    var self = this;
+function Tab() {}
 
-    this.control = this.options.control;
-    this.target = [];
+Tab.prototype = {
+    constructor: Tab,
 
-    // 收集 target
-    $.each(this.control, function(index, ele) {
-        self.target.push($($(this).attr('data-target')));
-    });
+    init: function(configs) {
+        var self = this;
 
-    this.bind();
-};
+        this.control = configs.control;
+        this.target = [];
 
-// 事件绑定
-Tab.prototype.bind = function() {
-    var self = this;
-    var target;
+        // 收集 target
+        $.each(this.control, function(index, ele) {
+            self.target.push($($(this).attr('data-target')));
+        });
 
-    $.each(this.control, function(index, ele) {
-        $(this).on('click', function(e) {
+        this._bind(configs);
+    },
+
+    _bind: function(configs) {
+        var self = this;
+        var target;
+        var activeClass = configs.activeClass ? configs.activeClass : defaults.activeClass;
+
+        function clickHandler(e) {
             e.preventDefault();
 
             // 如果点击的是当前 active tab
-            if ($(this).hasClass(self.options.activeClass)) {
+            if ($(this).hasClass(activeClass)) {
                 return false;
             }
 
             // 当前 control 高亮，其他 control 去高亮
-            self.control.removeClass(self.options.activeClass);
-            $(this).addClass(self.options.activeClass);
+            self.control.removeClass(activeClass);
+            $(this).addClass(activeClass);
 
             // 显示当前 pane，其他 pane 隐藏
             target = $(this).attr('data-target');
 
             $.each(self.target, function(index, ele) {
-                ele.removeClass(self.options.activeClass);
+                ele.removeClass(activeClass);
 
-                $(target).addClass(self.options.activeClass);
+                $(target).addClass(activeClass);
             });
 
             // 第一个参数当前 control
             // 第二个参数当前 pane
-            self.options.onchange && self.options.onchange($(this), $(target));
+            configs.onchange && configs.onchange($(this), $(target));
+        }
+
+        $.each(this.control, function(index, ele) {
+            $(this).on('click', clickHandler);
         });
-    });
+    }
 };
+
+module.exports = Tab;

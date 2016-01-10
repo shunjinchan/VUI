@@ -1,8 +1,8 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-10-29 17:22:40
- * @Last Modified by:   shunjinchan
- * @Last Modified time: 2016-01-06 00:30:57
+ * @Last Modified by:   pigsy.chen
+ * @Last Modified time: 2016-01-08 00:43:02
  */
 
 require('../../css/components/popup.css');
@@ -11,23 +11,20 @@ require('../../css/components/popup.css');
 var defaults = {
     backdrop: true, // 蒙层
     animation: 'from-bottom', // 动画
-    box: '<div class="popup"></div>', // popup box，当没有传入 target 为空时使用
+    box: '<div class="popup"><div class="popup-body"></div></div>', // popup box，当没有传入 target 为空时使用
+    css: null
 };
 
 var instance;
 
-/**
- * 弹窗
- * @param {Object} options 自定义配置
- */
 function Popup() {
-    //如果已经缓存了实例，则直接返回缓存的实例 
+    //如果已经缓存了实例，则直接返回缓存的实例
     if (instance instanceof Popup) {
         return instance;
     }
 
     this.createTime = new Date();
-    //缓存实例 
+    //缓存实例
     instance = this;
 
     return this;
@@ -41,10 +38,11 @@ Popup.prototype = {
         var animation = configs.animation || defaults.animation;
         var extraClass = configs.extraClass || '';
         var popupHTML = configs.html || '';
-        var titleHTML = configs.title ? '<div class="popup-header top-bar border-b"><h3 class="popup-title">' 
+        var titleHTML = configs.title ? '<div class="popup-header top-bar border-b"><h3 class="popup-title">'
             + configs.title + '</h3><a href="" class="close" data-toggle="popup" data-action="close"></a></div>' : '';
         var bodyHTML = configs.body ? '<div class="popup-body">' + configs.body + '</div>' : '';
         var footerHTML = configs.footer ? '<div class="popup-footer bottom-bar border-t">' + configs.footer + '</div>' : '';
+        var css = configs.css || defaults.css;
 
         if (configs.target && configs.target.length > 0) {
             this.$box = configs.target;
@@ -52,19 +50,20 @@ Popup.prototype = {
             this.destory = false;
         } else {
             this.$box = $(defaults.box).appendTo('body');
-            
+
             if (!popupHTML) {
-                this.$box.html(titleHTML + bodyHTML + footerHTML);
+                this.$box.html(titleHTML + footerHTML + bodyHTML);
             }
 
             this.destory = true;
         }
 
-        popupHTML && this.$box.html(popupHTML);
+        popupHTML && this.$box.find('.popup-body').html(popupHTML);
 
         this.$box.show();
         extraClass && this.$box.addClass(extraClass);
         animation && this.$box.addClass(animation);
+        css && this.$box.css(css);
 
         // 触发 relayout，少了这玩意 css 动画不执行
         var clientLeft = this.$box[0].clientLeft;
@@ -84,11 +83,16 @@ Popup.prototype = {
         $('body').append(this.$backdrop);
     },
 
+    /**
+     * 打开弹窗
+     * @param {Object} configs 自定义配置
+     */
     open: function(configs) {
         if (this.isOpen) return;
 
         this._render(configs);
         bindEvents();
+        this.$backdrop && this.$backdrop.addClass('visible');
         this.isOpen = true;
     },
 

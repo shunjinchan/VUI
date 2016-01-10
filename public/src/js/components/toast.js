@@ -2,100 +2,125 @@
 * @Author: shunjinchan
 * @Date:   2015-10-15 13:34:31
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2015-11-02 22:38:54
+* @Last Modified time: 2016-01-06 19:34:46
 */
 
-!(function() {
+require('../../css/components/toast.css');
 
-    (function(factory) {
-        if (typeof define === 'function' && define.amd) {
-            // AMD
-            define(['zepto', 'velocity', 'dialog'], factory);
-        } else {
-            // Browser globals
-            factory(Zepto, Velocity, Popup);
-        }
-    }(function($, Velocity, Popup) {
+var defaults = {
+    box: '<div class="toast"></div>'
+};
 
-        function Toast(options) {
-            this.options = $.extend({}, Toast.options, options);
+var instance;
 
-            this.html = {
-                backdrop: '<div class="modal-backdrop"></div>',
-                box: '<div class="popup-container show">' +
-                    '<div class="toast">' +
-                    '<div class="toast-header"><strong class="toast-title"></strong></div>' +
-                    '<div class="toast-body"></div>' +
-                    '</div>' +
-                    '</div>'
-            };
-        }
+/**
+ * Toast
+ */
+function Toast() {
+    if (instance instanceof Toast) {
+        return instance;
+    }
 
-        Toast.options = {
-            backdrop: false,
-            type: 'toast',
-            cssClass: 'toast',
-            timer: 3000,
-            zIndex: 3000
-        };
+    this.createTime = new Date();
+    //缓存实例 
+    instance = this;
 
-        Toast.prototype = new Popup();
+    return this;
+}
 
-        Toast.prototype.constructor = Toast;
+Toast.prototype = {
+    constructor: Toast,
 
-        Toast.prototype.render = function() {
-            if (this.isShown) return;
+    /**
+     * open toast
+     * @param  {String 或者 Object} params，为 string 时默认是 title，为 Object 是配置
+     * @return {[type]}         [description]
+     */
+    open: function(params) {
+        if (this.isOpen) return;
 
-            var type; // 按钮类型
-            var self = this;
+        this._render(params);
+        this._setSize();
+        this._bindEvents();
 
-            this.$box = $(this.html.box);
-            this.$toast = this.$box.find('.toast');
+        this.$box.show().removeClass('transition-out').addClass('transition-in');
 
-            // 插入对话框
-            $('body').append(this.$box);
+        this.isOpen = true;
+    },
 
-            // 是否需要蒙层
-            if (this.options.backdrop) {
-                this.backdrop();
-            }
+    _render: function(params) {
+        this.$box = $(defaults.box).appendTo('body');
 
-            if (this.options.template) {
-                this.$toast.html(this.options.template);
+        var self = this;
+        var title;
+        var extraClass;
+        var timer;
 
-                return false;
-            }
-
-            if (this.options.templateUrl) {
-                $.get(this.options.templateUrl, function(data) {
-                    self.$toast.html(data);
-                });
-
-                return false;
-            }
-
-            this.options.title && this.$box.find('.toast-title').html(this.options.title);
-            this.options.subTitle && this.$box.find('.toast-body').html(this.options.subTitle);
-
-            // 独有id
-            this.options.id && this.$toast.attr('id', this.options.id);
-
-            // 主题
-            this.options.cssClass && this.$toast.addClass(this.options.cssClass);
-
-            // zIndex
-            this.options.zIndex && this.$box.css('zIndex', this.options.zIndex);
-
-            this.bind();
-        };
-
-
-        if (typeof define === 'function' && define.amd) {
-            return Toast;
-        } else {
-            window.Toast = Toast;
+        if (params && typeof params === 'string') {
+            title = params;
         }
 
-    }));
+        if (params && Array.prototype.toString.call(params) === '[object Object]') {
+            title = params.title ? params.title : '';
+            extraClass = params.extraClass ? params.extraClass : '';
+            timer = params.timer ? params.timer : '';
+        }
 
-})();
+        this.$box.html(title);
+        extraClass && this.$box.addClass(extraClass);
+
+        if (timer && typeof timer === 'number') {
+            this.timeID = window.setTimeout(function() {
+                self.close();
+            }, timer);
+        }
+
+        this.$backdrop = $('<div id="backdrop" class="backdrop"></div>');
+        $('body').append(this.$backdrop);
+        this.$backdrop && this.$backdrop.addClass('visible').css('opacity', '0');
+    },
+
+    _setSize: function(e) {
+        this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
+        this.$box.css('marginLeft', -Math.round(this.$box.outerWidth() / 2 / 1.185) + 'px');
+    },
+
+    _bindEvents: function() {
+        this.$backdrop.on('touchmove', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+    },
+
+    /**
+     * close toast
+     * @param  {function} 关闭之后的回调函数
+     * @return {[type]}         [description]
+     */
+    close: function(callback) {
+        var self = this;
+
+        if (this.$box.length === 0) {
+            return;
+        }
+
+        this.$backdrop && this.$backdrop.removeClass('visible');
+        this.$box.removeClass('transition-in').addClass('transition-out')
+            .transitionEnd(function(e) {
+                self.$box.off();
+                self.$box.remove();
+                self.$box = null;
+
+                self.$backdrop.off();
+                self.$backdrop.remove();
+
+                self.isOpen = false;
+
+                window.clearTimeout(self.timeID);
+
+                callback && typeof callback === 'function' && callback();
+            });
+    }
+};
+
+module.exports = Toast;

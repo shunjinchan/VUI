@@ -2,17 +2,19 @@
 * @Author: shunjinchan
 * @Date:   2015-12-27 17:37:48
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-05 19:59:18
+* @Last Modified time: 2016-01-10 11:32:58
 */
 
 @charset "utf-8";
 @import "../_setting.scss";
 
+$colorDialogBg: rgba(255, 255, 255, 0.9);
+
 /* dialog begin */
 
 .dialog {
     width: 270px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: $colorDialogBg;
     text-align: center;
     border-radius: 6px;
     position: absolute;
@@ -20,14 +22,6 @@
     left: 50%;
     margin-left: -135px;
     z-index: $zindex-dialog;
-    opacity: 0;
-    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
-    transform: translate3d(0, 0, 0) scale(1.185);
-    -webkit-transition-property: -webkit-transform, opacity;
-    -webkit-transition-property: opacity, -webkit-transform;
-    transition-property: opacity, -webkit-transform;
-    transition-property: transform, opacity;
-    transition-property: transform, opacity, -webkit-transform;
     &.vertical-button {
         .dialog-footer {
             height: auto;
@@ -36,13 +30,13 @@
         .dialog-button {
             display: block;
             width: 100%;
-            &:not(:first-child)::before {
+            &:not(:last-child)::before {
                 position: absolute;
                 content: "";
-                top: 0;
                 left: 0;
                 right: 0;
-                bottom: auto;
+                top: auto;
+                bottom: 0;
                 width: 100%;
                 border-top: 1px solid $colorBorder;
                 -webkit-transform: scaleY(0.5);
@@ -53,6 +47,14 @@
 }
 
 .dialog.scale {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185);
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-property: opacity, -webkit-transform;
+    transition-property: opacity, -webkit-transform;
+    transition-property: transform, opacity;
+    transition-property: transform, opacity, -webkit-transform;
     &.transition-in {
         opacity: 1;
         -webkit-transition-duration: 400ms;
@@ -106,12 +108,13 @@
         line-height: 44px;
         font-size: 17px;
         position: relative;
-        &:not(:first-child)::before {
+        &:not(:last-child)::before {
             position: absolute;
             content: "";
             top: 0;
             bottom: 0;
-            left: 0;
+            left: auto;
+            right: 0;
             width: 0;
             border-left: 1px solid $colorBorder;
             -webkit-transform: scaleX(0.5);
@@ -120,7 +123,7 @@
     }
 }
 
-.dialog-prompt-input {
+.dialog-input {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     height: 30px;
@@ -141,4 +144,116 @@
 }
 
 
-/* dialog end */
+/* action-sheet */
+
+.action-sheet {
+    position: absolute;
+    padding-bottom: 10px;
+    left: 0;
+    bottom: 0;
+    z-index: 11000;
+    width: 100%;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    -webkit-transition-property: -webkit-transform;
+    transition-property: -webkit-transform;
+    transition-property: transform;
+    transition-property: transform, -webkit-transform;
+}
+
+.action-sheet-container,
+.action-sheet-footer {
+    margin: 0 10px;
+}
+
+.action-sheet-title {
+    background-color: $colorDialogBg;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 15px 25px;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    color: #777;
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-top: 1px solid $colorBorder;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+    }
+    + .action-sheet-group {
+        .action-sheet-button {
+            &:first-child {
+                border-radius: 0;
+            }
+        }
+    }
+}
+
+.action-sheet-button,
+.action-sheet-close {
+    background-color: $colorDialogBg;
+    font-size: 18px;
+    line-height: 24px;
+    padding: 15px 25px;
+    text-align: center;
+    font-weight: normal;
+    margin: 0;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+}
+
+.action-sheet-button {
+    &:first-child {
+        border-radius: 8px 8px 0 0;
+    }
+    &:last-child {
+        border-radius: 0 0 8px 8px;
+    }
+    &:not(:last-child)::before {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-top: 1px solid $colorBorder;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+    }
+}
+
+.action-sheet-footer {
+    margin-top: 8px;
+}
+
+.action-sheet-close {
+    border-radius: 8px;
+}
+
+
+/* 底部滑入动画 */
+
+.action-sheet.from-bottom {
+    &.transition-in,
+    &.transition-out {
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transition-delay: 0s;
+        transition-delay: 0s;
+    }
+    &.transition-in {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    &.transition-out {
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+}

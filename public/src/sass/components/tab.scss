@@ -2,10 +2,11 @@
 * @Author: shunjinchan
 * @Date:   2015-12-30 23:47:50
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-03 00:00:31
+* @Last Modified time: 2016-01-08 17:28:27
 */
 
 @charset "utf-8";
+@import "../_setting.scss";
 
 /* tab begin */
 
@@ -14,48 +15,77 @@ $borderColor: #545e6e;
 .tab-title {
     display: table;
     width: 100%;
+    position: relative;
+    &::after {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-top: 1px solid $colorBorder;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+        z-index: 10;
+    }
 }
 
 .tab-title-item {
     display: table-cell;
-    height: 0.68rem;
-    line-height: 0.68rem;
+    height: 0.84rem;
+    line-height: 0.84rem;
     font-weight: normal;
-    font-size: 0.28rem;
+    font-size: 0.36rem;
     text-align: center;
-    color: $textColor;
-    border-top: 1px solid $borderColor;
-    /*no*/
-    border-bottom: 1px solid $borderColor;
-    /*no*/
-    border-right: 1px solid $borderColor;
-    /*no*/
-    &:first-child {
-        border-radius: 2px 0 0 2px;
-        /*no*/
+    transition: 300ms;
+    background-color: #fff;
+    border-bottom: 2px solid transparent;
+    box-sizing: border-box;
+    &.active {
+        border-color: #0894ec;
+        color: #0894ec;
+        position: relative;
+        z-index: 11;
     }
-    &:last-child {
-        border-radius: 0 2px 2px 0;
+}
+
+.tab-border {
+    .tab-title-item {
+        height: 0.54rem;
+        line-height: 0.54rem;
+        font-weight: normal;
+        font-size: 0.28rem;
+        text-align: center;
+        color: $textColor;
+        transition: 300ms;
+        border-top: 1px solid $borderColor;
+        /*no*/
+        border-bottom: 1px solid $borderColor;
         /*no*/
         border-right: 1px solid $borderColor;
         /*no*/
-    }
-    > a {
-        display: block;
-        height: 100%;
-    }
-    &.active {
-        background-color: $borderColor;
-        color: #fff;
-        border-color: $borderColor;
-    }
-    &.active + .tab-title-item {
-        border-left-color: $borderColor;
-    }
-    &.active > a {
-        color: #fff;
+        &:first-child {
+            border-radius: 2px 0 0 2px;
+            /*no*/
+        }
+        &:last-child {
+            border-radius: 0 2px 2px 0;
+            /*no*/
+            border-right: 1px solid $borderColor;
+            /*no*/
+        }
+        &.active {
+            background-color: $borderColor;
+            color: #fff;
+            border-color: $borderColor;
+        }
+        &.active + .tab-title-item {
+            border-left-color: $borderColor;
+        }
     }
 }
+
+.tab-content {}
 
 .tab-content-pane {
     width: 100%;

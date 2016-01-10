@@ -1,8 +1,8 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-10-15 15:08:08
- * @Last Modified by:   shunjinchan
- * @Last Modified time: 2016-01-05 23:08:46
+ * @Last Modified by:   pigsy.chen
+ * @Last Modified time: 2016-01-10 10:58:10
  */
 
 require('../../css/components/dialog.css');
@@ -84,7 +84,13 @@ Dialog.prototype = {
 
     _bindEvents: function(configs) {
         var self = this;
-        var $buttons = this.$box.find(".dialog-button");
+        var $buttons;
+
+        if (configs.type === 'actionSheet') {
+            $buttons = this.$box.find(".action-sheet-button");
+        } else {
+            $buttons = this.$box.find(".dialog-button");
+        }
 
         $.each($buttons, function(index, ele) {
             $(ele).on('click', function(e) {
@@ -94,6 +100,10 @@ Dialog.prototype = {
                 configs.buttons[index].onClick && configs.buttons[index].onClick(self, e);
                 configs.onClick && configs.onClick(self.$box, index);
             });
+        });
+
+        this.$box.on('click', '[data-action="close"]', function(e) {
+            self.close();
         });
 
         this.$backdrop.on('touchmove', function(e) {
@@ -215,7 +225,7 @@ Dialog.prototype = {
         this.open({
             title: title || '',
             content: content || '',
-            afterContent: '<input type="text" class="dialog-prompt-input">',
+            afterContent: '<input type="text" class="dialog-input">',
             buttons: [{
                 text: defaults.dialogButtonCancel,
             }, {
@@ -223,7 +233,7 @@ Dialog.prototype = {
                 close: false // prompt 组件点击确认按钮默认不关闭，需要手动调用 close
             }],
             onClick: function(box, index) {
-                var value = box.find('.dialog-prompt-input').val();
+                var value = box.find('.dialog-input').val();
 
                 if (index === 0 && callbackCancel) callbackCancel(value);
                 if (index === 1 && callbackOk) callbackOk(value);
@@ -249,7 +259,7 @@ Dialog.prototype = {
         this.open({
             title: title || '',
             content: content || '',
-            afterContent: '<input type="password" class="dialog-prompt-input" name="dialog-password" placeholder="请输入密码">',
+            afterContent: '<input type="password" class="dialog-input" name="dialog-password" placeholder="请输入密码">',
             buttons: [{
                 text: defaults.dialogButtonCancel,
             }, {
@@ -257,13 +267,111 @@ Dialog.prototype = {
                 close: false // password 组件点击确认按钮默认不关闭，需要手动调用 close
             }],
             onClick: function(box, index) {
-                var password = box.find('.dialog-prompt-input[name="dialog-password"]').val();
+                var password = box.find('.dialog-input[name="dialog-password"]').val();
 
                 if (index === 0 && callbackCancel) callbackCancel(password);
                 if (index === 1 && callbackOk) callbackOk(password);
             }
         });
-    }
+    },
+
+    login: function(content, title, callbackOk, callbackCancel) {
+        if (typeof title === 'function') {
+            callbackCancel = arguments[2];
+            callbackOk = arguments[1];
+            title = undefined;
+        }
+
+        this.open({
+            title: title || '',
+            content: content || '',
+            afterContent: '<input type="text" class="dialog-input" name="dialog-username" placeholder="请输入用户名"><input type="password" class="dialog-input" name="dialog-password" placeholder="请输入密码">',
+            buttons: [{
+                text: defaults.dialogButtonCancel,
+            }, {
+                text: defaults.dialogButtonOk,
+                close: false // password 组件点击确认按钮默认不关闭，需要手动调用 close
+            }],
+            onClick: function(box, index) {
+                var username = box.find('.dialog-input[name="dialog-username"]').val();
+                var password = box.find('.dialog-input[name="dialog-password"]').val();
+
+                if (index === 0 && callbackCancel) callbackCancel(username, password);
+                if (index === 1 && callbackOk) callbackOk(username, password);
+            }
+        });
+    },
+
+    register: function(content, title, callbackOk, callbackCancel) {
+        if (typeof title === 'function') {
+            callbackCancel = arguments[2];
+            callbackOk = arguments[1];
+            title = undefined;
+        }
+
+        this.open({
+            title: title || '',
+            content: content || '',
+            afterContent: '<input type="text" class="dialog-input" name="dialog-username" placeholder="请输入用户名"><input type="password" class="dialog-input" name="dialog-password" placeholder="请输入密码"><input type="text" class="dialog-input" name="dialog-auth-code" placeholder="请输入验证码">',
+            buttons: [{
+                text: defaults.dialogButtonCancel,
+            }, {
+                text: defaults.dialogButtonOk,
+                close: false // password 组件点击确认按钮默认不关闭，需要手动调用 close
+            }],
+            onClick: function(box, index) {
+                var username = box.find('.dialog-input[name="dialog-username"]').val();
+                var password = box.find('.dialog-input[name="dialog-password"]').val();
+                var authCode = box.find('.dialog-input[name="dialog-auth-code"]').val();
+
+                if (index === 0 && callbackCancel) callbackCancel(username, password, authCode);
+                if (index === 1 && callbackOk) callbackOk(username, password, authCode);
+            }
+        });
+    },
+
+    /**
+     * actionSheet dialog
+     * @param  {Object} configs 配置信息
+     * @return {[type]}         [description]
+     */
+    actionSheet: function(configs) {
+        if (this.isOpen) return;
+        
+        var self = this;
+        var actionSheetHTML = '';
+        var buttonsHTML = '';
+        var buttonText = '';
+        var groupHTML = '';
+        var footerHTML = '<div class="action-sheet-footer"><a href="javascript:;" class="action-sheet-close" data-action="close">' + defaults.dialogButtonCancel + '</a></div>';
+        var titleHTML = configs.title ? '<div class="action-sheet-title">' + configs.title + '</div>' : '';
+        var extraClass = configs.extraClass || '';
+        var animation = configs.animation || 'from-bottom';
+        var verticalButton = configs.verticalButton ? defaults.verticalButton : '';
+
+        if (configs.buttons && configs.buttons.length > 0) {
+            for (var i = 0; i < configs.buttons.length; i++) {
+                buttonsHTML += '<a href="javascript:;" class="action-sheet-button">' + configs.buttons[i].text + '</a>';
+            }
+
+            groupHTML = '<div class="action-sheet-group">' + buttonsHTML + '</div>';
+        }
+
+        actionSheetHTML = '<div class="action-sheet ' + animation + ' ' + extraClass + ' ' + verticalButton + '"><div class="action-sheet-container">' + titleHTML + groupHTML + '</div>' + footerHTML + '</div>';
+
+        dialogTemplateTempDiv.innerHTML = actionSheetHTML;
+        this.$box = $(dialogTemplateTempDiv).children();
+        $('body').append($(dialogTemplateTempDiv).children()[0]);
+
+        this.$backdrop = $('<div id="backdrop" class="backdrop"></div>');
+        $('body').append(this.$backdrop);
+
+        this._bindEvents(configs);
+        this.$backdrop && this.$backdrop.addClass('visible');
+        this.$box.show().removeClass('transition-out').addClass('transition-in');
+
+        this.isOpen = true;
+    },
 };
 
 module.exports = Dialog;

@@ -8,6 +8,7 @@
         <div class="page-content">
             <div class="demo">
                 <div class="open-popup-about">popup-about</div>
+                <div class="open-popup-list">popup-list</div>
                 <div class="open-popup">popup</div>
                 <div class="open-popup-html">popup-html</div>
             </div>
@@ -20,12 +21,36 @@
         <h3 class="popup-title">标题</h3>
         <a href="" class="close" data-toggle="popup" data-action="close"></a>
     </div>
+    <div class="popup-footer bottom-bar border-t">
+        <a href="javascript:;" class="popup-button">确定</a>
+    </div>
     <div class="popup-body">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
     </div>
-    <div class="popup-footer">
+</div>
+
+<div class="popup popup-list">
+    <div class="popup-header top-bar border-b">
+        <h3 class="popup-title">标题</h3>
+        <a href="" class="close" data-toggle="popup" data-action="close"></a>
+    </div>
+    <div class="popup-body">
+        <div class="list">
+            <div class="list-item border-b">
+                <a href="">列表</a>
+            </div>
+            <div class="list-item border-b">
+                <a href="">列表</a>
+            </div>
+            <div class="list-item border-b">
+                <a href="">列表</a>
+            </div>
+        </div>
+        当需要根据内容高度自动调整 popup 弹窗到顶部的距离时，需要将 popup-body 换成 static 或者 position 定位方式
+    </div>
+    <div class="popup-footer bottom-bar border-t">
         <a href="javascript:;" class="popup-button">确定</a>
     </div>
 </div>

@@ -1,8 +1,8 @@
 /* 
 * @Author: shunjinchan
 * @Date:   2015-12-30 21:49:59
-* @Last Modified by:   shunjinchan
-* @Last Modified time: 2015-12-31 00:16:31
+* @Last Modified by:   pigsy.chen
+* @Last Modified time: 2016-01-08 17:29:08
 */
 
 .page-container h2 {
@@ -12,4 +12,14 @@
 .demo > div {
     margin: 10px 15px;
     font-size: 16px;
+}
+
+.popup-list .popup-body {
+    position: static;
+    padding-top: 54px;
+    padding-bottom: 54px;
+}
+
+#page-tab .tab {
+    margin-bottom: 40px;
 }

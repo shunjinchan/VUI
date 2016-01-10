@@ -2,27 +2,50 @@
 * @Author: shunjinchan
 * @Date:   2015-12-27 17:37:48
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-03 00:00:44
+* @Last Modified time: 2016-01-06 21:57:19
 */
 
 @charset "utf-8";
+@import "../_setting.scss";
 
 /* toast begin */
 
 .toast {
     background-color: rgba(0, 0, 0, 0.85);
-    border-radius: 5px;
-    /*no*/
     color: #fff;
-    // position: fixed;
-    // top: 50%;
-    // left: 50%;
-    // transform: translate3d(-50%, -50%, 0);
+    text-align: center;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: $zindex-toast;
     padding: 10px 20px;
     max-width: 200px;
-    z-index: 1080;
     width: auto;
-    text-align: center;
+    opacity: 0;
+
+    -webkit-transform: translate3d(0, 0, 0) scale(1.185);
+    transform: translate3d(0, 0, 0) scale(1.185);
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-property: opacity, -webkit-transform;
+    transition-property: opacity, -webkit-transform;
+    transition-property: transform, opacity;
+    transition-property: transform, opacity, -webkit-transform;
+
+    &.transition-in {
+        opacity: 1;
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transform: translate3d(0, 0, 0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    &.transition-out {
+        opacity: 0;
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transform: translate3d(0, 0, 0) scale(0.815);
+        transform: translate3d(0, 0, 0) scale(0.815);
+    }
 }
 
 .toast-title {

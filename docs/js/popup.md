@@ -1,6 +1,6 @@
 # popup
 
-popup 是一种可以包含任何 html 内容的弹出窗口（全屏），依赖 `backdrop.js`
+popup 是一种可以包含任何 html 内容的弹出窗口（默认全屏）
 
 ## popup 布局
 
@@ -18,12 +18,23 @@ popup 是一种可以包含任何 html 内容的弹出窗口（全屏），依�
 ```html
 <div class="popup">
     <div class="popup-header top-bar border-b">
+        <h3>标题</h3>
         <a href="" class="close" data-toggle="popup" data-action="close"></a>
     </div>
     <div class="popup-body"></div>
+    <div class="popup-footer bottom-bar border-t">
+        <a href="javascript:;" class="popup-button">确定</a>
+    </div>
 </div>
 
 ```
+
+## 方法
+
+| 方法 | Description |
+| :------------- | :------------- |
+| open | 打开弹窗，参数: `configs` 配置 |
+| close | 关闭弹窗，无参数 |
 
 ## configs
 
@@ -43,7 +54,9 @@ popup 是一种可以包含任何 html 内容的弹出窗口（全屏），依�
 举个例子：
 
 ```javascript
-var popup = new Popup({
+var popup = new Popup();
+
+popup.open({
     target: $('.popup'),
     backdrop: false,
     extraClass: 'popup-black',
@@ -53,7 +66,7 @@ var popup = new Popup({
     direction: 'from-top',
     transitionOpen: 'slide-in',
     transitionClose: 'slide-out'
-})
+});
 
 ```
 
