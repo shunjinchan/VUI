@@ -1,0 +1,80 @@
+<div class="page page-current" id='page-validator'>
+    <header class="header top-bar border-b">
+        <div class="header-left">
+            <a href="" class="header-left-button" data-toggle="route" data-action="back">返回</a>
+        </div>
+    </header>
+    <div class="page-container">
+        <div class="page-content">
+            <form class="form" id="form">
+                <div class="form-item">
+                    <label for="username">用户名：</label>
+                    <input type="text" name="" value="1234561234567" placeholder="username" id="username">
+                </div>
+                <div class="form-item">
+                    <label for="password">密码：</label>
+                    <input type="text" name="" value="1234567" placeholder="password" id="password">
+                </div>
+                <div class="form-item">
+                    <label for="phone">手机号码：</label>
+                    <input type="text" name="" value="15999943895" placeholder="phone" id="phone">
+                </div>
+                <div class="form-item">
+                    <label for="email">邮箱：</label>
+                    <input type="text" name="" value="15999943895" placeholder="email" id="email">
+                </div>
+                <div class="form-item">
+                    <label for="idCard">身份证：</label>
+                    <input type="text" name="" value="445222199008251231" placeholder="身份证" id="idCard">
+                </div>
+                <div class="form-item">
+                    <a href="javascript:;" class="button button-primary" id="submit">提交</a>
+                </div>
+            </form>
+
+            <code>
+                var form = {
+        username: document.querySelector('#username'),
+        password: document.querySelector('#password'),
+        phone: document.querySelector('#phone'),
+        idCard: document.querySelector('#idCard'),
+        email: document.querySelector('#email'),
+        submit: document.querySelector('#submit')
+    };
+
+    validator.add(form.phone, [{
+        strategy: 'isMobile',
+        errorMsg: '手机号码不符合规则'
+    }]);
+
+    validator.add(form.idCard, [{
+        strategy: 'isIdCard',
+        errorMsg: '不是有效的身份证号码'
+    }]);
+
+    validator.add(form.username, [{
+        strategy: 'isNotEmpty',
+        errorMsg: '用户名不能为空'
+    }, {
+        strategy: 'minLength:6',
+        errorMsg: '用户名长度不能小于6位'
+    }, {
+        strategy: 'maxLength:12',
+        errorMsg: '用户名长度不能大于12位'
+    }]);
+
+    validator.add(form.password, [{
+        strategy: 'isNotEmpty',
+        errorMsg: '密码不能为空'
+    }, {
+        strategy: 'minLength:10',
+        errorMsg: '密码长度不能小于10位'
+    }]);
+
+    form.submit.addEventListener('click', function(e) {
+        console.log(validator.start());
+    });
+            </code>
+        </div>
+    </div>
+</div>

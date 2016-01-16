@@ -1,8 +1,8 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-10-15 15:08:08
- * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-01-10 10:58:10
+ * @Last Modified by:   shunjinchan
+ * @Last Modified time: 2016-01-16 16:31:42
  */
 
 require('../../css/components/dialog.css');
@@ -21,14 +21,14 @@ var defaults = {
 var instance;
 
 function Dialog() {
-    //如果已经缓存了实例，则直接返回缓存的实例 
+    //如果已经缓存了实例，则直接返回缓存的实例
     if(instance instanceof Dialog){
         return instance;
-    } 
+    }
 
     this.createTime = new Date();
-    //缓存实例 
-    instance = this; 
+    //缓存实例
+    instance = this;
 
     return this;
 }
@@ -68,10 +68,17 @@ Dialog.prototype = {
         this.$box = $(dialogTemplateTempDiv).children();
         $('body').append($(dialogTemplateTempDiv).children()[0]);
 
+        this._backdrop();
+        this._setSize(animation);
+    },
+
+    _backdrop: function() {
         this.$backdrop = $('<div id="backdrop" class="backdrop"></div>');
         $('body').append(this.$backdrop);
+    },
 
-        this._setSize(animation);
+    _removeBackdrop: function() {
+        this.$backdrop && this.$backdrop.removeClass('visible');
     },
 
     _setSize: function(animation) {
@@ -119,7 +126,7 @@ Dialog.prototype = {
      */
     open: function(configs) {
         if (this.isOpen) return;
-        
+
         this._render(configs);
         this._bindEvents(configs);
         this.$backdrop && this.$backdrop.addClass('visible');
@@ -140,13 +147,14 @@ Dialog.prototype = {
             return;
         }
 
-        this.$backdrop && this.$backdrop.removeClass('visible');
+        this._removeBackdrop();
         this.$box.removeClass('transition-in').addClass('transition-out')
             .transitionEnd(function(e) {
+                // 动画结束后删除对话与背景蒙层框节点
                 self.$box.off();
                 self.$box.remove();
                 self.$box = null;
-                
+
                 self.$backdrop.off();
                 self.$backdrop.remove();
 
@@ -337,12 +345,12 @@ Dialog.prototype = {
      */
     actionSheet: function(configs) {
         if (this.isOpen) return;
-        
+
         var self = this;
         var actionSheetHTML = '';
         var buttonsHTML = '';
         var buttonText = '';
-        var groupHTML = '';
+        var bodyHTML = '';
         var footerHTML = '<div class="action-sheet-footer"><a href="javascript:;" class="action-sheet-close" data-action="close">' + defaults.dialogButtonCancel + '</a></div>';
         var titleHTML = configs.title ? '<div class="action-sheet-title">' + configs.title + '</div>' : '';
         var extraClass = configs.extraClass || '';
@@ -354,18 +362,16 @@ Dialog.prototype = {
                 buttonsHTML += '<a href="javascript:;" class="action-sheet-button">' + configs.buttons[i].text + '</a>';
             }
 
-            groupHTML = '<div class="action-sheet-group">' + buttonsHTML + '</div>';
+            bodyHTML = '<div class="action-sheet-body">' + buttonsHTML + '</div>';
         }
 
-        actionSheetHTML = '<div class="action-sheet ' + animation + ' ' + extraClass + ' ' + verticalButton + '"><div class="action-sheet-container">' + titleHTML + groupHTML + '</div>' + footerHTML + '</div>';
+        actionSheetHTML = '<div class="action-sheet ' + animation + ' ' + extraClass + ' ' + verticalButton + '"><div class="action-sheet-container">' + titleHTML + bodyHTML + '</div>' + footerHTML + '</div>';
 
         dialogTemplateTempDiv.innerHTML = actionSheetHTML;
         this.$box = $(dialogTemplateTempDiv).children();
         $('body').append($(dialogTemplateTempDiv).children()[0]);
 
-        this.$backdrop = $('<div id="backdrop" class="backdrop"></div>');
-        $('body').append(this.$backdrop);
-
+        this._backdrop();
         this._bindEvents(configs);
         this.$backdrop && this.$backdrop.addClass('visible');
         this.$box.show().removeClass('transition-out').addClass('transition-in');

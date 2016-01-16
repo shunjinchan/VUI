@@ -1,4 +1,4 @@
-/* 
+/*
 * @Author: shunjinchan
 * @Date:   2015-12-30 21:49:59
 * @Last Modified by:   pigsy.chen
@@ -18,6 +18,10 @@
     position: static;
     padding-top: 54px;
     padding-bottom: 54px;
+}
+
+.popup-top .popup-body {
+    position: static;
 }
 
 #page-tab .tab {

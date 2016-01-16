@@ -2,7 +2,7 @@
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
  * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-01-10 11:25:15
+ * @Last Modified time: 2016-01-16 16:21:15
  */
 
 var Zepto = require('./js/lib/zepto.js');
@@ -13,6 +13,8 @@ var Dialog = require('./js/components/dialog.js');
 var Loader = require('./js/components/loader.js');
 var Toast = require('./js/components/toast.js');
 var Tab = require('./js/components/tab.js');
+var Validator = require('./js/components/validator.js');
+var EventEmitter = require('./js/components/eventEmitter.js');
 
 var win = window;
 var doc = win.document;
@@ -22,6 +24,9 @@ var dialog = new Dialog();
 var loader = new Loader();
 var toast = new Toast();
 var tab = new Tab();
+var validator = new Validator();
+var emitter = new EventEmitter();
+
 
 function init() {
     $(document).on('click', '.open-popup-about', function(e) {
@@ -43,6 +48,56 @@ function init() {
             target: $('.popup-list'),
             css: {
                 top: 'auto'
+            }
+        });
+
+        popup.$box.on('closed', function() {
+            console.log('nimabi');
+        });
+    });
+
+    $(document).on('click', '.open-popup-top', function(e) {
+        e.preventDefault();
+
+        popup.open({
+            target: $('.popup-top'),
+            animation: 'from-top',
+            css: {
+                top: '0',
+                bottom: 'auto'
+            },
+            freeze: false
+        });
+
+        popup.$box.on('closed', function() {
+            console.log('nimabi');
+        });
+    });
+
+    $(document).on('click', '.open-popup-left', function(e) {
+        e.preventDefault();
+
+        popup.open({
+            target: $('.popup-left'),
+            animation: 'from-left',
+            freeze: false
+        });
+
+        popup.$box.on('closed', function() {
+            console.log('nimabi');
+        });
+    });
+
+    $(document).on('click', '.open-popup-right', function(e) {
+        e.preventDefault();
+
+        popup.open({
+            target: $('.popup-right'),
+            animation: 'from-right',
+            freeze: false,
+            css: {
+                left: 90,
+                width: 'auto'
             }
         });
 

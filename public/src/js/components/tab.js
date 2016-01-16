@@ -16,10 +16,10 @@ function Tab() {}
 Tab.prototype = {
     constructor: Tab,
 
-    init: function(configs) {
+    init: function(ele, configs) {
         var self = this;
 
-        this.control = configs.control;
+        this.control = ele || configs.control;
         this.target = [];
 
         // 收集 target
@@ -27,6 +27,7 @@ Tab.prototype = {
             self.target.push($($(this).attr('data-target')));
         });
 
+        configs = configs || defaults;
         this._bind(configs);
     },
 

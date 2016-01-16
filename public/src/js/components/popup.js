@@ -37,7 +37,6 @@ Popup.prototype = {
         var self = this;
         var animation = configs.animation || defaults.animation;
         var extraClass = configs.extraClass || '';
-        var popupHTML = configs.html || '';
         var titleHTML = configs.title ? '<div class="popup-header top-bar border-b"><h3 class="popup-title">'
             + configs.title + '</h3><a href="" class="close" data-toggle="popup" data-action="close"></a></div>' : '';
         var bodyHTML = configs.body ? '<div class="popup-body">' + configs.body + '</div>' : '';
@@ -50,15 +49,10 @@ Popup.prototype = {
             this.destory = false;
         } else {
             this.$box = $(defaults.box).appendTo('body');
-
-            if (!popupHTML) {
-                this.$box.html(titleHTML + footerHTML + bodyHTML);
-            }
+            this.$box.html(titleHTML + footerHTML + bodyHTML);
 
             this.destory = true;
         }
-
-        popupHTML && this.$box.find('.popup-body').html(popupHTML);
 
         this.$box.show();
         extraClass && this.$box.addClass(extraClass);
@@ -91,7 +85,7 @@ Popup.prototype = {
         if (this.isOpen) return;
 
         this._render(configs);
-        bindEvents();
+        bindEvents(configs);
         this.$backdrop && this.$backdrop.addClass('visible');
         this.isOpen = true;
     },
@@ -123,7 +117,9 @@ Popup.prototype = {
     }
 };
 
-function bindEvents() {
+function bindEvents(configs) {
+    var freeze = configs.freeze;
+
     instance.$box.on('click', '[data-toggle="popup"]', function(e) {
         var $target = $(e.currentTarget);
 
@@ -139,6 +135,12 @@ function bindEvents() {
         e.preventDefault();
         e.stopPropagation();
     });
+
+    if (freeze !== undefined && freeze === false) {
+        instance.$backdrop.on('click', function(e) {
+            instance.close();
+        });
+    }
 }
 
 module.exports = Popup;

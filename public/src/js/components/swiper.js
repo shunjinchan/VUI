@@ -8,7 +8,8 @@
 require('../../css/components/swiper.css');
 
 var defaults = {
-    activeClass: 'active'
+    activeClass: 'active',
+    interval: 5000
 };
 
 function Swiper() {}

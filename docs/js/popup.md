@@ -44,12 +44,10 @@ popup 是一种可以包含任何 html 内容的弹出窗口（默认全屏）
 | backdrop | 蒙层，默认为 true |
 | box | popup box |
 | extraClass | 节点附加 class，方便自行控制不同场景的样式 |
-| html | popup html，当使用该参数时，title、body都不要再配置了 |
 | title | 标题，header 不存在的话此配置无用 |
 | body | 弹窗内容，默认为空。若是 `open(param)`，param 为 string 类型的时候，默认认为这是需要插入的 html |
-| direction | 动画开始方向，默认 `from-bottom`，可选：`from-top`、`from-left`、`from-right` |
-| transitionOpen | popup 打开时的动画，默认是 `slide-in` |
-| transitionClose | popup 关闭时的动画，默认是 `slide-out` |
+| animation | 动画，默认 `from-bottom`，可选：`from-top`、`from-left`、`from-right` |
+| freeze | 为 `false` 时 `backdrop` 可触发关闭事件，默认时不可触发 |
 
 举个例子：
 
@@ -63,9 +61,7 @@ popup.open({
     box: '<div class="popup"><div class="popup-body"></div></div>',
     body: null,
     title: '日了个穿山甲',
-    direction: 'from-top',
-    transitionOpen: 'slide-in',
-    transitionClose: 'slide-out'
+    animation: 'from-top'
 });
 
 ```
