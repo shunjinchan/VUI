@@ -2,7 +2,7 @@
  * @Author: shunjinchan
  * @Date:   2016-01-12 00:13:05
  * @Last Modified by:   shunjinchan
- * @Last Modified time: 2016-01-16 16:50:47
+ * @Last Modified time: 2016-01-16 22:05:47
  */
 
 /**
@@ -29,6 +29,13 @@ var strategies = {
             return errorMsg;
         }
     },
+    /**
+     * 手机号码验证
+     * 验证规则：
+     * @param  {String}  value    待验证的值
+     * @param  {String}  errorMsg 错误信息
+     * @return {String}           错误信息
+     */
     isMobile: function(value, errorMsg) {
         if (!/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value)) {
             return errorMsg;

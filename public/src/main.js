@@ -2,7 +2,7 @@
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
  * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-01-16 16:21:15
+ * @Last Modified time: 2016-01-17 23:13:17
  */
 
 var Zepto = require('./js/lib/zepto.js');
@@ -15,6 +15,9 @@ var Toast = require('./js/components/toast.js');
 var Tab = require('./js/components/tab.js');
 var Validator = require('./js/components/validator.js');
 var EventEmitter = require('./js/components/eventEmitter.js');
+var Swiper = require('./js/components/swiper.js');
+var device = require('./js/components/device.js');
+var broswer = require('./js/utils/broswer.js');
 
 var win = window;
 var doc = win.document;
@@ -26,6 +29,9 @@ var toast = new Toast();
 var tab = new Tab();
 var validator = new Validator();
 var emitter = new EventEmitter();
+var swiper = new Swiper();
+
+
 
 
 function init() {
@@ -288,6 +294,8 @@ function init() {
             timer: 2000
         });
     });
+
+    console.log(device);
 }
 
 doc.addEventListener('DOMContentLoaded', init);

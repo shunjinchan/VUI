@@ -48,7 +48,7 @@
 	 * @Author: shunjinchan
 	 * @Date:   2015-12-25 11:23:14
 	 * @Last Modified by:   pigsy.chen
-	 * @Last Modified time: 2016-01-16 16:21:15
+	 * @Last Modified time: 2016-01-17 23:13:17
 	 */
 	
 	var Zepto = __webpack_require__(1);
@@ -61,6 +61,9 @@
 	var Tab = __webpack_require__(17);
 	var Validator = __webpack_require__(20);
 	var EventEmitter = __webpack_require__(21);
+	var Swiper = __webpack_require__(22);
+	var device = __webpack_require__(25);
+	var broswer = __webpack_require__(26);
 	
 	var win = window;
 	var doc = win.document;
@@ -72,6 +75,9 @@
 	var tab = new Tab();
 	var validator = new Validator();
 	var emitter = new EventEmitter();
+	var swiper = new Swiper();
+	
+	
 	
 	
 	function init() {
@@ -334,6 +340,8 @@
 	            timer: 2000
 	        });
 	    });
+	
+	    console.log(device);
 	}
 	
 	doc.addEventListener('DOMContentLoaded', init);
@@ -4884,7 +4892,7 @@
 	 * @Author: shunjinchan
 	 * @Date:   2016-01-12 00:13:05
 	 * @Last Modified by:   shunjinchan
-	 * @Last Modified time: 2016-01-16 16:50:47
+	 * @Last Modified time: 2016-01-16 22:05:47
 	 */
 	
 	/**
@@ -4911,6 +4919,13 @@
 	            return errorMsg;
 	        }
 	    },
+	    /**
+	     * 手机号码验证
+	     * 验证规则：
+	     * @param  {String}  value    待验证的值
+	     * @param  {String}  errorMsg 错误信息
+	     * @return {String}           错误信息
+	     */
 	    isMobile: function(value, errorMsg) {
 	        if (!/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value)) {
 	            return errorMsg;
@@ -5102,6 +5117,239 @@
 	};
 	
 	module.exports = EventEmitter;
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	* @Author: shunjinchan
+	* @Date:   2016-01-10 14:11:21
+	* @Last Modified by:   shunjinchan
+	* @Last Modified time: 2016-01-10 14:14:31
+	*/
+	
+	__webpack_require__(23);
+	
+	var defaults = {
+	    activeClass: 'active',
+	    interval: 5000
+	};
+	
+	function Swiper() {}
+	
+	Swiper.prototype = {
+	    constructor: Swiper,
+	
+	    init: function(configs) {
+	        var self = this;
+	
+	        this.control = configs.control;
+	
+	    },
+	
+	    _bind: function(configs) {
+	
+	    }
+	};
+	
+	module.exports = Swiper;
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(24);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(7)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./swiper.css", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./swiper.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(6)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "/* \n* @Author: shunjinchan\n* @Date:   2016-01-08 17:28:27\n* @Last Modified by:   shunjinchan\n* @Last Modified time: 2016-01-10 14:13:44\n*/\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImNvbXBvbmVudHMvc3dpcGVyLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7O0VBS0UiLCJmaWxlIjoiY29tcG9uZW50cy9zd2lwZXIuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogXG4qIEBBdXRob3I6IHNodW5qaW5jaGFuXG4qIEBEYXRlOiAgIDIwMTYtMDEtMDggMTc6Mjg6MjdcbiogQExhc3QgTW9kaWZpZWQgYnk6ICAgc2h1bmppbmNoYW5cbiogQExhc3QgTW9kaWZpZWQgdGltZTogMjAxNi0wMS0xMCAxNDoxMzo0NFxuKi9cblxuQGNoYXJzZXQgXCJ1dGYtOFwiO1xuQGltcG9ydCBcIi4uL19zZXR0aW5nLnNjc3NcIjtcblxuLnN3aXBlciB7XG4gICAgXG59Il0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9 */\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	/* 
+	 * @Author: Framework7
+	 * @Date:   2016-01-11 22:40:06
+	 * @Last Modified by:   shunjinchan
+	 * @Last Modified time: 2016-01-17 23:10:10
+	 * base on https://github.com/nolimits4web/Framework7/blob/master/src/js/proto-device.js
+	 */
+	
+	var device = {};
+	
+	(function() {
+	
+	    var ua = navigator.userAgent;
+	    var android = ua.match(/(Android);?[\s\/]+([\d.]+)?/);
+	    var ipad = ua.match(/(iPad).*OS\s([\d_]+)/);
+	    var ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/);
+	    var iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/);
+	    var mobile = ua.match(/android|webos|ip(hone|ad|od)|opera (mini|mobi|tablet)|iemobile|windows.+(phone|touch)|mobile|fennec|kindle (Fire)|Silk|maemo|blackberry|playbook|bb10\; (touch|kbd)|Symbian(OS)|Ubuntu Touch/i);
+	
+	    device.isMobile = device.ios = device.android = device.iphone = device.ipad = device.androidChrome = false;
+	
+	    // mobile
+	    if (mobile) {
+	        device.isMobile = true;
+	    }
+	
+	    // Android
+	    if (android) {
+	        device.os = 'android';
+	        device.osVersion = android[2];
+	        device.android = true;
+	        device.androidChrome = ua.toLowerCase().indexOf('chrome') >= 0;
+	    }
+	    if (ipad || iphone || ipod) {
+	        device.os = 'ios';
+	        device.ios = true;
+	        device.isSafari = true;
+	    }
+	    // iOS
+	    if (iphone && !ipod) {
+	        device.osVersion = iphone[2].replace(/_/g, '.');
+	        device.iphone = true;
+	    }
+	    if (ipad) {
+	        device.osVersion = ipad[2].replace(/_/g, '.');
+	        device.ipad = true;
+	    }
+	    if (ipod) {
+	        device.osVersion = ipod[3] ? ipod[3].replace(/_/g, '.') : null;
+	        device.iphone = true;
+	    }
+	    // iOS 8+ changed UA
+	    if (device.ios && device.osVersion && ua.indexOf('Version/') >= 0) {
+	        if (device.osVersion.split('.')[0] === '10') {
+	            device.osVersion = ua.toLowerCase().split('version/')[1].split(' ')[0];
+	        }
+	    }
+	
+	    // Webview
+	    device.webView = (iphone || ipad || ipod) && ua.match(/.*AppleWebKit(?!.*Safari)/i);
+	
+	    // Minimal UI
+	    if (device.os && device.os === 'ios') {
+	        var osVersionArr = device.osVersion.split('.');
+	        device.minimalUi = !device.webView &&
+	            (ipod || iphone) &&
+	            (osVersionArr[0] * 1 === 7 ? osVersionArr[1] * 1 >= 1 : osVersionArr[0] * 1 > 7) &&
+	            $('meta[name="viewport"]').length > 0 && $('meta[name="viewport"]').attr('content').indexOf('minimal-ui') >= 0;
+	    }
+	
+	    // Check for status bar and fullscreen app mode
+	    var windowWidth = $(window).width();
+	    var windowHeight = $(window).height();
+	    device.statusBar = false;
+	    if (device.webView && (windowWidth * windowHeight === screen.width * screen.height)) {
+	        device.statusBar = true;
+	    } else {
+	        device.statusBar = false;
+	    }
+	
+	    // Classes
+	    var classNames = [];
+	
+	    // Pixel Ratio
+	    device.pixelRatio = window.devicePixelRatio || 1;
+	    classNames.push('pixel-ratio-' + Math.floor(device.pixelRatio));
+	    if (device.pixelRatio >= 2) {
+	        classNames.push('retina');
+	    }
+	
+	    // OS classes
+	    if (device.os) {
+	        classNames.push(device.os, device.os + '-' + device.osVersion.split('.')[0], device.os + '-' + device.osVersion.replace(/\./g, '-'));
+	        if (device.os === 'ios') {
+	            var major = parseInt(device.osVersion.split('.')[0], 10);
+	            for (var i = major - 1; i >= 6; i--) {
+	                classNames.push('ios-gt-' + i);
+	            }
+	        }
+	
+	    }
+	    // Status bar classes
+	    if (device.statusBar) {
+	        classNames.push('with-statusbar-overlay');
+	    } else {
+	        $('html').removeClass('with-statusbar-overlay');
+	    }
+	
+	    // Add html classes
+	    if (classNames.length > 0) $('html').addClass(classNames.join(' '));
+	
+	})();
+	
+	module.exports = device;
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	/* 
+	 * @Author: shunjinchan
+	 * @Date:   2016-01-17 23:09:06
+	 * @Last Modified by:   shunjinchan
+	 * @Last Modified time: 2016-01-17 23:17:15
+	 */
+	
+	var broswer = {};
+	
+	(function() {
+	
+	    var ua = navigator.userAgent;
+	    var mobile = ua.match(/android|webos|ip(hone|ad|od)|opera (mini|mobi|tablet)|iemobile|windows.+(phone|touch)|mobile|fennec|kindle (Fire)|Silk|maemo|blackberry|playbook|bb10\; (touch|kbd)|Symbian(OS)|Ubuntu Touch/i);
+	    var isMobile = false;
+	
+	    // mobile
+	    if (mobile) {
+	        isMobile = true;
+	    }
+	
+	    if (isMobile) {
+	        broswer.isWeixin = /MicroMessenger/i.test(ua); // 微信浏览器
+	        broswer.isUCBrowser = /UC Browser|UCBrowser|UCWEB/.test(ua); // uc 浏览器
+	        broswer.isQQBroswer = /QQBrowser/.test(ua); // qq 浏览器
+	    }
+	
+	})();
+	
+	module.exports = broswer;
 
 
 /***/ }
