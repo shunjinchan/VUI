@@ -1,8 +1,8 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
- * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-01-21 01:14:02
+ * @Last Modified by:   shunjinchan
+ * @Last Modified time: 2016-01-21 12:45:54
  */
 
 var Zepto = require('./js/lib/zepto.js');
@@ -32,29 +32,6 @@ var validator = new Validator();
 var emitter = new EventEmitter();
 var swiper = new Swiper();
 var countdown = new Countdown();
-
-countdown.conf({
-    date: new Date('January 22, 2017 03:00:00'),
-    container: $('#countdown'),
-    tita: true,
-    year: true,
-    interval: 100,
-    onEnd: function() {
-        console.log('end');
-    },
-    separator: false
-    // diff: 96
-});
-
-
-
-document.querySelector('#start').addEventListener('click', function(e) {
-    countdown.start();
-});
-
-document.querySelector('#stop').addEventListener('click', function(e) {
-    countdown.stop();
-});
 
 
 
@@ -283,7 +260,8 @@ function init() {
                 onClick: function() {
                     console.log('删除2');
                 },
-                close: false
+                close: false,
+                danger: true
             }]
         });
     });

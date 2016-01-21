@@ -5,13 +5,12 @@
  * @author: pigsy.chen@vipshop.com
  */
 
+$listHeight: 24px;
+$listPadding: 12px 15px;
 .list {
     background-color: #fff;
     position: relative;
-}
-
-.list:not(:last-child) {
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 // list-item
@@ -28,31 +27,19 @@
         display: block;
         padding: 12px 15px 12px 15px;
         line-height: 24px;
+        @include clearfix();
     }
     > a {
         height: 24px;
         box-sizing: content-box;
-    }
-    > a:active {
-        background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    .list-item-inner:before,
-    > a:before,
-    .list-item-inner:after,
-    > a:after {
-        content: "";
-        display: table;
-    }
-
-    .list-item-inner:after,
-    > a:after {
-        clear: both;
+        &:active {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
     }
 }
 
 // list-header-item
-.list-header-item {
+.list-header {
     padding-top: 8px;
     padding-bottom: 8px;
     line-height: 16px;
@@ -69,20 +56,10 @@
         font-weight: normal;
         color: #222;
     }
-
     .list-item-right {
         color: #98989f;
     }
-}
-
-.list-header-item:before,
-.list-header-item:after {
-    content: "";
-    display: table;
-}
-
-.list-header-item:after {
-    clear: both;
+    @include clearfix();
 }
 
 // list-item-right
@@ -94,67 +71,59 @@
 }
 
 // arrow
-.list-item.more .list-item-right,
-.list-item.more-unfold .list-item-right,
-.list-item.less .list-item-right {
-    right: 36px;
+.list-item {
+    &.more,
+    &.more-unfold,
+    &.less {
+        .list-item-right {
+            right: 36px;
+        }
+        > a,
+        > .list-item-inner {
+            padding-right: 36px;
+        }
+        .list-item-inner {
+            &:active {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+        }
+        &::after {
+            font-family: "iconfont" !important;
+            font-size: 24px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            /*no*/
+            -moz-osx-font-smoothing: grayscale;
+            right: 9px;
+            color: #9b9b9b;
+            @include center-translate(y);
+        }
+    }
+    &.more::after {
+        content: "\e62f";
+    }
+    &.more-unfold::after {
+        content: "\e606";
+    }
+    &.less::after {
+        content: "\e604";
+    }
 }
 
-.list-item.more > a,
-.list-item.more > .list-item-inner,
-.list-item.more-unfold > a,
-.list-item.more-unfold > .list-item-inner,
-.list-item.less > a,
-.list-item.less > .list-item-inner {
-    padding-right: 36px;
-}
-
-.list-item.more > .list-item-inner:active,
-.list-item.more-unfold > .list-item-inner:active .list-item.less > .list-item-inner:active {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.list-item.more::after,
-.list-item.more-unfold::after,
-.list-item.less::after {
-    font-family: "iconfont" !important;
-    font-size: 24px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    /*no*/
-    -moz-osx-font-smoothing: grayscale;
-    right: 9px;
-    color: #9b9b9b;
-    @include center-translate(y);
-}
-
-.list-item.more::after {
-    content: "\e62f";
-}
-
-.list-item.more-unfold::after {
-    content: "\e606";
-}
-
-.list-item.less::after {
-    content: "\e604";
-}
-
-// icon-left
-.list-item.icon-left {
+// list-item-left
+.list-item-left {
     padding-left: 40px;
-}
-
-.list-item.icon-left .icon {
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    width: 25px;
-    height: 25px;
+    .icon {
+        position: absolute;
+        left: 8px;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        width: 25px;
+        height: 25px;
+    }
 }
 
 // list-item-thumb

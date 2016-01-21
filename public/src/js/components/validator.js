@@ -2,7 +2,7 @@
  * @Author: shunjinchan
  * @Date:   2016-01-12 00:13:05
  * @Last Modified by:   shunjinchan
- * @Last Modified time: 2016-01-16 22:05:47
+ * @Last Modified time: 2016-01-21 17:16:50
  */
 
 /**
@@ -25,6 +25,8 @@ var strategies = {
      * @return {String}          错误信息
      */
     isIdCard: function(value, errorMsg) {
+        errorMsg = errorMsg ? errorMsg : '身份证格式错误';
+
         if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
             return errorMsg;
         }
@@ -37,11 +39,15 @@ var strategies = {
      * @return {String}           错误信息
      */
     isMobile: function(value, errorMsg) {
+        errorMsg = errorMsg ? errorMsg : '手机号码格式错误';
+
         if (!/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value)) {
             return errorMsg;
         }
     },
     isEmail: function(value, errorMsg) {
+        errorMsg = errorMsg ? errorMsg : '邮箱地址格式错误';
+
         if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)) {
             return errorMsg;
         }
@@ -72,6 +78,10 @@ function Validator() {
 
 Validator.prototype = {
     constructor: Validator,
+
+    conf: function(configs) {
+        this.configs = configs;
+    },
 
     /**
      * 添加验证

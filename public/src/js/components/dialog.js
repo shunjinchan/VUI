@@ -53,10 +53,13 @@ Dialog.prototype = {
         var extraClass = configs.extraClass || '';
         var animation = configs.animation || defaults.animation;
         var verticalButton = configs.verticalButton ? defaults.verticalButton : '';
+        var bold;
 
         if (configs.buttons && configs.buttons.length > 0) {
             for (var i = 0; i < configs.buttons.length; i++) {
-                buttonsHTML += '<a href="javascript:;" class="dialog-button">' + configs.buttons[i].text + '</a>';
+                bold = configs.buttons[i].bold ? 'bold' : '';
+
+                buttonsHTML += '<a href="javascript:;" class="dialog-button ' + bold + '">' + configs.buttons[i].text + '</a>';
             }
 
             footerHTML = '<div class="dialog-footer">' + buttonsHTML + '</div>';
@@ -91,6 +94,7 @@ Dialog.prototype = {
 
     _bindEvents: function(configs) {
         var self = this;
+        var freeze = configs.freeze;
         var $buttons;
 
         if (configs.type === 'actionSheet') {
@@ -99,20 +103,30 @@ Dialog.prototype = {
             $buttons = this.$box.find(".dialog-button");
         }
 
+        // 为每个按钮添加回调函数
         $.each($buttons, function(index, ele) {
             $(ele).on('click', function(e) {
                 e.preventDefault();
 
                 if (configs.buttons[index].close !== false) self.close();
+
                 configs.buttons[index].onClick && configs.buttons[index].onClick(self, e);
                 configs.onClick && configs.onClick(self.$box, index);
             });
         });
 
+        // 绑定 close 事件
         this.$box.on('click', '[data-action="close"]', function(e) {
             self.close();
         });
 
+        if (freeze !== undefined && freeze === false) {
+            this.$backdrop.on('click', function(e) {
+                self.close();
+            });
+        }
+
+        // 当在蒙层滑动时，阻止默认的滑动事件
         this.$backdrop.on('touchmove', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -182,7 +196,8 @@ Dialog.prototype = {
             content: content || '',
             buttons: [{
                 text: defaults.dialogButtonOk,
-                onClick: callbackOk
+                onClick: callbackOk,
+                bold: true // 字体加粗提示
             }]
         });
     },
@@ -207,10 +222,12 @@ Dialog.prototype = {
             content: content || '',
             buttons: [{
                 text: defaults.dialogButtonCancel,
-                onClick: callbackCancel
+                onClick: callbackCancel,
+                bold: false
             }, {
                 text: defaults.dialogButtonOk,
-                onClick: callbackOk
+                onClick: callbackOk,
+                bold: true
             }]
         });
     },
@@ -236,8 +253,10 @@ Dialog.prototype = {
             afterContent: '<input type="text" class="dialog-input">',
             buttons: [{
                 text: defaults.dialogButtonCancel,
+                bold: false
             }, {
                 text: defaults.dialogButtonOk,
+                bold: true,
                 close: false // prompt 组件点击确认按钮默认不关闭，需要手动调用 close
             }],
             onClick: function(box, index) {
@@ -283,6 +302,14 @@ Dialog.prototype = {
         });
     },
 
+    /**
+     * 登陆对话框，有用户名与密码输入框
+     * @param  {String} content        对话框内容
+     * @param  {String} title          对话框标题
+     * @param  {function} callbackOk     确定按钮回调函数
+     * @param  {function} callbackCancel 取消按钮回调函数
+     * @return {[type]}                [description]
+     */
     login: function(content, title, callbackOk, callbackCancel) {
         if (typeof title === 'function') {
             callbackCancel = arguments[2];
@@ -310,6 +337,14 @@ Dialog.prototype = {
         });
     },
 
+    /**
+     * 注册对话框，有用户名密码验证码输入框
+     * @param  {String} content        对话框内容
+     * @param  {String} title          对话框标题
+     * @param  {function} callbackOk     确定按钮回调函数
+     * @param  {function} callbackCancel 取消按钮回调函数
+     * @return {[type]}                [description]
+     */
     register: function(content, title, callbackOk, callbackCancel) {
         if (typeof title === 'function') {
             callbackCancel = arguments[2];
@@ -355,17 +390,24 @@ Dialog.prototype = {
         var titleHTML = configs.title ? '<div class="action-sheet-title">' + configs.title + '</div>' : '';
         var extraClass = configs.extraClass || '';
         var animation = configs.animation || 'from-bottom';
-        var verticalButton = configs.verticalButton ? defaults.verticalButton : '';
+        var bold;
+        var danger;
+
+        // 默认 actionsheet 弹窗不锁住
+        configs.freeze = configs.freeze ? configs.freeze : false;
 
         if (configs.buttons && configs.buttons.length > 0) {
             for (var i = 0; i < configs.buttons.length; i++) {
-                buttonsHTML += '<a href="javascript:;" class="action-sheet-button">' + configs.buttons[i].text + '</a>';
+                bold = configs.buttons[i].bold ? 'bold' : '';
+                danger = configs.buttons[i].danger ? 'danger' : '';
+
+                buttonsHTML += '<a href="javascript:;" class="action-sheet-button ' + bold + danger + '">' + configs.buttons[i].text + '</a>';
             }
 
             bodyHTML = '<div class="action-sheet-body">' + buttonsHTML + '</div>';
         }
 
-        actionSheetHTML = '<div class="action-sheet ' + animation + ' ' + extraClass + ' ' + verticalButton + '"><div class="action-sheet-container">' + titleHTML + bodyHTML + '</div>' + footerHTML + '</div>';
+        actionSheetHTML = '<div class="action-sheet ' + animation + ' ' + extraClass + '"><div class="action-sheet-container">' + titleHTML + bodyHTML + '</div>' + footerHTML + '</div>';
 
         dialogTemplateTempDiv.innerHTML = actionSheetHTML;
         this.$box = $(dialogTemplateTempDiv).children();

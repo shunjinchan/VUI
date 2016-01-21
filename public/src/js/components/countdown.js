@@ -1,8 +1,8 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-10-28 18:14:08
- * @Last Modified by:   shunjinchan
- * @Last Modified time: 2016-01-21 01:13:35
+ * @Last Modified by:   pigsy.chen
+ * @Last Modified time: 2016-01-21 03:00:34
  */
 
 var defaults = {
@@ -14,9 +14,9 @@ var defaults = {
     sec: true,
     millisec: false,
     tita: false,
-    separator: false,
-    onEnd: function() {},
-    onChange: function() {}
+    separator: null,
+    onEnd: null,
+    onChange: null
 };
 
 /**
@@ -73,7 +73,14 @@ Countdown.prototype = {
         var diff;
 
         if (this.options.diff) {
-            diff = this.options.diff;
+            if (!this.startTime) {
+                this.startTime = Date.now();
+            }
+            if (!this.endTime) {
+                this.endTime = this.options.diff * 1000 + this.startTime;
+            }
+
+            diff = (this.endTime - Date.now()) / 1000;
         } else if (this.options.date) {
             diff = (this.options.date.getTime() - Date.now()) / 1000;
         } else {
@@ -96,7 +103,7 @@ Countdown.prototype = {
                 this.stop();
                 this.options.onEnd();
             }
-            
+
             this.dateData = dateData;
 
             return dateData;
@@ -191,38 +198,38 @@ Countdown.prototype = {
         if (this.options.hour) {
             separator = this.options.separator ? this.options.separator : '时';
 
-            countdownHour = '<span class="countdown-hour">' + 
-                this._addleadingZero(this.dateData.hours) + '</span>' + 
+            countdownHour = '<span class="countdown-hour">' +
+                this._addleadingZero(this.dateData.hours) + '</span>' +
                 '<span class="countdown-text">' + separator + '</span>';
         }
 
         if (this.options.min) {
             separator = this.options.separator ? this.options.separator : '分';
 
-            countdownMin = '<span class="countdown-hour">' + 
-                this._addleadingZero(this.dateData.mins) + '</span>' + 
+            countdownMin = '<span class="countdown-hour">' +
+                this._addleadingZero(this.dateData.mins) + '</span>' +
                 '<span class="countdown-text">' + separator + '</span>';
         }
 
         if (this.options.sec) {
             separator = this.options.separator ? this.options.separator : '秒';
 
-            countdownSec = '<span class="countdown-sec">' + 
-                this._addleadingZero(this.dateData.sec) + '</span>' + 
+            countdownSec = '<span class="countdown-sec">' +
+                this._addleadingZero(this.dateData.sec) + '</span>' +
                 '<span class="countdown-text">' + separator + '</span>';
         }
 
         if (this.options.millisec) {
-            countdownMillisec = '<span class="countdown-millisec">' + 
+            countdownMillisec = '<span class="countdown-millisec">' +
                 this.dateData.millisec + '</span>';
         }
 
         if (this.options.tita) {
-            countdownTita = '<span class="countdown-tita">' + 
+            countdownTita = '<span class="countdown-tita">' +
                 this.dateData.tita + '</span>';
         }
 
-        this.$box.html(countdownYear + countdownDay + countdownHour + countdownSec + countdownTita);
+        this.$box.html(countdownYear + countdownDay + countdownHour + countdownMin + countdownSec + countdownTita);
     },
 
     /**
@@ -230,6 +237,7 @@ Countdown.prototype = {
      */
     _update: function() {
         this.getDiffDate() && this._render();
+        this.options.onchange && this.options.onchange();
     },
 
     _addleadingZero: function(num) {

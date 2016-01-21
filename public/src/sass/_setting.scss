@@ -18,12 +18,12 @@ $fontFamily:                     "Helvetica Neue", Helvetica, STHeiTi, Arial, sa
 $colorText:                      #222 !default;
 $colorBg:                        #f3f4f5 !default;
 $colorBorder:                    #dbdbdb !default;
-$colorLink:                      #08c !default; // 如果只有一个值则滑过的值为这个值的darken 5%，如果有两个值则第二个值为滑过的值
+$colorLink:                      #08c !default;
 $colorPlaceholder:               #999 !default; // input placeholder color
 $colorDisabled:                  #999 #e3e3e3 #dbdbdb !default; // textColor bgColor borderColor
 
 
-$primary:                        #0078e7 !default;
+$primary:                        #222 !default; // 主色调，暂定黑色
 
 
 // z-index

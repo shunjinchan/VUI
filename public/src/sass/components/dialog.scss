@@ -8,7 +8,8 @@
 @charset "utf-8";
 @import "../_setting.scss";
 
-$colorDialogBg: rgba(255, 255, 255, 0.9);
+$colorDialogBg:         rgba(255, 255, 255, 0.9);
+$dialogButtonColor:     #007aff;
 
 /* dialog begin */
 
@@ -108,6 +109,7 @@ $colorDialogBg: rgba(255, 255, 255, 0.9);
         line-height: 44px;
         font-size: 17px;
         position: relative;
+        color: $dialogButtonColor;
         &:not(:last-child)::before {
             position: absolute;
             content: "";
@@ -119,6 +121,9 @@ $colorDialogBg: rgba(255, 255, 255, 0.9);
             border-left: 1px solid $colorBorder;
             -webkit-transform: scaleX(0.5);
             transform: scaleX(0.5);
+        }
+        &.bold {
+            font-weight: 500;
         }
     }
 }
@@ -207,6 +212,7 @@ $colorDialogBg: rgba(255, 255, 255, 0.9);
     box-sizing: border-box;
     display: block;
     position: relative;
+    color: $dialogButtonColor;
 }
 
 .action-sheet-button {
@@ -226,6 +232,14 @@ $colorDialogBg: rgba(255, 255, 255, 0.9);
         border-top: 1px solid $colorBorder;
         -webkit-transform: scaleY(0.5);
         transform: scaleY(0.5);
+    }
+    // 肯定用户操作行为默认加粗字体显示
+    &.bold {
+        font-weight: 500;
+    }
+    // 危险操作样式
+    &.danger {
+        color: #ff3b30;
     }
 }
 
