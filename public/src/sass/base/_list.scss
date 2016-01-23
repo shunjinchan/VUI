@@ -1,8 +1,8 @@
-/* 
+/*
 * @Author: shunjinchan
 * @Date:   2016-01-21 13:19:44
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-23 15:22:27
+* @Last Modified time: 2016-01-23 23:48:41
 * 列表
 */
 
@@ -11,7 +11,7 @@ $listHeight: 24px;
 $listPadding: 12px 15px;
 .list {
     position: relative;
-    margin-top: 20px;
+    margin: 20px 0;
     .list-header {
         padding: 0 10px;
         line-height: 32px;
@@ -28,6 +28,11 @@ $listPadding: 12px 15px;
         align-items: center;
         + .list-item {
             position: relative;
+        }
+        &.align-top {
+            .item-content, .item-inner {
+                align-items: flex-start;
+            }
         }
         &:not(:last-child) {
             .item-inner {
@@ -46,6 +51,15 @@ $listPadding: 12px 15px;
             color: #5f646e;
             position: relative;
             @include ellipsis-line(2);
+        }
+        &.disabled {
+            color: #ccc;
+            .item-content, .item-inner, .item-label, .item-input, .select {
+                color: #ccc !important;
+            }
+            &::after {
+                color: #ccc !important;
+            }
         }
         // arrow
         &.more,
@@ -142,8 +156,6 @@ $listPadding: 12px 15px;
         white-space: nowrap;
         flex-shrink: 0;
         margin-left: 5px;
-        display: flex;
-        max-height: 0.48rem;
     }
     // item-inner
     .item-inner {
@@ -154,7 +166,7 @@ $listPadding: 12px 15px;
         overflow: hidden;
         box-sizing: border-box;
         display: flex;
-        box-flex: 1;
+        flex-grow: 1;
         justify-content: space-between;
         align-items: center;
     }
