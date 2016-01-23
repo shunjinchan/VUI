@@ -40,7 +40,13 @@ actionsheet 有独有的结构与样式
 | Configs | Description |
 | :------------- | :------------- |
 | backdrop       | true       |
-| extraClass | 当默认样式无法满足需求时，切记**不要修改**默认的css，使用 extraClass 配置项为 dialog 添加独有的类添加个性化样式 |
+| extraClass | 当默认样式无法满足需求时，切记**不要修改**默认的 css，使用 extraClass 配置项为 dialog 添加独有的类添加个性化样式 |
+| title       | 标题       |
+| content       | 内容       |
+| afterConetent       | 紧随 content 之后的内容       |
+| animation       | 动画，默认时 `scale`       |
+| verticalButton       | 是否使用垂直方向的按钮       |
+| buttons       | 按钮，[Array]       |
 
 
 ## 例子

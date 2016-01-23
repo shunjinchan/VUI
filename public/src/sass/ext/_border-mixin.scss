@@ -1,0 +1,81 @@
+/* 
+* @Author: shunjinchan
+* @Date:   2016-01-23 01:01:03
+* @Last Modified by:   shunjinchan
+* @Last Modified time: 2016-01-23 01:54:51
+* 模拟一像素
+* @usage:
+* @media screen and (-webkit-min-device-pixel-ratio: 2) { @include border(bottom, #abcdef) }
+*/
+
+// 纵向
+%border-portrait {
+    background-repeat: repeat-x;
+    -webkit-background-size: 100% 1px; /*no*/
+}
+
+// 横向
+%border-landscape {
+    background-repeat: repeat-y;
+    -webkit-background-size: 1px 100%; /*no*/
+}
+
+@mixin border($direction: top, $borderColor: $colorBorder) {
+    @media screen and (-webkit-min-device-pixel-ratio: 2) {
+        border: 0;
+
+        @if $direction == top {
+            background-position: left top;
+            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+            // @extend border-portrait();
+            background-repeat: repeat-x;
+            -webkit-background-size: 100% 1px; /*no*/
+        }
+        @else if $direction == bottom {
+            background-position: left bottom;
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+            background-repeat: repeat-x;
+            -webkit-background-size: 100% 1px; /*no*/
+        }
+        @else if $direction == left {
+            background-position: left top;
+            background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+            background-repeat: repeat-y;
+            -webkit-background-size: 1px 100%; /*no*/
+        }
+        @else if $direction == right {
+            background-position: right top;
+            background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+            background-repeat: repeat-y;
+            -webkit-background-size: 1px 100%; /*no*/
+        }
+        @else if $direction == tb {
+            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+            background-position: top, bottom;
+            background-repeat: repeat-x;
+            -webkit-background-size: 100% 1px; /*no*/
+        }
+        @else if $direction == all {
+            position: relative;
+            &::after {
+                content: "";
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to(#ddd));
+                -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
+                background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
+                -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
+                background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
+                background-repeat: no-repeat;
+                background-position: top, right, bottom, left;
+                padding: 1px; /*no*/
+                -webkit-box-sizing: border-box;
+                z-index: 10;
+                pointer-events: none;
+            }
+        }
+    }
+}

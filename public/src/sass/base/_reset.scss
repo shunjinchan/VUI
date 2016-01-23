@@ -330,3 +330,22 @@ hr {
     margin-bottom: 0.8em;
     height: 10px;
 }
+
+// 引用
+blockquote {
+    position: relative;
+    color: #999;
+    font-weight: 400;
+    border-left: 4px solid #ccc;
+    padding-left: 0.6em;
+    margin: 1em 3em 1em 1em;
+}
+
+// 代码
+pre {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 1em 1.5em;
+    display: block;
+    -webkit-overflow-scrolling: touch;
+}

@@ -2,7 +2,7 @@
 * @Author: shunjinchan
 * @Date:   2015-12-30 23:47:50
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-08 17:28:27
+* @Last Modified time: 2016-01-23 15:32:59
 */
 
 @charset "utf-8";
@@ -16,37 +16,33 @@ $borderColor: #545e6e;
     display: table;
     width: 100%;
     position: relative;
-    &::after {
-        position: absolute;
-        content: "";
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        border-top: 1px solid $colorBorder;
-        -webkit-transform: scaleY(0.5);
-        transform: scaleY(0.5);
-        z-index: 10;
+}
+
+.tab-default {
+    .tab-title {
+        background-color: #fff;
+        @include border(bottom);
+    }
+    .tab-title-item {
+        height: 0.84rem;
+        line-height: 0.84rem;
+        font-weight: normal;
+        font-size: 0.36rem;
+        text-align: center;
+        transition: 300ms;
+        border-bottom: 2px solid transparent;
+        box-sizing: border-box;
+        &.active {
+            border-color: #0894ec;
+            color: #0894ec;
+            position: relative;
+            z-index: 11;
+        }
     }
 }
 
 .tab-title-item {
     display: table-cell;
-    height: 0.84rem;
-    line-height: 0.84rem;
-    font-weight: normal;
-    font-size: 0.36rem;
-    text-align: center;
-    transition: 300ms;
-    background-color: #fff;
-    border-bottom: 2px solid transparent;
-    box-sizing: border-box;
-    &.active {
-        border-color: #0894ec;
-        color: #0894ec;
-        position: relative;
-        z-index: 11;
-    }
 }
 
 .tab-border {
