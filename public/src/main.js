@@ -1,13 +1,12 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
- * @Last Modified by:   shunjinchan
- * @Last Modified time: 2016-01-21 12:45:54
+ * @Last Modified by:   pigsy.chen
+ * @Last Modified time: 2016-01-24 00:57:11
  */
 
 var Zepto = require('./js/lib/zepto.js');
 
-var Router = require('./js/components/router.js');
 var Popup = require('./js/components/popup.js');
 var Dialog = require('./js/components/dialog.js');
 var Loader = require('./js/components/loader.js');

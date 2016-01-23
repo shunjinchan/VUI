@@ -1,9 +1,10 @@
-@charset "utf-8";
+/* 
+* @Author: shunjinchan
+* @Date:   2015-12-27 17:37:48
+* @Last Modified by:   shunjinchan
+* @Last Modified time: 2016-01-24 00:15:05
+*/
 
-/**
- * utilities，通用功能类
- * @author: pigsy.chen@vipshop.com
- */
 
 .pull-left {
     float: left;
@@ -57,10 +58,6 @@
 
 .fixed-bottom {
     bottom: 0;
-}
-
-.highlight {
-    color: #e80080;
 }
 
 .clearfix:before,

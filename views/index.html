@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta content="telephone=no" name="format-detection">
+        <title><%= title %></title>
+        <link rel='stylesheet' href='/src/css/base.css' />
+        <link rel='stylesheet' href='/src/demos/style.css' />
+    </head>
+    <body>
+        <% include ./modules/index/header.ejs %>
+        <% include ./modules/index/tab-bar.ejs %>
+
+        <div class="page page-current">
+            <div class="page-container">
+                <div class="list">
+                    <h2 class="list-header">例子</h2>
+                    <ul>
+                        <li class="list-item more">
+                            <a href="demos/popup.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">弹窗</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item more">
+                            <a href="demos/dialog.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">对话框</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item more">
+                            <a href="demos/loader.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">loader</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item more">
+                            <a href="demos/toast.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">toast</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item more">
+                            <a href="demos/tab.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">tab 切换</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item more">
+                            <a href="demos/swiper.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">swiper 切换</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item more">
+                            <a href="demos/list.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">列表</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item more">
+                            <a href="demos/icon.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">iconfont</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item more">
+                            <a href="demos/form.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">form</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-item more">
+                            <a href="demos/button.html" class="item-content" title="" data-toggle="route" data-action="load">
+                                <div class="item-inner">
+                                    <p class="item-title">button</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script src="/assets/bundle.js"></script>
+
+    </body>
+</html>

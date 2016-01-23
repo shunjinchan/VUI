@@ -1,61 +1,64 @@
-@charset "utf-8";
-/**
- * 头部
- * @author: pigsy.chen@vipshop.com
- */
+/* 
+* @Author: shunjinchan
+* @Date:   2015-12-27 17:37:48
+* @Last Modified by:   shunjinchan
+* @Last Modified time: 2016-01-24 00:07:29
+*/
+
+@import "../_setting.scss";
+$headerHeight: 44px;
+$headerBgColor: #fbfbfa;
 .header {
-  height: 44px;
-  line-height: 44px;
-  overflow: hidden;
-  font-size: 14px;
-  background-color: #fbfbfa;
-  text-align: center;
+    height: $headerHeight;
+    line-height: $headerHeight;
+    overflow: hidden;
+    font-size: 14px;
+    background-color: $headerBgColor;
+    text-align: center;
 }
 
 .header-title {
-  display: inline-block;
-  height: 44px;
-  color: #222;
-  > h1 {
-    font-size: 18px;
-    font-weight: normal;
-    display: inline;
-  }
-  > sub {
-    font-size: 13px;
-    vertical-align: baseline;
-    color: #98989f;
-  }
+    display: inline-block;
+    height: $headerHeight;
+    > h1 {
+        font-size: 18px;
+        font-weight: normal;
+        display: inline;
+    }
+    > sub {
+        font-size: 13px;
+        vertical-align: baseline;
+        color: #98989f;
+    }
 }
 
-.header-left, .header-right {
-  height: 44px;
+.header-left,
+.header-right {
+    height: $headerHeight;
 }
 
 .header-left {
-  float: left;
+    float: left;
 }
 
 .header-right {
-  float: right;
+    float: right;
 }
 
-.header-left-button, .header-right-button {
-  display: block;
-  padding: 0 15px;
-  height: 100%;
-  font-size: 16px;
-  color: #222;
-  .iconfont {
-    font-size: 24px;
-    color: #222;
-  }
-}
-
-.header-left-button:hover, .header-left-button:active, .header-right-button:hover, .header-right-button:active {
-  opacity: 0.3;
+.header-left-button,
+.header-right-button {
+    display: block;
+    padding: 0 15px;
+    height: 100%;
+    font-size: 16px;
+    &:active {
+        opacity: 0.3;
+    }
+    .iconfont {
+        font-size: 24px;
+    }
 }
 
 .header.fixed-top ~ .page {
-  padding-top: 44px;
+    padding-top: $headerHeight;
 }

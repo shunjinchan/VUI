@@ -1,8 +1,11 @@
-@charset "UTF-8";
+/* 
+* @Author: shunjinchan
+* @Date:   2016-01-23 01:01:22
+* @Last Modified by:   shunjinchan
+* @Last Modified time: 2016-01-24 00:15:35
+*/
 
-//----------------------------------------------------- 
-// variables scss
-//----------------------------------------------------- 
+@charset "UTF-8";
 
 @import "ext/_mixin.scss";
 @import "ext/_border-mixin.scss";
@@ -19,12 +22,13 @@ $fontFamily:                     "Helvetica Neue", Helvetica, STHeiTi, Arial, sa
 $colorText:                      #222 !default;
 $colorBg:                        #f3f4f5 !default;
 $colorBorder:                    #dbdbdb !default;
-$colorLink:                      #08c !default;
+$colorLink:                      #222 !default;
 $colorPlaceholder:               #999 !default; // input placeholder color
-$colorDisabled:                  #999 #e3e3e3 #dbdbdb !default; // textColor bgColor borderColor
+$colorDisabled:                  #999 !default; // textColor
 
 
 $primary:                        #222 !default; // 主色调，暂定黑色
+$black:                          #222 !default;
 
 
 // z-index
