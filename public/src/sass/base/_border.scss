@@ -2,42 +2,40 @@
 * @Author: shunjinchan
 * @Date:   2016-01-23 01:24:54
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-23 23:59:29
+* @Last Modified time: 2016-01-24 17:47:01
 * 模拟一像素
 */
 
 @import "../_setting.scss";
 
-$borderColor:        $colorBorder;
-
 .border-t {
-    border-top: 1px solid $borderColor; /*no*/
+    border-top: 1px solid  $color-border; /*no*/
 }
 
 .border-b {
-    border-bottom: 1px solid $borderColor; /*no*/
+    border-bottom: 1px solid  $color-border; /*no*/
 }
 
 .border-tb {
-    border-top: $borderColor 1px solid; /*no*/
-    border-bottom: $borderColor 1px solid; /*no*/
+    border-top:  $color-border 1px solid; /*no*/
+    border-bottom:  $color-border 1px solid; /*no*/
     background-image: none;
 }
 
 .border-l {
-    border-left: 1px solid $borderColor; /*no*/
+    border-left: 1px solid  $color-border; /*no*/
 }
 
 .border-r {
-    border-right: 1px solid $borderColor; /*no*/
+    border-right: 1px solid  $color-border; /*no*/
 }
 
 .border {
-    border: 1px solid $borderColor; /*no*/
+    border: 1px solid  $color-border; /*no*/
 }
 
 .border-radius {
-    border: 1px solid $borderColor; /*no*/
+    border: 1px solid  $color-border; /*no*/
     border-radius: 3px; /*no*/
 }
 
@@ -53,7 +51,7 @@ $borderColor:        $colorBorder;
         position: absolute;
         top: 0;
         left: 0;
-        border: 1px solid $borderColor;
+        border: 1px solid  $color-border;
         -webkit-transform: scale(0.5);
         -webkit-transform-origin: 0 0;
         padding: 1px; /*no*/
@@ -77,11 +75,11 @@ $borderColor:        $colorBorder;
     }
     .border-t {
         background-position: left top;
-        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border));
     }
     .border-b {
         background-position: left bottom;
-        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border));
     }
     .border-t,
     .border-b,
@@ -90,16 +88,16 @@ $borderColor:        $colorBorder;
         -webkit-background-size: 100% 1px; /*no*/
     }
     .border-tb {
-        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border));
         background-position: top, bottom;
     }
     .border-l {
         background-position: left top;
-        background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+        background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border));
     }
     .border-r {
         background-position: right top;
-        background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+        background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border));
     }
     .border-l,
     .border-r {
@@ -113,7 +111,7 @@ $borderColor:        $colorBorder;
         position: absolute;
         top: 0;
         left: 0;
-        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
+        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border)), -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border)), -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5,  $color-border), to( $color-border));
         -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
         background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
         -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/

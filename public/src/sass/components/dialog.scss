@@ -2,20 +2,19 @@
 * @Author: shunjinchan
 * @Date:   2015-12-27 17:37:48
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-10 11:32:58
+* @Last Modified time: 2016-01-25 01:00:22
 */
 
-@charset "utf-8";
 @import "../_setting.scss";
 
-$colorDialogBg:         rgba(255, 255, 255, 0.9);
-$dialogButtonColor:     #007aff;
+$color-dialog-bg:              rgba(255, 255, 255, 0.9);
+$dialog-button-text-color:     #007aff;
 
 /* dialog begin */
 
 .dialog {
     width: 270px;
-    background-color: $colorDialogBg;
+    background-color: $color-dialog-bg;
     text-align: center;
     border-radius: 6px;
     position: absolute;
@@ -31,18 +30,19 @@ $dialogButtonColor:     #007aff;
         .dialog-button {
             display: block;
             width: 100%;
-            &:not(:last-child)::before {
-                position: absolute;
-                content: "";
-                left: 0;
-                right: 0;
-                top: auto;
-                bottom: 0;
-                width: 100%;
-                border-top: 1px solid $colorBorder;
-                -webkit-transform: scaleY(0.5);
-                transform: scaleY(0.5);
-            }
+            @include border(top, $color-border);
+            // &:not(:last-child)::before {
+                // position: absolute;
+                // content: "";
+                // left: 0;
+                // right: 0;
+                // top: auto;
+                // bottom: 0;
+                // width: 100%;
+                // border-top: 1px solid $color-border;
+                // -webkit-transform: scaleY(0.5);
+                // transform: scaleY(0.5);
+            // }
         }
     }
 }
@@ -93,35 +93,37 @@ $dialogButtonColor:     #007aff;
     height: 44px;
     position: relative;
     @include equal-flex(a);
-    &::before {
-        position: absolute;
-        content: "";
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        border-top: 1px solid $colorBorder;
-        -webkit-transform: scaleY(0.5);
-        transform: scaleY(0.5);
-    }
+    @include border(top, $color-border);
+    // &::before {
+        // position: absolute;
+        // content: "";
+        // top: 0;
+        // left: 0;
+        // right: 0;
+        // width: 100%;
+        // border-top: 1px solid $color-border;
+        // -webkit-transform: scaleY(0.5);
+        // transform: scaleY(0.5);
+    // }
     .dialog-button {
         height: 44px;
         line-height: 44px;
         font-size: 17px;
         position: relative;
-        color: $dialogButtonColor;
-        &:not(:last-child)::before {
-            position: absolute;
-            content: "";
-            top: 0;
-            bottom: 0;
-            left: auto;
-            right: 0;
-            width: 0;
-            border-left: 1px solid $colorBorder;
-            -webkit-transform: scaleX(0.5);
-            transform: scaleX(0.5);
-        }
+        color: $dialog-button-text-color;
+        @include border(left, $color-border);
+        // &:not(:last-child)::before {
+            // position: absolute;
+            // content: "";
+            // top: 0;
+            // bottom: 0;
+            // left: auto;
+            // right: 0;
+            // width: 0;
+            // border-left: 1px solid $color-border;
+            // -webkit-transform: scaleX(0.5);
+            // transform: scaleX(0.5);
+        // }
         &.bold {
             font-weight: 500;
         }
@@ -172,7 +174,7 @@ $dialogButtonColor:     #007aff;
 }
 
 .action-sheet-title {
-    background-color: $colorDialogBg;
+    background-color: $color-dialog-bg;
     font-size: 14px;
     line-height: 18px;
     padding: 15px 25px;
@@ -180,17 +182,18 @@ $dialogButtonColor:     #007aff;
     text-align: center;
     color: #777;
     position: relative;
-    &::before {
-        position: absolute;
-        content: "";
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        border-top: 1px solid $colorBorder;
-        -webkit-transform: scaleY(0.5);
-        transform: scaleY(0.5);
-    }
+    @include border(bottom, $color-border);
+    // &::before {
+        // position: absolute;
+        // content: "";
+        // bottom: 0;
+        // left: 0;
+        // right: 0;
+        // width: 100%;
+        // border-top: 1px solid $color-border;
+        // -webkit-transform: scaleY(0.5);
+        // transform: scaleY(0.5);
+    // }
     + .action-sheet-body {
         .action-sheet-button {
             &:first-child {
@@ -202,7 +205,7 @@ $dialogButtonColor:     #007aff;
 
 .action-sheet-button,
 .action-sheet-close {
-    background-color: $colorDialogBg;
+    background-color: $color-dialog-bg;
     font-size: 18px;
     line-height: 24px;
     padding: 15px 25px;
@@ -212,27 +215,28 @@ $dialogButtonColor:     #007aff;
     box-sizing: border-box;
     display: block;
     position: relative;
-    color: $dialogButtonColor;
+    color: $dialog-button-text-color;
 }
 
 .action-sheet-button {
+    @include border(bottom, $color-border);
     &:first-child {
         border-radius: 8px 8px 0 0;
     }
     &:last-child {
         border-radius: 0 0 8px 8px;
     }
-    &:not(:last-child)::before {
-        position: absolute;
-        content: "";
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        border-top: 1px solid $colorBorder;
-        -webkit-transform: scaleY(0.5);
-        transform: scaleY(0.5);
-    }
+    // &:not(:last-child)::before {
+        // position: absolute;
+        // content: "";
+        // bottom: 0;
+        // left: 0;
+        // right: 0;
+        // width: 100%;
+        // border-top: 1px solid $color-border;
+        // -webkit-transform: scaleY(0.5);
+        // transform: scaleY(0.5);
+    // }
     // 肯定用户操作行为默认加粗字体显示
     &.bold {
         font-weight: 500;

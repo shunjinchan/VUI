@@ -2,7 +2,7 @@
 * @Author: shunjinchan
 * @Date:   2015-12-30 21:49:59
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-23 16:09:12
+* @Last Modified time: 2016-01-25 00:46:53
 */
 
 .page-container h2 {
@@ -55,4 +55,25 @@
 
 .icon_lists .icon:hover {
     font-size: 100px;
+}
+#page-tab .page-content {
+    margin: 20px 0;
+}
+#page-tab .buttons-row {
+    margin: 0 20px;
+}
+
+#page-button .page-content {
+    padding: 0 20px;
+}
+#page-button .button {
+    margin: 20px 0;
+}
+
+#page-button .buttons-tab {
+    margin: 20px 0;
+}
+
+#page-button .buttons-tab .button {
+    margin: 0;
 }

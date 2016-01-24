@@ -2,7 +2,7 @@
 * @Author: shunjinchan
 * @Date:   2016-01-23 01:01:03
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-23 01:54:51
+* @Last Modified time: 2016-01-25 00:34:39
 * 模拟一像素
 * @usage:
 * @media screen and (-webkit-min-device-pixel-ratio: 2) { @include border(bottom, #abcdef) }
@@ -13,17 +13,14 @@
     background-repeat: repeat-x;
     -webkit-background-size: 100% 1px; /*no*/
 }
-
 // 横向
 %border-landscape {
     background-repeat: repeat-y;
     -webkit-background-size: 1px 100%; /*no*/
 }
-
-@mixin border($direction: top, $borderColor: $colorBorder) {
+@mixin border($direction: top, $borderColor: $color-border) {
     @media screen and (-webkit-min-device-pixel-ratio: 2) {
         border: 0;
-
         @if $direction == top {
             background-position: left top;
             background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));

@@ -2,7 +2,7 @@
 * @Author: shunjinchan
 * @Date:   2015-12-27 17:37:48
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-24 00:07:29
+* @Last Modified time: 2016-01-25 01:02:20
 */
 
 @import "../_setting.scss";
@@ -15,6 +15,7 @@ $headerBgColor: #fbfbfa;
     font-size: 14px;
     background-color: $headerBgColor;
     text-align: center;
+    @include border(bottom, $color-border);
 }
 
 .header-title {

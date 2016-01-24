@@ -1,8 +1,8 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
- * @Last Modified by:   shunjinchan
- * @Last Modified time: 2016-01-24 17:12:02
+ * @Last Modified by:   pigsy.chen
+ * @Last Modified time: 2016-01-24 17:16:07
  */
 
 var Zepto = require('./js/lib/zepto.js');
@@ -119,18 +119,6 @@ function openPopup() {
             title: 'title',
             body: 'body',
             footer: 'footer'
-        });
-
-        popup.$box.on('closed', function() {
-            console.log('nimabi');
-        });
-    });
-
-    $(document).on('click', '.open-popup-html', function(e) {
-        e.preventDefault();
-
-        popup.open({
-            html: 'popup html'
         });
 
         popup.$box.on('closed', function() {

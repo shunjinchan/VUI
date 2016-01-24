@@ -1,10 +1,3 @@
-/* 
-* @Author: shunjinchan
-* @Date:   2016-01-23 01:01:22
-* @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-24 00:15:35
-*/
-
 @charset "UTF-8";
 
 @import "ext/_mixin.scss";
@@ -13,22 +6,34 @@
 
 // font相关
 //----------------------------------------------------- 
-$fontSize:                       14px !default; 
-$fontLineHeight:                 1.5 !default;
-$fontFamily:                     "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !default;
-
-// 背景色，文本色，边框色，链接色
-//----------------------------------------------------- 
-$colorText:                      #222 !default;
-$colorBg:                        #f3f4f5 !default;
-$colorBorder:                    #dbdbdb !default;
-$colorLink:                      #222 !default;
-$colorPlaceholder:               #999 !default; // input placeholder color
-$colorDisabled:                  #999 !default; // textColor
+$font-size:                       14px !default; 
+$font-line-height:                1.5 !default;
+$font-family:                     "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif !default;
 
 
-$primary:                        #222 !default; // 主色调，暂定黑色
-$black:                          #222 !default;
+// 主色
+//-----------------------------------------------------
+$color-primary:                            #0894ec !default;
+$color-danger:                             #f6383a !default;
+$color-warning:                            #f60 !default;
+$color-success:                            #4cd964 !default;
+
+$color-primary-active:                     #0a8ddf !default;
+$color-danger-active:                      darken($color-danger, 10%) !default;
+$color-warning-active:                     darken($color-warning, 10%) !default;
+$color-success-active:                     darken($color-success, 10%) !default;
+
+$color-border:                             #dbdbdb !default;  // 分割线的颜色
+$color-bg:                                 #f3f4f5 !default; // 背景色
+$color-text:                               #3d4145 !default; // 文案色
+$color-text-secondary:                     #5f646e !default; // 次级文案
+$color-text-gray:                          #999 !default; // 灰色文案
+$color-text-gray-light:                    #ccc !default; // 更灰色文案
+
+
+// 链接色
+$color-link:                               $color-primary !default; // 链接色有可能不同于主色
+$color-link-active:                        $color-primary-active !default; // 链接色有可能不同于主色
 
 
 // z-index

@@ -1,86 +1,182 @@
-@charset "utf-8";
+/* 
+* @Author: shunjinchan
+* @Date:   2016-01-24 00:29:43
+* @Last Modified by:   shunjinchan
+* @Last Modified time: 2016-01-25 00:48:31
+*/
 
-/**
- * 按钮
- * @author: pigsy.chen@vipshop.com
- */
-
-.button {
-    display: inline-block;
+@import "../_setting.scss";
+$button-height: 32px;
+$button-big-height: 44px;
+$button-disabled: #c8c9cb #c8c9cb #c8c9cb !default; // textColor borderColor bgColor
+// Buttons
+@mixin button($color: $color-primary, $color-active: $color-primary-active) {
+    border: 1px solid $color;
+    color: $color;
+    text-decoration: none;
     text-align: center;
-    border: 0 none;
-    outline: 0;
-    background-color: #fff;
-    padding: 0 14px;
-    border-radius: 2px;
-    /*no*/
-}
-
-.button-primary {
-    line-height: 44px;
-    background-color: #de3d96;
-    color: #fff;
-    font-size: 16px;
-}
-
-.button-primary:active {
-    background-color: #cb2b82;
-}
-
-.button-primary.disabled {
-    background-color: #e0e0e1;
-    color: #bfbfbf;
-    cursor: default;
-    pointer-events: none;
-}
-
-.button-border {
-    background-color: #fff;
+    display: block;
+    border-radius: 3px;
+    line-height: ($button-height - 2px);
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    background: none;
+    padding: 0 10px;
+    margin: 0;
+    height: $button-height;
+    white-space: nowrap;
     position: relative;
-    line-height: 28px;
-    font-size: 12px;
-    border: 1px solid #e4007f;
-    /*no*/
-}
-
-.button-border:active {
-    opacity: 0.3;
-}
-
-.button-border.disabled {
-    background-color: #fff;
-    cursor: default;
-    pointer-events: none;
-    border-color: #dbdbdf;
-    color: #dbdbdf;
-}
-
-.button-border-default {
-    line-height: 28px;
-    font-size: 12px;
-}
-
-.button-border-large {
-    line-height: 34px;
+    text-overflow: ellipsis;
     font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    input[type="submit"]&,
+    input[type="button"]& {
+        width: 100%;
+    }
+    &:active {
+        color: $color-active;
+        border-color: $color-active;
+    }
+    &.button-round {
+        border-radius: ($button-height - 2px);
+    }
+    &.active {
+        &,
+        &:active {
+            color: $color-active;
+            border-color: $color-active;
+        }
+    }
+    &.button-big {
+        font-size: 16px;
+        height: $button-big-height;
+        line-height: ($button-big-height - 2px);
+    }
+    &.button-fill {
+        color: #fff;
+        background: $color;
+        border: none;
+        line-height: $button-height;
+        &.active,
+        &:active {
+            background: $color-active;
+        }
+        &.button-big {
+            line-height: $button-big-height;
+        }
+        &.disabled {
+            background-color: nth($button-disabled, 3);
+            color: #fff;
+        }
+    }
+    .button-link {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: $color;
+        background-color: transparent;
+        border: 0;
+    }
+    i.icon {
+        &:first-child {
+            margin-right: 10px;
+        }
+        &:last-child {
+            margin-left: 10px;
+        }
+        &:first-child:last-child {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+    &.disabled {
+        border-color: nth($button-disabled, 1);
+        color: nth($button-disabled, 2);
+        cursor: not-allow;
+    }
 }
 
-.button-border-small {
-    line-height: 22px;
-    font-size: 12px;
+// button-primary
+.button {
+    @include button($color-primary, $color-primary-active);
 }
 
-.button-border-primary {
-    border-color: #e4007f;
-    color: #e4007f;
+.button-success {
+    @include button($color-success, $color-success-active);
 }
 
-.button-border-black {
-    border-color: #585c64;
-    color: #585c64;
+.button-danger {
+    @include button($color-danger, $color-danger-active);
 }
 
-.button-border-gray {
-    border-color: #98989f;
-    color: #98989f;
+.button-warning {
+    @include button($color-warning, $color-warning-active);
+}
+
+.buttons-row,
+.buttons-tab {
+    display: flex;
+    align-self: center;
+    flex-wrap: nowrap;
+}
+
+.buttons-row {
+    .button {
+        border-radius: 0 0 0 0;
+        width: 100%;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        border-color: $color-primary;
+        color: $color-primary;
+        &.active {
+            background-color: $color-primary;
+            color: white;
+            z-index: 100;
+        }
+        &:active {}
+    }
+    .button:first-child {
+        border-radius: 4px 0 0 4px;
+        margin-left: 0;
+        border-left-width: 1px;
+        border-left-style: solid;
+    }
+    .button:last-child {
+        border-radius: 0 4px 4px 0;
+    }
+    .button:not(:last-child) {
+        border-right-color: transparent;
+    }
+    .button.button-round:first-child {
+        border-radius: 27px 0 0 27px;
+    }
+    .button.button-round:last-child {
+        border-radius: 0 27px 27px 0;
+    }
+}
+
+.buttons-tab {
+    background: white;
+    position: relative;
+    @include border(bottom, $color-border);
+    .button {
+        color: $color-text-secondary;
+        font-size: 16px;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        border-radius: 0;
+        &.active {
+            color: $color-primary;
+            border-color: $color-primary;
+            z-index: 100;
+        }
+    }
 }

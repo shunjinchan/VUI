@@ -2,84 +2,11 @@
 * @Author: shunjinchan
 * @Date:   2015-12-30 23:47:50
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-23 15:32:59
+* @Last Modified time: 2016-01-25 00:45:09
 */
 
-@charset "utf-8";
 @import "../_setting.scss";
 
-/* tab begin */
-
-$textColor: #545e6e;
-$borderColor: #545e6e;
-.tab-title {
-    display: table;
-    width: 100%;
-    position: relative;
-}
-
-.tab-default {
-    .tab-title {
-        background-color: #fff;
-        @include border(bottom);
-    }
-    .tab-title-item {
-        height: 0.84rem;
-        line-height: 0.84rem;
-        font-weight: normal;
-        font-size: 0.36rem;
-        text-align: center;
-        transition: 300ms;
-        border-bottom: 2px solid transparent;
-        box-sizing: border-box;
-        &.active {
-            border-color: #0894ec;
-            color: #0894ec;
-            position: relative;
-            z-index: 11;
-        }
-    }
-}
-
-.tab-title-item {
-    display: table-cell;
-}
-
-.tab-border {
-    .tab-title-item {
-        height: 0.54rem;
-        line-height: 0.54rem;
-        font-weight: normal;
-        font-size: 0.28rem;
-        text-align: center;
-        color: $textColor;
-        transition: 300ms;
-        border-top: 1px solid $borderColor;
-        /*no*/
-        border-bottom: 1px solid $borderColor;
-        /*no*/
-        border-right: 1px solid $borderColor;
-        /*no*/
-        &:first-child {
-            border-radius: 2px 0 0 2px;
-            /*no*/
-        }
-        &:last-child {
-            border-radius: 0 2px 2px 0;
-            /*no*/
-            border-right: 1px solid $borderColor;
-            /*no*/
-        }
-        &.active {
-            background-color: $borderColor;
-            color: #fff;
-            border-color: $borderColor;
-        }
-        &.active + .tab-title-item {
-            border-left-color: $borderColor;
-        }
-    }
-}
 
 .tab-content {}
 
@@ -90,6 +17,3 @@ $borderColor: #545e6e;
         display: block;
     }
 }
-
-
-/* tab end */
