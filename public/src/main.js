@@ -1,8 +1,8 @@
 /*
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
- * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-01-24 00:57:11
+ * @Last Modified by:   shunjinchan
+ * @Last Modified time: 2016-01-24 17:12:02
  */
 
 var Zepto = require('./js/lib/zepto.js');
@@ -33,9 +33,7 @@ var swiper = new Swiper();
 var countdown = new Countdown();
 
 
-
-
-function init() {
+function openPopup() {
     $(document).on('click', '.open-popup-about', function(e) {
         e.preventDefault();
 
@@ -139,9 +137,9 @@ function init() {
             console.log('nimabi');
         });
     });
+}
 
-
-
+function openDialog() {
     $(document).on('click', '.open-alert', function(e) {
         e.preventDefault();
 
@@ -270,7 +268,9 @@ function init() {
 
         loader.open('nimabi');
     });
+}
 
+function openLoader() {
     $(document).on('click', '.open-loader2', function(e) {
         e.preventDefault();
 
@@ -280,7 +280,9 @@ function init() {
             timer: 2000
         });
     });
+}
 
+function openToast() {
     $(document).on('click', '.open-toast', function(e) {
         e.preventDefault();
 
@@ -296,7 +298,14 @@ function init() {
             timer: 2000
         });
     });
+}
 
+
+function init() {
+    openPopup();
+    openDialog();
+    openLoader();
+    openToast();
     console.log(device);
 }
 

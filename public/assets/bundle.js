@@ -47,8 +47,8 @@
 	/*
 	 * @Author: shunjinchan
 	 * @Date:   2015-12-25 11:23:14
-	 * @Last Modified by:   pigsy.chen
-	 * @Last Modified time: 2016-01-24 00:57:11
+	 * @Last Modified by:   shunjinchan
+	 * @Last Modified time: 2016-01-24 17:12:02
 	 */
 	
 	var Zepto = __webpack_require__(1);
@@ -79,9 +79,7 @@
 	var countdown = new Countdown();
 	
 	
-	
-	
-	function init() {
+	function openPopup() {
 	    $(document).on('click', '.open-popup-about', function(e) {
 	        e.preventDefault();
 	
@@ -185,9 +183,9 @@
 	            console.log('nimabi');
 	        });
 	    });
+	}
 	
-	
-	
+	function openDialog() {
 	    $(document).on('click', '.open-alert', function(e) {
 	        e.preventDefault();
 	
@@ -316,7 +314,9 @@
 	
 	        loader.open('nimabi');
 	    });
+	}
 	
+	function openLoader() {
 	    $(document).on('click', '.open-loader2', function(e) {
 	        e.preventDefault();
 	
@@ -326,7 +326,9 @@
 	            timer: 2000
 	        });
 	    });
+	}
 	
+	function openToast() {
 	    $(document).on('click', '.open-toast', function(e) {
 	        e.preventDefault();
 	
@@ -342,7 +344,14 @@
 	            timer: 2000
 	        });
 	    });
+	}
 	
+	
+	function init() {
+	    openPopup();
+	    openDialog();
+	    openLoader();
+	    openToast();
 	    console.log(device);
 	}
 	

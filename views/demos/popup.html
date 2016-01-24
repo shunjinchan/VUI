@@ -1,86 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta content="telephone=no" name="format-detection">
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/src/css/base.css' />
-    <link rel='stylesheet' href='/src/demos/style.css' />
-</head>
-    <body>
-        <div class="page page-current" id='page-popup'>
-            <header class="header top-bar border-b">
-                <div class="header-left">
-                    <a href="" class="header-left-button" data-toggle="route" data-action="back">返回</a>
-                </div>
-            </header>
-            <div class="page-container">
-                <div class="page-content">
-                    <div class="demo">
-                        <div class="open-popup-about">popup-about</div>
-                        <div class="open-popup-list">popup-list</div>
-                        <div class="open-popup-top">popup-top</div>
-                        <div class="open-popup-left">popup-left</div>
-                        <div class="open-popup-right">popup-right</div>
-                        <div class="open-popup">popup</div>
-                        <div class="open-popup-html">popup-html</div>
-                    </div>
-                </div>
+<% include ../includes/head.ejs %>
+<% include ../modules/demos/header.ejs %>
+
+<div class="page page-current" id='page-popup'>
+    <div class="page-container">
+        <div class="page-content">
+            <div class="demo">
+                <div class="open-popup-about">popup-about</div>
+                <div class="open-popup-list">popup-list</div>
+                <div class="open-popup-top">popup-top</div>
+                <div class="open-popup-left">popup-left</div>
+                <div class="open-popup-right">popup-right</div>
+                <div class="open-popup">popup</div>
+                <div class="open-popup-html">popup-html</div>
             </div>
         </div>
-        <div class="popup popup-about">
-            <div class="popup-header top-bar border-b">
-                <h3 class="popup-title">标题</h3>
-                <a href="" class="close" data-toggle="popup" data-action="close"></a>
-            </div>
-            <div class="popup-footer bottom-bar border-t">
-                <a href="javascript:;" class="popup-button">确定</a>
-            </div>
-            <div class="popup-body">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>
-        </div>
-        <div class="popup popup-list">
-            <div class="popup-header top-bar border-b">
-                <h3 class="popup-title">标题</h3>
-                <a href="" class="close" data-toggle="popup" data-action="close"></a>
-            </div>
-            <div class="popup-body">
-                当需要根据内容高度自动调整 popup 高度时，需要将 popup-body 换成 static 或者 position 定位方式
-            </div>
-            <div class="popup-footer bottom-bar border-t">
-                <a href="javascript:;" class="popup-button">确定</a>
-            </div>
-        </div>
-        <div class="popup popup-top">
-            <div class="popup-body">
-                当需要根据内容高度自动调整 popup 高度时，需要将 popup-body 换成 static 或者 position 定位方式
-            </div>
-        </div>
-        <div class="popup popup-left">
-            <div class="popup-header top-bar border-b">
-                <h3 class="popup-title">标题</h3>
-                <a href="" class="close" data-toggle="popup" data-action="close"></a>
-            </div>
-            <div class="popup-body">
-                <pre>
+    </div>
+</div>
+<div class="popup popup-about">
+    <div class="popup-header top-bar border-b">
+        <h3 class="popup-title">标题</h3>
+        <a href="" class="close" data-toggle="popup" data-action="close"></a>
+    </div>
+    <div class="popup-footer bottom-bar border-t">
+        <a href="javascript:;" class="popup-button">确定</a>
+    </div>
+    <div class="popup-body">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </div>
+</div>
+<div class="popup popup-list">
+    <div class="popup-header top-bar border-b">
+        <h3 class="popup-title">标题</h3>
+        <a href="" class="close" data-toggle="popup" data-action="close"></a>
+    </div>
+    <div class="popup-body">
+        当需要根据内容高度自动调整 popup 高度时，需要将 popup-body 换成 static 或者 position 定位方式
+    </div>
+    <div class="popup-footer bottom-bar border-t">
+        <a href="javascript:;" class="popup-button">确定</a>
+    </div>
+</div>
+<div class="popup popup-top">
+    <div class="popup-body">
+        当需要根据内容高度自动调整 popup 高度时，需要将 popup-body 换成 static 或者 position 定位方式
+    </div>
+</div>
+<div class="popup popup-left">
+    <div class="popup-header top-bar border-b">
+        <h3 class="popup-title">标题</h3>
+        <a href="" class="close" data-toggle="popup" data-action="close"></a>
+    </div>
+    <div class="popup-body">
+        <pre>
 popup.open({
     target: $('.popup-left'),
     animation: 'from-left',
     freeze: false
 });
-        </pre>
-            </div>
-        </div>
-        <div class="popup popup-right">
-            <div class="popup-header top-bar border-b">
-                <h3 class="popup-title">标题</h3>
-                <a href="" class="close" data-toggle="popup" data-action="close"></a>
-            </div>
-            <div class="popup-body">
-                <pre>
+</pre>
+    </div>
+</div>
+<div class="popup popup-right">
+    <div class="popup-header top-bar border-b">
+        <h3 class="popup-title">标题</h3>
+        <a href="" class="close" data-toggle="popup" data-action="close"></a>
+    </div>
+    <div class="popup-body">
+        <pre>
 popup.open({
     target: $('.popup-right'),
     animation: 'from-right',
@@ -90,11 +78,8 @@ popup.open({
         width: 'auto'
     }
 });
-        </pre>
-            </div>
-        </div>
+</pre>
+    </div>
+</div>
 
-        <script src="/assets/bundle.js"></script>
-    </body>
-
-</html>
+<% include ../includes/footer.ejs %>
