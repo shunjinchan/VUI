@@ -53,17 +53,17 @@
 	
 	var Zepto = __webpack_require__(1);
 	
-	var Popup = __webpack_require__(3);
-	var Dialog = __webpack_require__(8);
-	var Loader = __webpack_require__(11);
-	var Toast = __webpack_require__(14);
-	var Tab = __webpack_require__(17);
-	var Validator = __webpack_require__(20);
-	var EventEmitter = __webpack_require__(21);
-	var Swiper = __webpack_require__(22);
-	var device = __webpack_require__(25);
-	var broswer = __webpack_require__(26);
-	var Countdown = __webpack_require__(27);
+	var Popup = __webpack_require__(2);
+	var Dialog = __webpack_require__(7);
+	var Loader = __webpack_require__(10);
+	var Toast = __webpack_require__(13);
+	var Tab = __webpack_require__(16);
+	var Validator = __webpack_require__(19);
+	var EventEmitter = __webpack_require__(20);
+	var Swiper = __webpack_require__(21);
+	var device = __webpack_require__(24);
+	var broswer = __webpack_require__(25);
+	var Countdown = __webpack_require__(26);
 	
 	var win = window;
 	var doc = win.document;
@@ -3117,8 +3117,7 @@
 
 
 /***/ },
-/* 2 */,
-/* 3 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -3128,7 +3127,7 @@
 	 * @Last Modified time: 2016-01-08 00:43:02
 	 */
 	
-	__webpack_require__(4);
+	__webpack_require__(3);
 	
 	// 默认配置
 	var defaults = {
@@ -3270,16 +3269,16 @@
 
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(5);
+	var content = __webpack_require__(4);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -3296,10 +3295,10 @@
 	}
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(5)();
 	// imports
 	
 	
@@ -3310,7 +3309,7 @@
 
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports) {
 
 	/*
@@ -3366,7 +3365,7 @@
 
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -3620,7 +3619,7 @@
 
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -3630,7 +3629,7 @@
 	 * @Last Modified time: 2016-01-16 16:31:42
 	 */
 	
-	__webpack_require__(9);
+	__webpack_require__(8);
 	
 	var dialogTemplateTempDiv = document.createElement('div');
 	
@@ -4051,16 +4050,16 @@
 
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(10);
+	var content = __webpack_require__(9);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -4077,10 +4076,10 @@
 	}
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(5)();
 	// imports
 	
 	
@@ -4091,7 +4090,7 @@
 
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* 
@@ -4101,7 +4100,7 @@
 	 * @Last Modified time: 2016-01-06 19:30:51
 	 */
 	
-	__webpack_require__(12);
+	__webpack_require__(11);
 	
 	var defaults = {
 	    title: '加载中...',
@@ -4224,16 +4223,16 @@
 
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(13);
+	var content = __webpack_require__(12);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -4250,10 +4249,10 @@
 	}
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(5)();
 	// imports
 	
 	
@@ -4264,7 +4263,7 @@
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* 
@@ -4274,7 +4273,7 @@
 	* @Last Modified time: 2016-01-06 19:34:46
 	*/
 	
-	__webpack_require__(15);
+	__webpack_require__(14);
 	
 	var defaults = {
 	    box: '<div class="toast"></div>'
@@ -4396,16 +4395,16 @@
 
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(16);
+	var content = __webpack_require__(15);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -4422,10 +4421,10 @@
 	}
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(5)();
 	// imports
 	
 	
@@ -4436,7 +4435,7 @@
 
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -4446,7 +4445,7 @@
 	 * @Last Modified time: 2016-01-06 23:41:00
 	 */
 	
-	__webpack_require__(18);
+	__webpack_require__(17);
 	
 	var defaults = {
 	    activeClass: 'active'
@@ -4513,16 +4512,16 @@
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(19);
+	var content = __webpack_require__(18);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -4539,10 +4538,10 @@
 	}
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(5)();
 	// imports
 	
 	
@@ -4553,7 +4552,7 @@
 
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports) {
 
 	/* 
@@ -4686,7 +4685,7 @@
 
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports) {
 
 	/* 
@@ -4798,7 +4797,7 @@
 
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -4808,7 +4807,7 @@
 	* @Last Modified time: 2016-01-10 14:14:31
 	*/
 	
-	__webpack_require__(23);
+	__webpack_require__(22);
 	
 	var defaults = {
 	    activeClass: 'active',
@@ -4836,16 +4835,16 @@
 
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(24);
+	var content = __webpack_require__(23);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -4862,10 +4861,10 @@
 	}
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(5)();
 	// imports
 	
 	
@@ -4876,7 +4875,7 @@
 
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports) {
 
 	/* 
@@ -4996,7 +4995,7 @@
 
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports) {
 
 	/* 
@@ -5031,7 +5030,7 @@
 
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports) {
 
 	/*
