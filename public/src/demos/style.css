@@ -2,7 +2,7 @@
 * @Author: shunjinchan
 * @Date:   2015-12-30 21:49:59
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-25 00:46:53
+* @Last Modified time: 2016-01-25 12:50:27
 */
 
 .page-container h2 {
@@ -67,7 +67,8 @@
     padding: 0 20px;
 }
 #page-button .button {
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 #page-button .buttons-tab {

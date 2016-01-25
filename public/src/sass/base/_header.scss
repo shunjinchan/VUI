@@ -2,17 +2,19 @@
 * @Author: shunjinchan
 * @Date:   2015-12-27 17:37:48
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-25 01:02:20
+* @Last Modified time: 2016-01-25 22:22:45
 */
 
 @import "../_setting.scss";
-$headerHeight: 44px;
+
+$headerHeight: 0.88rem;
 $headerBgColor: #fbfbfa;
+
 .header {
     height: $headerHeight;
     line-height: $headerHeight;
     overflow: hidden;
-    font-size: 14px;
+    font-size: 0.28rem;
     background-color: $headerBgColor;
     text-align: center;
     @include border(bottom, $color-border);
@@ -22,12 +24,12 @@ $headerBgColor: #fbfbfa;
     display: inline-block;
     height: $headerHeight;
     > h1 {
-        font-size: 18px;
+        font-size: 0.36rem;
         font-weight: normal;
         display: inline;
     }
     > sub {
-        font-size: 13px;
+        font-size: 0.26rem;
         vertical-align: baseline;
         color: #98989f;
     }
@@ -49,14 +51,14 @@ $headerBgColor: #fbfbfa;
 .header-left-button,
 .header-right-button {
     display: block;
-    padding: 0 15px;
+    padding: 0 0.3rem;
     height: 100%;
-    font-size: 16px;
+    font-size: 0.32rem;
     &:active {
         opacity: 0.3;
     }
     .iconfont {
-        font-size: 24px;
+        font-size: 0.48rem;
     }
 }
 

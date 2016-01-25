@@ -39,4 +39,5 @@
     win.addEventListener('resize', updateRem, false);
     // 在页面显示时更新 rootFontsize
     win.addEventListener('pageshow', updateRem, false);
+    
 })(window, document);

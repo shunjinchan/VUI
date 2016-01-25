@@ -2,19 +2,29 @@
 * @Author: shunjinchan
 * @Date:   2016-01-21 13:19:44
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-23 23:48:41
+* @Last Modified time: 2016-01-25 21:55:52
 * 列表
 */
 
 @import "../_setting.scss";
-$listHeight: 24px;
-$listPadding: 12px 15px;
+
+$list-height:                     0.4rem;
+$list-padding-landscape:          0.3rem; // padding-left, padding-right
+$list-padding-portrait:           0.24rem; // padding-top, padding-bottom
+$list-margin:                     0.4rem 0;
+$color-checkbox:                  #64bd63;
+
 .list {
     position: relative;
-    margin: 20px 0;
+    margin: $list-margin;
     .list-header {
-        padding: 0 10px;
-        line-height: 32px;
+        padding: 0 $list-padding-landscape;
+        line-height: 0.64rem;
+    }
+    .list-footer {
+        padding: 0 $list-padding-landscape;
+        line-height: 0.36rem;
+        margin-top: 0.14rem;
     }
     // list-item
     .list-item {
@@ -44,11 +54,11 @@ $listPadding: 12px 15px;
             justify-content: space-between;
         }
         .item-subtitle {
-            font-size: 14px;
+            font-size: 0.28rem;
         }
         .item-text {
-            font-size: 14px;
-            color: #5f646e;
+            font-size: 0.28rem;
+            color: $color-text-secondary;
             position: relative;
             @include ellipsis-line(2);
         }
@@ -70,18 +80,18 @@ $listPadding: 12px 15px;
                 background-color: rgba(0, 0, 0, 0.1);
             }
             .item-inner {
-                padding-right: 36px;
+                padding-right: 0.72rem;
             }
             &::after {
                 font-family: "iconfont" !important;
-                font-size: 20px;
+                font-size: 0.32rem;
                 font-style: normal;
                 -webkit-font-smoothing: antialiased;
                 -webkit-text-stroke-width: 0.2px;
                 /*no*/
                 -moz-osx-font-smoothing: grayscale;
-                right: 9px;
-                color: #9b9b9b;
+                right: 0.18rem;
+                color: $color-text-gray;
                 @include center-translate(y);
             }
         }
@@ -97,8 +107,8 @@ $listPadding: 12px 15px;
         // media
         &.media {
             .item-left {
-                padding-top: 10px;
-                padding-bottom: 10px;
+                padding-top: 0.2rem;
+                padding-bottom: 0.2rem;
                 img {
                     display: block;
                 }
@@ -121,7 +131,7 @@ $listPadding: 12px 15px;
             }
             input[type="radio"] {
                 &:checked + .item-left .icon-round {
-                    color: #4cd964;
+                    color: $color-checkbox;
                 }
                 &:checked + .item-left .icon-round::before {
                     content: "\e60a";
@@ -129,15 +139,15 @@ $listPadding: 12px 15px;
             }
             input[type="checkbox"] {
                 &:checked + .item-left .icon-round {
-                    color: #4cd964;
+                    color: $color-checkbox;
                 }
                 &:checked + .item-left .icon-round::before {
                     content: "\e60c";
                 }
             }
             .icon-round {
-                font-size: 24px;
-                color: #ccc;
+                font-size: 0.48rem;
+                color: $color-text-gray;
             }
         }
     }
@@ -147,20 +157,20 @@ $listPadding: 12px 15px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-left: 15px;
-        line-height: 24px;
+        padding-left: $list-padding-landscape;
+        line-height: $list-height;
         @include clearfix();
     }
     // item-right
     .item-right {
         white-space: nowrap;
         flex-shrink: 0;
-        margin-left: 5px;
+        margin-left: 0.1rem;
     }
     // item-inner
     .item-inner {
-        padding: 12px 15px 12px 0;
-        min-height: 24px;
+        padding: $list-padding-portrait $list-padding-landscape $list-padding-portrait 0;
+        min-height: $list-height;
         width: 100%;
         position: relative;
         overflow: hidden;
@@ -178,7 +188,7 @@ $listPadding: 12px 15px;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100%;
-        font-size: 16px;
+        font-size: 0.32rem;
     }
     // item-left
     .item-left {
@@ -189,7 +199,7 @@ $listPadding: 12px 15px;
         box-sizing: border-box;
         align-items: center;
         & + .item-inner {
-            margin-left: 10px;
+            margin-left: 0.2rem;
         }
     }
 }
@@ -209,7 +219,7 @@ $listPadding: 12px 15px;
 //         padding: 0 10px;
 //         position: relative;
 //         float: left;
-//         border-left: 3px solid #e4007f;
+//         border-left: 3px solid $color-primary;
 //         font-weight: normal;
 //         color: #222;
 //     }

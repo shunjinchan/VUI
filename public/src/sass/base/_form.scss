@@ -2,7 +2,7 @@
 * @Author: shunjinchan
 * @Date:   2016-01-23 23:50:46
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-24 00:05:29
+* @Last Modified time: 2016-01-25 22:12:33
 */
 
 @import "../_setting.scss";
@@ -16,8 +16,8 @@
     // item-input
     .item-input {
         width: 100%;
-        margin-top: -12px;
-        margin-bottom: -12px;
+        margin-top: -0.24rem;
+        margin-bottom: -0.24rem;
         input:not([type=checkbox]):not([type=radio]),
         textarea,
         select {
@@ -26,21 +26,21 @@
             -webkit-appearance: none;
             border: 0;
             outline: none;
-            padding: 0 0 0 5px;
+            padding: 0 0 0 0.1rem;
             background: none;
             border-radius: 0 0 0 0;
             box-shadow: none;
         }
         textarea {
-            height: 84px;
+            height: 1.68rem;
             resize: none;
             line-height: 1.4;
-            margin-top: 8px;
-            margin-bottom: 8px;
+            margin-top: 0.16rem;
+            margin-bottom: 0.16rem;
         }
         + .item-right {
-            padding: 0 5px 0 20px;
-            font-size: 16px;
+            padding: 0 0.1rem 0 0.4rem;
+            font-size: 0.32rem;
             text-align: center;
         }
     }

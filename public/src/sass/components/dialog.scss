@@ -2,25 +2,29 @@
 * @Author: shunjinchan
 * @Date:   2015-12-27 17:37:48
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-25 01:00:22
+* @Last Modified time: 2016-01-25 13:14:08
 */
 
 @import "../_setting.scss";
 
+$dialog-width:                 270px;
 $color-dialog-bg:              rgba(255, 255, 255, 0.9);
 $dialog-button-text-color:     #007aff;
+$dialog-radius:                6px;
+
+$action-sheet-radius:          8px;
 
 /* dialog begin */
 
 .dialog {
-    width: 270px;
+    width: $dialog-width;
     background-color: $color-dialog-bg;
     text-align: center;
-    border-radius: 6px;
+    border-radius: $dialog-radius;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-left: -135px;
+    margin-left: - $dialog-width / 2;
     z-index: $zindex-dialog;
     &.vertical-button {
         .dialog-footer {
@@ -31,18 +35,6 @@ $dialog-button-text-color:     #007aff;
             display: block;
             width: 100%;
             @include border(top, $color-border);
-            // &:not(:last-child)::before {
-                // position: absolute;
-                // content: "";
-                // left: 0;
-                // right: 0;
-                // top: auto;
-                // bottom: 0;
-                // width: 100%;
-                // border-top: 1px solid $color-border;
-                // -webkit-transform: scaleY(0.5);
-                // transform: scaleY(0.5);
-            // }
         }
     }
 }
@@ -94,17 +86,6 @@ $dialog-button-text-color:     #007aff;
     position: relative;
     @include equal-flex(a);
     @include border(top, $color-border);
-    // &::before {
-        // position: absolute;
-        // content: "";
-        // top: 0;
-        // left: 0;
-        // right: 0;
-        // width: 100%;
-        // border-top: 1px solid $color-border;
-        // -webkit-transform: scaleY(0.5);
-        // transform: scaleY(0.5);
-    // }
     .dialog-button {
         height: 44px;
         line-height: 44px;
@@ -112,18 +93,6 @@ $dialog-button-text-color:     #007aff;
         position: relative;
         color: $dialog-button-text-color;
         @include border(left, $color-border);
-        // &:not(:last-child)::before {
-            // position: absolute;
-            // content: "";
-            // top: 0;
-            // bottom: 0;
-            // left: auto;
-            // right: 0;
-            // width: 0;
-            // border-left: 1px solid $color-border;
-            // -webkit-transform: scaleX(0.5);
-            // transform: scaleX(0.5);
-        // }
         &.bold {
             font-weight: 500;
         }
@@ -178,22 +147,11 @@ $dialog-button-text-color:     #007aff;
     font-size: 14px;
     line-height: 18px;
     padding: 15px 25px;
-    border-radius: 8px 8px 0 0;
+    border-radius: $action-sheet-radius $action-sheet-radius 0 0;
     text-align: center;
     color: #777;
     position: relative;
     @include border(bottom, $color-border);
-    // &::before {
-        // position: absolute;
-        // content: "";
-        // bottom: 0;
-        // left: 0;
-        // right: 0;
-        // width: 100%;
-        // border-top: 1px solid $color-border;
-        // -webkit-transform: scaleY(0.5);
-        // transform: scaleY(0.5);
-    // }
     + .action-sheet-body {
         .action-sheet-button {
             &:first-child {
@@ -221,22 +179,11 @@ $dialog-button-text-color:     #007aff;
 .action-sheet-button {
     @include border(bottom, $color-border);
     &:first-child {
-        border-radius: 8px 8px 0 0;
+        border-radius: $action-sheet-radius $action-sheet-radius 0 0;
     }
     &:last-child {
-        border-radius: 0 0 8px 8px;
+        border-radius: 0 0 $action-sheet-radius $action-sheet-radius;
     }
-    // &:not(:last-child)::before {
-        // position: absolute;
-        // content: "";
-        // bottom: 0;
-        // left: 0;
-        // right: 0;
-        // width: 100%;
-        // border-top: 1px solid $color-border;
-        // -webkit-transform: scaleY(0.5);
-        // transform: scaleY(0.5);
-    // }
     // 肯定用户操作行为默认加粗字体显示
     &.bold {
         font-weight: 500;
@@ -248,11 +195,11 @@ $dialog-button-text-color:     #007aff;
 }
 
 .action-sheet-footer {
-    margin-top: 8px;
+    margin-top: $action-sheet-radius;
 }
 
 .action-sheet-close {
-    border-radius: 8px;
+    border-radius: $action-sheet-radius;
 }
 
 

@@ -2,8 +2,10 @@
 * @Author: shunjinchan
 * @Date:   2016-01-02 22:47:28
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-24 00:09:20
+* @Last Modified time: 2016-01-25 22:23:43
 */
+
+$bar-height:                   0.88rem;
 
 .top-bar,
 .tab-bar {
@@ -13,8 +15,9 @@
     width: 100%;
     z-index: 1000;
     background-color: #fafafa;
-    height: 44px;
-    line-height: 44px;
+    height: $bar-height;
+    line-height: $bar-height;
+    z-index: $zindex-navbar-fixed;
 }
 
 .top-bar {
@@ -26,9 +29,9 @@
 }
 
 .top-bar ~ .page > .page-container {
-    top: 44px;
+    top: $bar-height;
 }
 
 .tab-bar ~ .page > .page-container {
-    bottom: 44px;
+    bottom: $bar-height;
 }

@@ -2,11 +2,14 @@
 * @Author: shunjinchan
 * @Date:   2015-12-30 23:40:12
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-23 03:40:57
+* @Last Modified time: 2016-01-25 13:02:37
 */
 
 @charset "utf-8";
 @import "../_setting.scss";
+
+$popup-header-height:              44px;
+$popup-footer-height:              44px;
 
 /* popup begin */
 
@@ -128,21 +131,21 @@
 }
 
 .popup-header {
-    height: 44px;
-    line-height: 44px;
+    height: $popup-header-height;
+    line-height: $popup-header-height;
     position: relative;
     background-color: #fbfbfa;
     &.top-bar {
         position: absolute;
         & ~ .popup-body {
-            top: 44px;
+            top: $popup-header-height;
         }
     }
     .close {
         position: absolute;
-        height: 44px;
-        width: 44px;
-        line-height: 44px;
+        height: $popup-header-height;
+        width: $popup-header-height;
+        line-height: $popup-header-height;
         right: 5px;
         top: 0;
         font-family: "iconfont";
@@ -169,8 +172,8 @@
 }
 
 .popup-footer {
-    height: 44px;
-    line-height: 44px;
+    height: $popup-footer-height;
+    line-height: $popup-footer-height;
     text-align: center;
     background-color: #fff;
     &.bottom-bar {
@@ -180,7 +183,7 @@
         right: 0;
         width: 100%;
         ~ .popup-body {
-            bottom: 44px;
+            bottom: $popup-footer-height;
         }
     }
 }

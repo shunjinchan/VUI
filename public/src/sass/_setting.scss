@@ -3,6 +3,7 @@
 @import "ext/_mixin.scss";
 @import "ext/_border-mixin.scss";
 
+// _setting.scss 文件里的变量不允许随意修改
 
 // font相关
 //----------------------------------------------------- 
@@ -13,12 +14,12 @@ $font-family:                     "Helvetica Neue", Helvetica, STHeiTi, Arial, s
 
 // 主色
 //-----------------------------------------------------
-$color-primary:                            #0894ec !default;
+$color-primary:                            #1abc9c !default;
 $color-danger:                             #f6383a !default;
 $color-warning:                            #f60 !default;
 $color-success:                            #4cd964 !default;
 
-$color-primary-active:                     #0a8ddf !default;
+$color-primary-active:                     #17A98C !default;
 $color-danger-active:                      darken($color-danger, 10%) !default;
 $color-warning-active:                     darken($color-warning, 10%) !default;
 $color-success-active:                     darken($color-success, 10%) !default;
@@ -32,8 +33,8 @@ $color-text-gray-light:                    #ccc !default; // 更灰色文案
 
 
 // 链接色
-$color-link:                               $color-primary !default; // 链接色有可能不同于主色
-$color-link-active:                        $color-primary-active !default; // 链接色有可能不同于主色
+$color-link:                               $color-text !default; // 链接色有可能不同于主色
+$color-link-active:                        darken($color-text, 10%) !default; // 链接色有可能不同于主色
 
 
 // z-index
