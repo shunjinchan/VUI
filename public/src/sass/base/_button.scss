@@ -2,14 +2,17 @@
 * @Author: shunjinchan
 * @Date:   2016-01-24 00:29:43
 * @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-25 21:54:17
+* @Last Modified time: 2016-01-26 00:00:21
 */
 
 @import "../_setting.scss";
 
-$button-height:          0.64rem;
-$button-big-height:      0.88rem;
-$button-disabled:        $color-text-gray-light $color-text-gray-light $color-text-gray-light !default; // textColor borderColor bgColor
+$button-height:                   0.64rem;
+$button-big-height:               0.88rem;
+$button-disabled:                 $color-text-gray-light $color-text-gray-light $color-text-gray-light !default; // textColor borderColor bgColor
+
+$button-default-color:            $color-text-gray;
+$button-default-color-active:     darken($color-text-gray, 10);
 
 // Buttons
 @mixin button($color: $color-primary, $color-active: $color-primary-active) {
@@ -97,12 +100,29 @@ $button-disabled:        $color-text-gray-light $color-text-gray-light $color-te
     &.disabled {
         border-color: nth($button-disabled, 1);
         color: nth($button-disabled, 2);
-        cursor: not-allow;
+        cursor: not-allowed;
     }
 }
 
 // button-primary
 .button {
+    @include button($button-default-color, $button-default-color-active);
+    color: $color-text;
+}
+
+.button-default {
+    &.button-fill {
+        background-color: #fdfdfd;
+        color: $color-text;
+        border: 1px solid #ccc;
+        line-height: ($button-height - 0.04rem);
+        &.button-big {
+            line-height: ($button-big-height - 0.04rem);
+        }
+    }
+}
+
+.button-primary {
     @include button($color-primary, $color-primary-active);
 }
 
