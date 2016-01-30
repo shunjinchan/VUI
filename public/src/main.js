@@ -2,7 +2,7 @@
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
  * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-01-24 17:16:07
+ * @Last Modified time: 2016-01-29 18:34:45
  */
 
 var Zepto = require('./js/lib/zepto.js');
@@ -294,7 +294,6 @@ function init() {
     openDialog();
     openLoader();
     openToast();
-    console.log(device);
 }
 
 doc.addEventListener('DOMContentLoaded', init);

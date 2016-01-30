@@ -48,7 +48,7 @@
 	 * @Author: shunjinchan
 	 * @Date:   2015-12-25 11:23:14
 	 * @Last Modified by:   pigsy.chen
-	 * @Last Modified time: 2016-01-24 17:16:07
+	 * @Last Modified time: 2016-01-29 18:34:45
 	 */
 	
 	var Zepto = __webpack_require__(1);
@@ -340,7 +340,6 @@
 	    openDialog();
 	    openLoader();
 	    openToast();
-	    console.log(device);
 	}
 	
 	doc.addEventListener('DOMContentLoaded', init);
@@ -4558,8 +4557,8 @@
 	/* 
 	 * @Author: shunjinchan
 	 * @Date:   2016-01-12 00:13:05
-	 * @Last Modified by:   shunjinchan
-	 * @Last Modified time: 2016-01-21 17:16:50
+	 * @Last Modified by:   pigsy.chen
+	 * @Last Modified time: 2016-01-27 13:43:50
 	 */
 	
 	/**
@@ -4691,8 +4690,8 @@
 	/* 
 	 * @Author: shunjinchan
 	 * @Date:   2016-01-13 23:54:47
-	 * @Last Modified by:   shunjinchan
-	 * @Last Modified time: 2016-01-16 16:20:53
+	 * @Last Modified by:   pigsy.chen
+	 * @Last Modified time: 2016-01-27 00:28:13
 	 */
 	
 	
