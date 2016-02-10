@@ -1,20 +1,19 @@
-@charset "utf-8";
+@charset 'utf-8';
 
-@import "_setting.scss";
+@import 'setting';
 
-/* ==========================================================================
-   base
-   ========================================================================== */
-@import "base/_reset.scss";
-@import "base/_util.scss";
-@import "base/_button.scss";
-@import "base/_border.scss";
-@import "base/_icon.scss";
-@import "base/_skeleton.scss";
-@import "base/_tabbar.scss";
-@import "base/_page.scss";
-@import "base/_header.scss";
-@import "base/_form.scss";
-@import "base/_list.scss";
-@import "base/_backdrop.scss";
-@import "base/_activity.scss";
+// base
+//-----------------------------------------------------
+@import 'base/reset';
+@import 'base/util';
+@import 'base/button';
+@import 'base/border';
+@import 'base/icon';
+@import 'base/skeleton';
+@import 'base/tabbar';
+@import 'base/page';
+@import 'base/header';
+@import 'base/form';
+@import 'base/list';
+@import 'base/backdrop';
+@import 'base/activity';

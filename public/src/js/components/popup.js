@@ -18,13 +18,14 @@ var defaults = {
 var instance;
 
 function Popup() {
-    //如果已经缓存了实例，则直接返回缓存的实例
+    // 如果已经缓存了实例，则直接返回缓存的实例
     if (instance instanceof Popup) {
         return instance;
     }
 
     this.createTime = new Date();
-    //缓存实例
+
+    // 缓存实例
     instance = this;
 
     return this;
@@ -33,7 +34,7 @@ function Popup() {
 Popup.prototype = {
     constructor: Popup,
 
-    _render: function(configs) {
+    _render: function (configs) {
         var self = this;
         var animation = configs.animation || defaults.animation;
         var extraClass = configs.extraClass || '';
@@ -64,7 +65,7 @@ Popup.prototype = {
 
         this.$box.trigger('open');
         this.$box.removeClass('transition-out').addClass('transition-in')
-            .transitionEnd(function(e) {
+            .transitionEnd(function (e) {
                 if (self.$box.hasClass('transition-out')) {
                     // 触发 closed 事件
                     self.$box.trigger('closed');
@@ -81,7 +82,7 @@ Popup.prototype = {
      * 打开弹窗
      * @param {Object} configs 自定义配置
      */
-    open: function(configs) {
+    open: function (configs) {
         if (this.isOpen) return;
 
         this._render(configs);
@@ -90,7 +91,7 @@ Popup.prototype = {
         this.isOpen = true;
     },
 
-    close: function() {
+    close: function () {
         var self = this;
 
         if (!this.$box) return;
@@ -99,7 +100,7 @@ Popup.prototype = {
 
         this.$backdrop && this.$backdrop.removeClass('visible');
         this.$box.removeClass('transition-in').addClass('transition-out')
-            .transitionEnd(function(e) {
+            .transitionEnd(function (e) {
                 if (self.$box.hasClass('transition-out')) {
                     self.$box.trigger('closed');
                     self.$box.removeClass('transition-out').hide();
@@ -120,24 +121,25 @@ Popup.prototype = {
 function bindEvents(configs) {
     var freeze = configs.freeze;
 
-    instance.$box.on('click', '[data-toggle="popup"]', function(e) {
+    instance.$box.on('click', '[data-toggle="popup"]', function (e) {
         var $target = $(e.currentTarget);
 
         if ($target.data('action') && $target.data('action') === 'close') {
             if ($target[0].nodeName.toLowerCase() === 'a') {
                 e.preventDefault();
             }
+
             instance.close();
         }
     });
 
-    instance.$backdrop.on('touchmove', function(e) {
+    instance.$backdrop.on('touchmove', function (e) {
         e.preventDefault();
         e.stopPropagation();
     });
 
     if (freeze !== undefined && freeze === false) {
-        instance.$backdrop.on('click', function(e) {
+        instance.$backdrop.on('click', function (e) {
             instance.close();
         });
     }

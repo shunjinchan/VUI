@@ -1,0 +1,6 @@
+{
+    "preset": "airbnb",
+    "validateIndentation": 4,
+    "safeContextKeyword": ["that", "_this", "self", "instance"],
+    "requireTrailingComma": false
+}

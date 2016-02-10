@@ -21,13 +21,14 @@ var defaults = {
 var instance;
 
 function Dialog() {
-    //如果已经缓存了实例，则直接返回缓存的实例
-    if(instance instanceof Dialog){
+    // 如果已经缓存了实例，则直接返回缓存的实例
+    if (instance instanceof Dialog) {
         return instance;
     }
 
     this.createTime = new Date();
-    //缓存实例
+
+    // 缓存实例
     instance = this;
 
     return this;
@@ -41,7 +42,7 @@ Dialog.prototype = {
      * @param  {Object} configs 配置信息
      * @return {[type]}         [description]
      */
-    _render: function(configs) {
+    _render: function (configs) {
         var self = this;
         var dialogHTML = '';
         var buttonsHTML = '';
@@ -75,37 +76,37 @@ Dialog.prototype = {
         this._setSize(animation);
     },
 
-    _backdrop: function() {
+    _backdrop: function () {
         this.$backdrop = $('<div id="backdrop" class="backdrop"></div>');
         $('body').append(this.$backdrop);
     },
 
-    _removeBackdrop: function() {
+    _removeBackdrop: function () {
         this.$backdrop && this.$backdrop.removeClass('visible');
     },
 
-    _setSize: function(animation) {
+    _setSize: function (animation) {
         if (animation === 'scale') {
-            this.$box.css('marginTop', - Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
+            this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
         } else {
-            this.$box.css('marginTop', - Math.round(this.$box.outerHeight() / 2) + 'px');
+            this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2) + 'px');
         }
     },
 
-    _bindEvents: function(configs) {
+    _bindEvents: function (configs) {
         var self = this;
         var freeze = configs.freeze;
         var $buttons;
 
         if (configs.type === 'actionSheet') {
-            $buttons = this.$box.find(".action-sheet-button");
+            $buttons = this.$box.find('.action-sheet-button');
         } else {
-            $buttons = this.$box.find(".dialog-button");
+            $buttons = this.$box.find('.dialog-button');
         }
 
         // 为每个按钮添加回调函数
-        $.each($buttons, function(index, ele) {
-            $(ele).on('click', function(e) {
+        $.each($buttons, function (index, ele) {
+            $(ele).on('click', function (e) {
                 e.preventDefault();
 
                 if (configs.buttons[index].close !== false) self.close();
@@ -116,18 +117,18 @@ Dialog.prototype = {
         });
 
         // 绑定 close 事件
-        this.$box.on('click', '[data-action="close"]', function(e) {
+        this.$box.on('click', '[data-action="close"]', function (e) {
             self.close();
         });
 
         if (freeze !== undefined && freeze === false) {
-            this.$backdrop.on('click', function(e) {
+            this.$backdrop.on('click', function (e) {
                 self.close();
             });
         }
 
         // 当在蒙层滑动时，阻止默认的滑动事件
-        this.$backdrop.on('touchmove', function(e) {
+        this.$backdrop.on('touchmove', function (e) {
             e.preventDefault();
             e.stopPropagation();
         });
@@ -138,7 +139,7 @@ Dialog.prototype = {
      * @param  {Object} configs 配置信息
      * @return {[type]}         [description]
      */
-    open: function(configs) {
+    open: function (configs) {
         if (this.isOpen) return;
 
         this._render(configs);
@@ -154,7 +155,7 @@ Dialog.prototype = {
      * @param  {function} 关闭之后的回调函数
      * @return {[type]}         [description]
      */
-    close: function(callback) {
+    close: function (callback) {
         var self = this;
 
         if (this.$box.length === 0) {
@@ -163,7 +164,7 @@ Dialog.prototype = {
 
         this._removeBackdrop();
         this.$box.removeClass('transition-in').addClass('transition-out')
-            .transitionEnd(function(e) {
+            .transitionEnd(function (e) {
                 // 动画结束后删除对话与背景蒙层框节点
                 self.$box.off();
                 self.$box.remove();
@@ -183,9 +184,10 @@ Dialog.prototype = {
      * @param  {String} content    对话框内容
      * @param  {String} title      对话框标题
      * @param  {function} callbackOk 确定按钮回调函数
+     * @param  {Boolean} bold      字体加粗提示
      * @return {[type]}            [description]
      */
-    alert: function(content, title, callbackOk) {
+    alert: function (content, title, callbackOk) {
         if (typeof title === 'function') {
             callbackOk = arguments[1];
             title = undefined;
@@ -197,7 +199,7 @@ Dialog.prototype = {
             buttons: [{
                 text: defaults.dialogButtonOk,
                 onClick: callbackOk,
-                bold: true // 字体加粗提示
+                bold: true,
             }]
         });
     },
@@ -210,7 +212,7 @@ Dialog.prototype = {
      * @param  {function} callbackCancel 取消按钮回调函数
      * @return {[type]}                [description]
      */
-    confirm: function(content, title, callbackOk, callbackCancel) {
+    confirm: function (content, title, callbackOk, callbackCancel) {
         if (typeof title === 'function') {
             callbackCancel = arguments[2];
             callbackOk = arguments[1];
@@ -240,7 +242,7 @@ Dialog.prototype = {
      * @param  {function} callbackCancel 取消按钮回调函数
      * @return {[type]}                [description]
      */
-    prompt: function(content, title, callbackOk, callbackCancel) {
+    prompt: function (content, title, callbackOk, callbackCancel) {
         if (typeof title === 'function') {
             callbackCancel = arguments[2];
             callbackOk = arguments[1];
@@ -259,7 +261,7 @@ Dialog.prototype = {
                 bold: true,
                 close: false // prompt 组件点击确认按钮默认不关闭，需要手动调用 close
             }],
-            onClick: function(box, index) {
+            onClick: function (box, index) {
                 var value = box.find('.dialog-input').val();
 
                 if (index === 0 && callbackCancel) callbackCancel(value);
@@ -276,7 +278,7 @@ Dialog.prototype = {
      * @param  {function} callbackCancel 取消按钮回调函数
      * @return {[type]}                [description]
      */
-    password: function(content, title, callbackOk, callbackCancel) {
+    password: function (content, title, callbackOk, callbackCancel) {
         if (typeof title === 'function') {
             callbackCancel = arguments[2];
             callbackOk = arguments[1];
@@ -293,7 +295,7 @@ Dialog.prototype = {
                 text: defaults.dialogButtonOk,
                 close: false // password 组件点击确认按钮默认不关闭，需要手动调用 close
             }],
-            onClick: function(box, index) {
+            onClick: function (box, index) {
                 var password = box.find('.dialog-input[name="dialog-password"]').val();
 
                 if (index === 0 && callbackCancel) callbackCancel(password);
@@ -310,7 +312,7 @@ Dialog.prototype = {
      * @param  {function} callbackCancel 取消按钮回调函数
      * @return {[type]}                [description]
      */
-    login: function(content, title, callbackOk, callbackCancel) {
+    login: function (content, title, callbackOk, callbackCancel) {
         if (typeof title === 'function') {
             callbackCancel = arguments[2];
             callbackOk = arguments[1];
@@ -327,7 +329,7 @@ Dialog.prototype = {
                 text: defaults.dialogButtonOk,
                 close: false // password 组件点击确认按钮默认不关闭，需要手动调用 close
             }],
-            onClick: function(box, index) {
+            onClick: function (box, index) {
                 var username = box.find('.dialog-input[name="dialog-username"]').val();
                 var password = box.find('.dialog-input[name="dialog-password"]').val();
 
@@ -345,7 +347,7 @@ Dialog.prototype = {
      * @param  {function} callbackCancel 取消按钮回调函数
      * @return {[type]}                [description]
      */
-    register: function(content, title, callbackOk, callbackCancel) {
+    register: function (content, title, callbackOk, callbackCancel) {
         if (typeof title === 'function') {
             callbackCancel = arguments[2];
             callbackOk = arguments[1];
@@ -362,7 +364,7 @@ Dialog.prototype = {
                 text: defaults.dialogButtonOk,
                 close: false // password 组件点击确认按钮默认不关闭，需要手动调用 close
             }],
-            onClick: function(box, index) {
+            onClick: function (box, index) {
                 var username = box.find('.dialog-input[name="dialog-username"]').val();
                 var password = box.find('.dialog-input[name="dialog-password"]').val();
                 var authCode = box.find('.dialog-input[name="dialog-auth-code"]').val();
@@ -378,7 +380,7 @@ Dialog.prototype = {
      * @param  {Object} configs 配置信息
      * @return {[type]}         [description]
      */
-    actionSheet: function(configs) {
+    actionSheet: function (configs) {
         if (this.isOpen) return;
 
         var self = this;
