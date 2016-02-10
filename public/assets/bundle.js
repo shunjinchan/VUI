@@ -48,7 +48,7 @@
 	 * @Author: shunjinchan
 	 * @Date:   2015-12-25 11:23:14
 	 * @Last Modified by:   pigsy.chen
-	 * @Last Modified time: 2016-01-29 18:34:45
+	 * @Last Modified time: 2016-02-04 00:46:55
 	 */
 	
 	var Zepto = __webpack_require__(1);
@@ -78,6 +78,7 @@
 	var swiper = new Swiper();
 	var countdown = new Countdown();
 	
+	console.log(popup);
 	
 	function openPopup() {
 	    $(document).on('click', '.open-popup-about', function(e) {
@@ -4554,7 +4555,7 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	/* 
+	/*
 	 * @Author: shunjinchan
 	 * @Date:   2016-01-12 00:13:05
 	 * @Last Modified by:   pigsy.chen
@@ -4608,8 +4609,26 @@
 	            return errorMsg;
 	        }
 	    },
-	    isPostcode: function(value, errorMsg) {
+	    isQq: function(value, errorMsg) {
+	        errorMsg = errorMsg ? errorMsg : 'qq号码格式错误';
 	
+	        if (!/^[1-9]\d{4,9}$/.test(value)) {
+	            return errorMsg;
+	        }
+	    },
+	    isPostcode: function(value, errorMsg) {
+	        errorMsg = errorMsg ? errorMsg : '邮政编码格式错误';
+	
+	        if (!/^[1-9]\d{5}$/) {
+	            return errorMsg;
+	        }
+	    },
+	    password: function(value, errorMsg) {
+	        errorMsg = errorMsg ? errorMsg : '密码必须是由数字/大写字母/小写字母/标点符号组成，四种都必有，8位以上';
+	
+	        if (!/(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?=.*[A-Z])(?=.*[a-z])(?!.*\n).*$/.test(value)) {
+	            return errorMsg;
+	        }
 	    },
 	    minLength: function(value, length, errorMsg) {
 	        if (value.length < length) {

@@ -2,7 +2,7 @@
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
  * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-01-29 18:34:45
+ * @Last Modified time: 2016-02-04 00:46:55
  */
 
 var Zepto = require('./js/lib/zepto.js');
@@ -32,6 +32,7 @@ var emitter = new EventEmitter();
 var swiper = new Swiper();
 var countdown = new Countdown();
 
+console.log(popup);
 
 function openPopup() {
     $(document).on('click', '.open-popup-about', function(e) {
