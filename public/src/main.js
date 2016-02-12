@@ -33,40 +33,41 @@ var swiper = new Swiper();
 var countdown = new Countdown();
 
 console.log(popup);
+console.log(window.performance);
 
 function openPopup() {
-    $(document).on('click', '.open-popup-about', function(e) {
+    $(document).on('click', '.open-popup-about', function (e) {
         e.preventDefault();
 
         popup.open({
-            target: $('.popup-about')
+            $target: $('.popup-about')
         });
 
-        popup.$box.on('closed', function() {
+        popup.$box.on('closed', function () {
             console.log('nimabi');
         });
     });
 
-    $(document).on('click', '.open-popup-list', function(e) {
+    $(document).on('click', '.open-popup-list', function (e) {
         e.preventDefault();
 
         popup.open({
-            target: $('.popup-list'),
+            $target: $('.popup-list'),
             css: {
                 top: 'auto'
             }
         });
 
-        popup.$box.on('closed', function() {
+        popup.$box.on('closed', function () {
             console.log('nimabi');
         });
     });
 
-    $(document).on('click', '.open-popup-top', function(e) {
+    $(document).on('click', '.open-popup-top', function (e) {
         e.preventDefault();
 
         popup.open({
-            target: $('.popup-top'),
+            $target: $('.popup-top'),
             animation: 'from-top',
             css: {
                 top: '0',
@@ -75,30 +76,30 @@ function openPopup() {
             freeze: false
         });
 
-        popup.$box.on('closed', function() {
+        popup.$box.on('closed', function () {
             console.log('nimabi');
         });
     });
 
-    $(document).on('click', '.open-popup-left', function(e) {
+    $(document).on('click', '.open-popup-left', function (e) {
         e.preventDefault();
 
         popup.open({
-            target: $('.popup-left'),
+            $target: $('.popup-left'),
             animation: 'from-left',
             freeze: false
         });
 
-        popup.$box.on('closed', function() {
+        popup.$box.on('closed', function () {
             console.log('nimabi');
         });
     });
 
-    $(document).on('click', '.open-popup-right', function(e) {
+    $(document).on('click', '.open-popup-right', function (e) {
         e.preventDefault();
 
         popup.open({
-            target: $('.popup-right'),
+            $target: $('.popup-right'),
             animation: 'from-right',
             freeze: false,
             css: {
@@ -107,12 +108,12 @@ function openPopup() {
             }
         });
 
-        popup.$box.on('closed', function() {
+        popup.$box.on('closed', function () {
             console.log('nimabi');
         });
     });
 
-    $(document).on('click', '.open-popup', function(e) {
+    $(document).on('click', '.open-popup', function (e) {
         e.preventDefault();
 
         popup.open({
@@ -122,37 +123,39 @@ function openPopup() {
             footer: 'footer'
         });
 
-        popup.$box.on('closed', function() {
+        popup.$box.on('closed', function () {
             console.log('nimabi');
         });
     });
 }
 
 function openDialog() {
-    $(document).on('click', '.open-alert', function(e) {
+    $(document).on('click', '.open-alert', function (e) {
         e.preventDefault();
 
-        dialog.alert('wokaoa', 'dasdaada', function() {
+        dialog.alert('wokaoa', 'dasdaada', function () {
             console.log('nimabi');
         });
     });
 
-    $(document).on('click', '.open-confirm', function(e) {
+    $(document).on('click', '.open-confirm', function (e) {
         e.preventDefault();
 
-        dialog.confirm('wokaoa', 'wodasdsaadssasda', function() {
+        dialog.confirm('wokaoa', 'wodasdsaadssasda', function () {
             console.log('ok');
-        }, function() {
+        }, function () {
+
             console.log('cancel');
         });
     });
 
-    $(document).on('click', '.open-prompt', function(e) {
+    $(document).on('click', '.open-prompt', function (e) {
         e.preventDefault();
 
-        dialog.prompt('请填写收到的1024邀请码', function(val) {
+        dialog.prompt('请填写收到的1024邀请码', function (val) {
             console.log('确定' + val);
-        }, function(val) {
+        }, function (val) {
+
             console.log('取消' + val);
         });
     });
@@ -161,47 +164,50 @@ function openDialog() {
         dialog.alert('worinimei');
     }
 
-    $(document).on('click', '.open-password', function(e) {
+    $(document).on('click', '.open-password', function (e) {
         e.preventDefault();
 
-        dialog.password('输入密码', function(val) {
+        dialog.password('输入密码', function (val) {
             if (val !== '') {
                 console.log('密码是' + val);
             } else {
                 dialog.close(callbackA);
             }
-        }, function(val) {
+        }, function (val) {
+
             console.log('密码是' + val);
         });
     });
 
-    $(document).on('click', '.open-login', function(e) {
+    $(document).on('click', '.open-login', function (e) {
         e.preventDefault();
 
-        dialog.login('登录你妹啊', function(username, password) {
+        dialog.login('登录你妹啊', function (username, password) {
             console.log('密码是' + username);
             console.log('密码是' + password);
-        }, function(username, password) {
+        }, function (username, password) {
+
             console.log('密码是' + username);
             console.log('密码是' + password);
         });
     });
 
-    $(document).on('click', '.open-register', function(e) {
+    $(document).on('click', '.open-register', function (e) {
         e.preventDefault();
 
-        dialog.register('妈勒个蛋你倒是注册啊', function(username, password, authCode) {
+        dialog.register('妈勒个蛋你倒是注册啊', function (username, password, authCode) {
             console.log('用户名是' + username);
             console.log('密码是' + password);
             console.log('验证码是' + authCode);
-        }, function(username, password, authCode) {
+        }, function (username, password, authCode) {
+
             console.log('用户名是' + username);
             console.log('密码是' + password);
             console.log('验证码是' + authCode);
         });
     });
 
-    $(document).on('click', '.open-dialog-vertical', function(e) {
+    $(document).on('click', '.open-dialog-vertical', function (e) {
         e.preventDefault();
 
         dialog.open({
@@ -211,24 +217,24 @@ function openDialog() {
             verticalButton: true,
             buttons: [{
                 text: '按钮1',
-                onClick: function() {
+                onClick: function () {
                     console.log('按钮1');
                 }
             }, {
                 text: '按钮2',
-                onClick: function() {
+                onClick: function () {
                     console.log('按钮2');
                 }
             }, {
                 text: '按钮3',
-                onClick: function() {
+                onClick: function () {
                     console.log('按钮3');
                 }
             }]
         });
     });
 
-    $(document).on('click', '.open-actionSheet', function(e) {
+    $(document).on('click', '.open-actionSheet', function (e) {
         e.preventDefault();
 
         dialog.actionSheet({
@@ -237,22 +243,24 @@ function openDialog() {
             type: 'actionSheet',
             buttons: [{
                 text: '删除',
-                onClick: function() {
+                onClick: function () {
                     console.log('删除');
                 },
+
                 close: false
             }, {
                 text: '删除2',
-                onClick: function() {
+                onClick: function () {
                     console.log('删除2');
                 },
+
                 close: false,
                 danger: true
             }]
         });
     });
 
-    $(document).on('click', '.open-loader', function(e) {
+    $(document).on('click', '.open-loader', function (e) {
         e.preventDefault();
 
         loader.open('nimabi');
@@ -260,7 +268,7 @@ function openDialog() {
 }
 
 function openLoader() {
-    $(document).on('click', '.open-loader2', function(e) {
+    $(document).on('click', '.open-loader2', function (e) {
         e.preventDefault();
 
         loader.open({
@@ -272,13 +280,13 @@ function openLoader() {
 }
 
 function openToast() {
-    $(document).on('click', '.open-toast', function(e) {
+    $(document).on('click', '.open-toast', function (e) {
         e.preventDefault();
 
         toast.open('nimabi');
     });
 
-    $(document).on('click', '.open-toast2', function(e) {
+    $(document).on('click', '.open-toast2', function (e) {
         e.preventDefault();
 
         toast.open({
@@ -288,7 +296,6 @@ function openToast() {
         });
     });
 }
-
 
 function init() {
     openPopup();

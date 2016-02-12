@@ -16,14 +16,14 @@ function Tab() {}
 Tab.prototype = {
     constructor: Tab,
 
-    init: function(ele, configs) {
+    init: function (ele, configs) {
         var self = this;
 
         this.control = ele || configs.control;
         this.target = [];
 
         // 收集 target
-        $.each(this.control, function(index, ele) {
+        $.each(this.control, function (index, ele) {
             self.target.push($($(this).attr('data-target')));
         });
 
@@ -31,7 +31,7 @@ Tab.prototype = {
         this._bind(configs);
     },
 
-    _bind: function(configs) {
+    _bind: function (configs) {
         var self = this;
         var target;
         var activeClass = configs.activeClass ? configs.activeClass : defaults.activeClass;
@@ -51,7 +51,7 @@ Tab.prototype = {
             // 显示当前 pane，其他 pane 隐藏
             target = $(this).attr('data-target');
 
-            $.each(self.target, function(index, ele) {
+            $.each(self.target, function (index, ele) {
                 ele.removeClass(activeClass);
 
                 $(target).addClass(activeClass);
@@ -62,7 +62,7 @@ Tab.prototype = {
             configs.onchange && configs.onchange($(this), $(target));
         }
 
-        $.each(this.control, function(index, ele) {
+        $.each(this.control, function (index, ele) {
             $(this).on('click', clickHandler);
         });
     }

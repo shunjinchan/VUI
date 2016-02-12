@@ -1,16 +1,15 @@
-/* 
+/*
  * @Author: shunjinchan
  * @Date:   2016-01-13 23:54:47
  * @Last Modified by:   pigsy.chen
  * @Last Modified time: 2016-01-27 00:28:13
  */
 
-
 var subscribeList = {}; // 订阅列表
 
 /**
  * 发布－订阅
- * @usage: 
+ * @usage:
  * emitter.on('事件名字'); // 订阅
  * emitter.emit('事件名字'); // 发布
  */
@@ -25,7 +24,7 @@ EventEmitter.prototype = {
      * @param  {Function} fn  事件触发后的回调函数
      * @return {[Boolean]}       [添加事件是否成功]
      */
-    on: function(key, fn) {
+    on: function (key, fn) {
         // 首次添加事件创建一个数组，以用来缓存事件列表
         if (!subscribeList[key]) {
             subscribeList[key] = [];
@@ -42,16 +41,18 @@ EventEmitter.prototype = {
      * @return {[Boolean]} [事件发布成功与否]
      * @usage: emitter.emit('事件名字', 参数)
      */
-    emit: function() {
+    emit: function () {
         var key = Array.prototype.shift.call(arguments); // 事件类型
         var fns = subscribeList[key]; // 事件回调函数
+        var fn;
 
         // 如果没有订阅对应的事件
         if (!fns || fns.length === 0) {
             return false;
         }
 
-        for (var i = 0, fn; fn = fns[i++];) {
+        for (var i = 0; i < fns.length; i++) {
+            fn = fns[i];
             fn.apply(this, arguments);
         }
     },
@@ -62,7 +63,7 @@ EventEmitter.prototype = {
      * @param  {Function} fn  回调函数
      * @return {[Boolean]}       [是否移除成功]
      */
-    remove: function(key, fn) {
+    remove: function (key, fn) {
         var fns = subscribeList[key];
 
         // 没有被订阅
@@ -96,7 +97,7 @@ EventEmitter.prototype = {
      * @param  {Function} fn  回调函数
      * @return {[Function]}       [订阅方法]
      */
-    once: function(key, fn) {
+    once: function (key, fn) {
         this.remove(key);
 
         return this.on(key, fn);

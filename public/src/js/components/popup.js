@@ -38,14 +38,14 @@ Popup.prototype = {
         var self = this;
         var animation = configs.animation || defaults.animation;
         var extraClass = configs.extraClass || '';
-        var titleHTML = configs.title ? '<div class="popup-header top-bar border-b"><h3 class="popup-title">'
-            + configs.title + '</h3><a href="" class="close" data-toggle="popup" data-action="close"></a></div>' : '';
+        var titleHTML = configs.title ? '<div class="popup-header top-bar border-b"><h3 class="popup-title">' +
+            configs.title + '</h3><a href="" class="close" data-toggle="popup" data-action="close"></a></div>' : '';
         var bodyHTML = configs.body ? '<div class="popup-body">' + configs.body + '</div>' : '';
         var footerHTML = configs.footer ? '<div class="popup-footer bottom-bar border-t">' + configs.footer + '</div>' : '';
         var css = configs.css || defaults.css;
 
-        if (configs.target && configs.target.length > 0) {
-            this.$box = configs.target;
+        if (configs.$target && configs.$target.length > 0) {
+            this.$box = configs.$target;
 
             this.destory = false;
         } else {

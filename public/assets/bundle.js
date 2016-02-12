@@ -79,40 +79,41 @@
 	var countdown = new Countdown();
 	
 	console.log(popup);
+	console.log(window.performance);
 	
 	function openPopup() {
-	    $(document).on('click', '.open-popup-about', function(e) {
+	    $(document).on('click', '.open-popup-about', function (e) {
 	        e.preventDefault();
 	
 	        popup.open({
-	            target: $('.popup-about')
+	            $target: $('.popup-about')
 	        });
 	
-	        popup.$box.on('closed', function() {
+	        popup.$box.on('closed', function () {
 	            console.log('nimabi');
 	        });
 	    });
 	
-	    $(document).on('click', '.open-popup-list', function(e) {
+	    $(document).on('click', '.open-popup-list', function (e) {
 	        e.preventDefault();
 	
 	        popup.open({
-	            target: $('.popup-list'),
+	            $target: $('.popup-list'),
 	            css: {
 	                top: 'auto'
 	            }
 	        });
 	
-	        popup.$box.on('closed', function() {
+	        popup.$box.on('closed', function () {
 	            console.log('nimabi');
 	        });
 	    });
 	
-	    $(document).on('click', '.open-popup-top', function(e) {
+	    $(document).on('click', '.open-popup-top', function (e) {
 	        e.preventDefault();
 	
 	        popup.open({
-	            target: $('.popup-top'),
+	            $target: $('.popup-top'),
 	            animation: 'from-top',
 	            css: {
 	                top: '0',
@@ -121,30 +122,30 @@
 	            freeze: false
 	        });
 	
-	        popup.$box.on('closed', function() {
+	        popup.$box.on('closed', function () {
 	            console.log('nimabi');
 	        });
 	    });
 	
-	    $(document).on('click', '.open-popup-left', function(e) {
+	    $(document).on('click', '.open-popup-left', function (e) {
 	        e.preventDefault();
 	
 	        popup.open({
-	            target: $('.popup-left'),
+	            $target: $('.popup-left'),
 	            animation: 'from-left',
 	            freeze: false
 	        });
 	
-	        popup.$box.on('closed', function() {
+	        popup.$box.on('closed', function () {
 	            console.log('nimabi');
 	        });
 	    });
 	
-	    $(document).on('click', '.open-popup-right', function(e) {
+	    $(document).on('click', '.open-popup-right', function (e) {
 	        e.preventDefault();
 	
 	        popup.open({
-	            target: $('.popup-right'),
+	            $target: $('.popup-right'),
 	            animation: 'from-right',
 	            freeze: false,
 	            css: {
@@ -153,12 +154,12 @@
 	            }
 	        });
 	
-	        popup.$box.on('closed', function() {
+	        popup.$box.on('closed', function () {
 	            console.log('nimabi');
 	        });
 	    });
 	
-	    $(document).on('click', '.open-popup', function(e) {
+	    $(document).on('click', '.open-popup', function (e) {
 	        e.preventDefault();
 	
 	        popup.open({
@@ -168,37 +169,39 @@
 	            footer: 'footer'
 	        });
 	
-	        popup.$box.on('closed', function() {
+	        popup.$box.on('closed', function () {
 	            console.log('nimabi');
 	        });
 	    });
 	}
 	
 	function openDialog() {
-	    $(document).on('click', '.open-alert', function(e) {
+	    $(document).on('click', '.open-alert', function (e) {
 	        e.preventDefault();
 	
-	        dialog.alert('wokaoa', 'dasdaada', function() {
+	        dialog.alert('wokaoa', 'dasdaada', function () {
 	            console.log('nimabi');
 	        });
 	    });
 	
-	    $(document).on('click', '.open-confirm', function(e) {
+	    $(document).on('click', '.open-confirm', function (e) {
 	        e.preventDefault();
 	
-	        dialog.confirm('wokaoa', 'wodasdsaadssasda', function() {
+	        dialog.confirm('wokaoa', 'wodasdsaadssasda', function () {
 	            console.log('ok');
-	        }, function() {
+	        }, function () {
+	
 	            console.log('cancel');
 	        });
 	    });
 	
-	    $(document).on('click', '.open-prompt', function(e) {
+	    $(document).on('click', '.open-prompt', function (e) {
 	        e.preventDefault();
 	
-	        dialog.prompt('请填写收到的1024邀请码', function(val) {
+	        dialog.prompt('请填写收到的1024邀请码', function (val) {
 	            console.log('确定' + val);
-	        }, function(val) {
+	        }, function (val) {
+	
 	            console.log('取消' + val);
 	        });
 	    });
@@ -207,47 +210,50 @@
 	        dialog.alert('worinimei');
 	    }
 	
-	    $(document).on('click', '.open-password', function(e) {
+	    $(document).on('click', '.open-password', function (e) {
 	        e.preventDefault();
 	
-	        dialog.password('输入密码', function(val) {
+	        dialog.password('输入密码', function (val) {
 	            if (val !== '') {
 	                console.log('密码是' + val);
 	            } else {
 	                dialog.close(callbackA);
 	            }
-	        }, function(val) {
+	        }, function (val) {
+	
 	            console.log('密码是' + val);
 	        });
 	    });
 	
-	    $(document).on('click', '.open-login', function(e) {
+	    $(document).on('click', '.open-login', function (e) {
 	        e.preventDefault();
 	
-	        dialog.login('登录你妹啊', function(username, password) {
+	        dialog.login('登录你妹啊', function (username, password) {
 	            console.log('密码是' + username);
 	            console.log('密码是' + password);
-	        }, function(username, password) {
+	        }, function (username, password) {
+	
 	            console.log('密码是' + username);
 	            console.log('密码是' + password);
 	        });
 	    });
 	
-	    $(document).on('click', '.open-register', function(e) {
+	    $(document).on('click', '.open-register', function (e) {
 	        e.preventDefault();
 	
-	        dialog.register('妈勒个蛋你倒是注册啊', function(username, password, authCode) {
+	        dialog.register('妈勒个蛋你倒是注册啊', function (username, password, authCode) {
 	            console.log('用户名是' + username);
 	            console.log('密码是' + password);
 	            console.log('验证码是' + authCode);
-	        }, function(username, password, authCode) {
+	        }, function (username, password, authCode) {
+	
 	            console.log('用户名是' + username);
 	            console.log('密码是' + password);
 	            console.log('验证码是' + authCode);
 	        });
 	    });
 	
-	    $(document).on('click', '.open-dialog-vertical', function(e) {
+	    $(document).on('click', '.open-dialog-vertical', function (e) {
 	        e.preventDefault();
 	
 	        dialog.open({
@@ -257,24 +263,24 @@
 	            verticalButton: true,
 	            buttons: [{
 	                text: '按钮1',
-	                onClick: function() {
+	                onClick: function () {
 	                    console.log('按钮1');
 	                }
 	            }, {
 	                text: '按钮2',
-	                onClick: function() {
+	                onClick: function () {
 	                    console.log('按钮2');
 	                }
 	            }, {
 	                text: '按钮3',
-	                onClick: function() {
+	                onClick: function () {
 	                    console.log('按钮3');
 	                }
 	            }]
 	        });
 	    });
 	
-	    $(document).on('click', '.open-actionSheet', function(e) {
+	    $(document).on('click', '.open-actionSheet', function (e) {
 	        e.preventDefault();
 	
 	        dialog.actionSheet({
@@ -283,22 +289,24 @@
 	            type: 'actionSheet',
 	            buttons: [{
 	                text: '删除',
-	                onClick: function() {
+	                onClick: function () {
 	                    console.log('删除');
 	                },
+	
 	                close: false
 	            }, {
 	                text: '删除2',
-	                onClick: function() {
+	                onClick: function () {
 	                    console.log('删除2');
 	                },
+	
 	                close: false,
 	                danger: true
 	            }]
 	        });
 	    });
 	
-	    $(document).on('click', '.open-loader', function(e) {
+	    $(document).on('click', '.open-loader', function (e) {
 	        e.preventDefault();
 	
 	        loader.open('nimabi');
@@ -306,7 +314,7 @@
 	}
 	
 	function openLoader() {
-	    $(document).on('click', '.open-loader2', function(e) {
+	    $(document).on('click', '.open-loader2', function (e) {
 	        e.preventDefault();
 	
 	        loader.open({
@@ -318,13 +326,13 @@
 	}
 	
 	function openToast() {
-	    $(document).on('click', '.open-toast', function(e) {
+	    $(document).on('click', '.open-toast', function (e) {
 	        e.preventDefault();
 	
 	        toast.open('nimabi');
 	    });
 	
-	    $(document).on('click', '.open-toast2', function(e) {
+	    $(document).on('click', '.open-toast2', function (e) {
 	        e.preventDefault();
 	
 	        toast.open({
@@ -334,7 +342,6 @@
 	        });
 	    });
 	}
-	
 	
 	function init() {
 	    openPopup();
@@ -3160,14 +3167,14 @@
 	        var self = this;
 	        var animation = configs.animation || defaults.animation;
 	        var extraClass = configs.extraClass || '';
-	        var titleHTML = configs.title ? '<div class="popup-header top-bar border-b"><h3 class="popup-title">'
-	            + configs.title + '</h3><a href="" class="close" data-toggle="popup" data-action="close"></a></div>' : '';
+	        var titleHTML = configs.title ? '<div class="popup-header top-bar border-b"><h3 class="popup-title">' +
+	            configs.title + '</h3><a href="" class="close" data-toggle="popup" data-action="close"></a></div>' : '';
 	        var bodyHTML = configs.body ? '<div class="popup-body">' + configs.body + '</div>' : '';
 	        var footerHTML = configs.footer ? '<div class="popup-footer bottom-bar border-t">' + configs.footer + '</div>' : '';
 	        var css = configs.css || defaults.css;
 	
-	        if (configs.target && configs.target.length > 0) {
-	            this.$box = configs.target;
+	        if (configs.$target && configs.$target.length > 0) {
+	            this.$box = configs.$target;
 	
 	            this.destory = false;
 	        } else {
@@ -4097,7 +4104,7 @@
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* 
+	/*
 	 * @Author: shunjinchan
 	 * @Date:   2016-01-03 19:19:17
 	 * @Last Modified by:   shunjinchan
@@ -4122,7 +4129,8 @@
 	    }
 	
 	    this.createTime = new Date();
-	    //缓存实例 
+	
+	    //缓存实例
 	    instance = this;
 	
 	    return this;
@@ -4136,7 +4144,7 @@
 	     * @param  {String 或者 Object} params，为 string 时默认是 title，为 Object 是配置
 	     * @return {[type]}         [description]
 	     */
-	    open: function(params) {
+	    open: function (params) {
 	        if (this.isOpen) return;
 	
 	        this._render(params);
@@ -4148,7 +4156,7 @@
 	        this.isOpen = true;
 	    },
 	
-	    _render: function(params) {
+	    _render: function (params) {
 	        this.$box = $(defaults.box).appendTo('body');
 	
 	        var self = this;
@@ -4170,7 +4178,7 @@
 	        extraClass && this.$box.addClass(extraClass);
 	
 	        if (timer && typeof timer === 'number') {
-	            this.timeID = window.setTimeout(function() {
+	            this.timeID = window.setTimeout(function () {
 	                self.close();
 	            }, timer);
 	        }
@@ -4180,13 +4188,13 @@
 	        this.$backdrop && this.$backdrop.addClass('visible').css('opacity', '0');
 	    },
 	
-	    _setSize: function(e) {
+	    _setSize: function (e) {
 	        this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
 	        this.$box.css('marginLeft', -Math.round(this.$box.outerWidth() / 2 / 1.185) + 'px');
 	    },
 	
-	    _bindEvents: function() {
-	        this.$backdrop.on('touchmove', function(e) {
+	    _bindEvents: function () {
+	        this.$backdrop.on('touchmove', function (e) {
 	            e.preventDefault();
 	            e.stopPropagation();
 	        });
@@ -4197,7 +4205,7 @@
 	     * @param  {function} 关闭之后的回调函数
 	     * @return {[type]}         [description]
 	     */
-	    close: function(callback) {
+	    close: function (callback) {
 	        var self = this;
 	
 	        if (this.$box.length === 0) {
@@ -4206,7 +4214,7 @@
 	
 	        this.$backdrop && this.$backdrop.removeClass('visible');
 	        this.$box.removeClass('transition-in').addClass('transition-out')
-	            .transitionEnd(function(e) {
+	            .transitionEnd(function (e) {
 	                self.$box.off();
 	                self.$box.remove();
 	                self.$box = null;
@@ -4270,7 +4278,7 @@
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* 
+	/*
 	* @Author: shunjinchan
 	* @Date:   2015-10-15 13:34:31
 	* @Last Modified by:   shunjinchan
@@ -4294,7 +4302,8 @@
 	    }
 	
 	    this.createTime = new Date();
-	    //缓存实例 
+	
+	    //缓存实例
 	    instance = this;
 	
 	    return this;
@@ -4308,7 +4317,7 @@
 	     * @param  {String 或者 Object} params，为 string 时默认是 title，为 Object 是配置
 	     * @return {[type]}         [description]
 	     */
-	    open: function(params) {
+	    open: function (params) {
 	        if (this.isOpen) return;
 	
 	        this._render(params);
@@ -4320,7 +4329,7 @@
 	        this.isOpen = true;
 	    },
 	
-	    _render: function(params) {
+	    _render: function (params) {
 	        this.$box = $(defaults.box).appendTo('body');
 	
 	        var self = this;
@@ -4342,7 +4351,7 @@
 	        extraClass && this.$box.addClass(extraClass);
 	
 	        if (timer && typeof timer === 'number') {
-	            this.timeID = window.setTimeout(function() {
+	            this.timeID = window.setTimeout(function () {
 	                self.close();
 	            }, timer);
 	        }
@@ -4352,13 +4361,13 @@
 	        this.$backdrop && this.$backdrop.addClass('visible').css('opacity', '0');
 	    },
 	
-	    _setSize: function(e) {
+	    _setSize: function (e) {
 	        this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
 	        this.$box.css('marginLeft', -Math.round(this.$box.outerWidth() / 2 / 1.185) + 'px');
 	    },
 	
-	    _bindEvents: function() {
-	        this.$backdrop.on('touchmove', function(e) {
+	    _bindEvents: function () {
+	        this.$backdrop.on('touchmove', function (e) {
 	            e.preventDefault();
 	            e.stopPropagation();
 	        });
@@ -4369,7 +4378,7 @@
 	     * @param  {function} 关闭之后的回调函数
 	     * @return {[type]}         [description]
 	     */
-	    close: function(callback) {
+	    close: function (callback) {
 	        var self = this;
 	
 	        if (this.$box.length === 0) {
@@ -4378,7 +4387,7 @@
 	
 	        this.$backdrop && this.$backdrop.removeClass('visible');
 	        this.$box.removeClass('transition-in').addClass('transition-out')
-	            .transitionEnd(function(e) {
+	            .transitionEnd(function (e) {
 	                self.$box.off();
 	                self.$box.remove();
 	                self.$box = null;
@@ -4460,14 +4469,14 @@
 	Tab.prototype = {
 	    constructor: Tab,
 	
-	    init: function(ele, configs) {
+	    init: function (ele, configs) {
 	        var self = this;
 	
 	        this.control = ele || configs.control;
 	        this.target = [];
 	
 	        // 收集 target
-	        $.each(this.control, function(index, ele) {
+	        $.each(this.control, function (index, ele) {
 	            self.target.push($($(this).attr('data-target')));
 	        });
 	
@@ -4475,7 +4484,7 @@
 	        this._bind(configs);
 	    },
 	
-	    _bind: function(configs) {
+	    _bind: function (configs) {
 	        var self = this;
 	        var target;
 	        var activeClass = configs.activeClass ? configs.activeClass : defaults.activeClass;
@@ -4495,7 +4504,7 @@
 	            // 显示当前 pane，其他 pane 隐藏
 	            target = $(this).attr('data-target');
 	
-	            $.each(self.target, function(index, ele) {
+	            $.each(self.target, function (index, ele) {
 	                ele.removeClass(activeClass);
 	
 	                $(target).addClass(activeClass);
@@ -4506,7 +4515,7 @@
 	            configs.onchange && configs.onchange($(this), $(target));
 	        }
 	
-	        $.each(this.control, function(index, ele) {
+	        $.each(this.control, function (index, ele) {
 	            $(this).on('click', clickHandler);
 	        });
 	    }
@@ -4570,14 +4579,16 @@
 	 * 校验规则
 	 */
 	var strategies = {
-	    isNotEmpty: function(value, errorMsg) {
+	    isNotEmpty: function (value, errorMsg) {
 	        if (value === '') {
 	            return errorMsg;
 	        }
 	    },
-	    isChinese: function(value, errorMsg) {
+	
+	    isChinese: function (value, errorMsg) {
 	
 	    },
+	
 	    /**
 	     * 身份证号码验证
 	     * 验证规则：15位或者8位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X
@@ -4585,13 +4596,14 @@
 	     * @param  {String}  errorMsg 错误信息
 	     * @return {String}          错误信息
 	     */
-	    isIdCard: function(value, errorMsg) {
+	    isIdCard: function (value, errorMsg) {
 	        errorMsg = errorMsg ? errorMsg : '身份证格式错误';
 	
 	        if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
 	            return errorMsg;
 	        }
 	    },
+	
 	    /**
 	     * 手机号码验证
 	     * 验证规则：
@@ -4599,47 +4611,53 @@
 	     * @param  {String}  errorMsg 错误信息
 	     * @return {String}           错误信息
 	     */
-	    isMobile: function(value, errorMsg) {
+	    isMobile: function (value, errorMsg) {
 	        errorMsg = errorMsg ? errorMsg : '手机号码格式错误';
 	
 	        if (!/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value)) {
 	            return errorMsg;
 	        }
 	    },
-	    isEmail: function(value, errorMsg) {
+	
+	    isEmail: function (value, errorMsg) {
 	        errorMsg = errorMsg ? errorMsg : '邮箱地址格式错误';
 	
 	        if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)) {
 	            return errorMsg;
 	        }
 	    },
-	    isQq: function(value, errorMsg) {
+	
+	    isQq: function (value, errorMsg) {
 	        errorMsg = errorMsg ? errorMsg : 'qq号码格式错误';
 	
 	        if (!/^[1-9]\d{4,9}$/.test(value)) {
 	            return errorMsg;
 	        }
 	    },
-	    isPostcode: function(value, errorMsg) {
+	
+	    isPostcode: function (value, errorMsg) {
 	        errorMsg = errorMsg ? errorMsg : '邮政编码格式错误';
 	
 	        if (!/^[1-9]\d{5}$/) {
 	            return errorMsg;
 	        }
 	    },
-	    password: function(value, errorMsg) {
+	
+	    password: function (value, errorMsg) {
 	        errorMsg = errorMsg ? errorMsg : '密码必须是由数字/大写字母/小写字母/标点符号组成，四种都必有，8位以上';
 	
 	        if (!/(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?=.*[A-Z])(?=.*[a-z])(?!.*\n).*$/.test(value)) {
 	            return errorMsg;
 	        }
 	    },
-	    minLength: function(value, length, errorMsg) {
+	
+	    minLength: function (value, length, errorMsg) {
 	        if (value.length < length) {
 	            return errorMsg;
 	        }
 	    },
-	    maxLength: function(value, length, errorMsg) {
+	
+	    maxLength: function (value, length, errorMsg) {
 	        if (value.length > length) {
 	            return errorMsg;
 	        }
@@ -4658,7 +4676,7 @@
 	Validator.prototype = {
 	    constructor: Validator,
 	
-	    conf: function(configs) {
+	    conf: function (configs) {
 	        this.configs = configs;
 	    },
 	
@@ -4667,16 +4685,18 @@
 	     * @param {dom 对象} dom      需要验证的表单控件
 	     * @param {Array} rules    验证的规则
 	     */
-	    add: function(dom, rules) {
+	    add: function (dom, rules) {
 	        var self = this;
+	        var rule;
 	
 	        // 循环遍历需要验证的规则
-	        for (var i = 0, rule; rule = rules[i++];) {
-	            (function(rule) {
+	        for (var i = 0; i < rules.length; i++) {
+	            rule = rules[i];
+	            (function (rule) {
 	                var strategyAry = rule.strategy.split(':'); // 把 strategy 和参数分开
 	                var errorMsg = rule.errorMsg; // 错误信息
 	
-	                self.cache.push(function() { // 把检验的步骤用空函数包装起来，并且放入 cache
+	                self.cache.push(function () { // 把检验的步骤用空函数包装起来，并且放入 cache
 	                    var strategy = strategyAry.shift();
 	
 	                    strategyAry.unshift(dom.value); // 需要验证的表单控件的值
@@ -4692,8 +4712,11 @@
 	     * 开始验证
 	     * @return {String} 错误信息
 	     */
-	    start: function() {
-	        for (var i = 0, validatorFunc; validatorFunc = this.cache[i++];) {
+	    start: function () {
+	        var validatorFunc;
+	
+	        for (var i = 0; i < this.cache.length; i++) {
+	            validatorFunc = this.cache[i];
 	            var errorMsg = validatorFunc();
 	
 	            if (errorMsg) {
@@ -4710,19 +4733,18 @@
 /* 20 */
 /***/ function(module, exports) {
 
-	/* 
+	/*
 	 * @Author: shunjinchan
 	 * @Date:   2016-01-13 23:54:47
 	 * @Last Modified by:   pigsy.chen
 	 * @Last Modified time: 2016-01-27 00:28:13
 	 */
 	
-	
 	var subscribeList = {}; // 订阅列表
 	
 	/**
 	 * 发布－订阅
-	 * @usage: 
+	 * @usage:
 	 * emitter.on('事件名字'); // 订阅
 	 * emitter.emit('事件名字'); // 发布
 	 */
@@ -4737,7 +4759,7 @@
 	     * @param  {Function} fn  事件触发后的回调函数
 	     * @return {[Boolean]}       [添加事件是否成功]
 	     */
-	    on: function(key, fn) {
+	    on: function (key, fn) {
 	        // 首次添加事件创建一个数组，以用来缓存事件列表
 	        if (!subscribeList[key]) {
 	            subscribeList[key] = [];
@@ -4754,16 +4776,18 @@
 	     * @return {[Boolean]} [事件发布成功与否]
 	     * @usage: emitter.emit('事件名字', 参数)
 	     */
-	    emit: function() {
+	    emit: function () {
 	        var key = Array.prototype.shift.call(arguments); // 事件类型
 	        var fns = subscribeList[key]; // 事件回调函数
+	        var fn;
 	
 	        // 如果没有订阅对应的事件
 	        if (!fns || fns.length === 0) {
 	            return false;
 	        }
 	
-	        for (var i = 0, fn; fn = fns[i++];) {
+	        for (var i = 0; i < fns.length; i++) {
+	            fn = fns[i];
 	            fn.apply(this, arguments);
 	        }
 	    },
@@ -4774,7 +4798,7 @@
 	     * @param  {Function} fn  回调函数
 	     * @return {[Boolean]}       [是否移除成功]
 	     */
-	    remove: function(key, fn) {
+	    remove: function (key, fn) {
 	        var fns = subscribeList[key];
 	
 	        // 没有被订阅
@@ -4808,7 +4832,7 @@
 	     * @param  {Function} fn  回调函数
 	     * @return {[Function]}       [订阅方法]
 	     */
-	    once: function(key, fn) {
+	    once: function (key, fn) {
 	        this.remove(key);
 	
 	        return this.on(key, fn);
@@ -4841,14 +4865,14 @@
 	Swiper.prototype = {
 	    constructor: Swiper,
 	
-	    init: function(configs) {
+	    init: function (configs) {
 	        var self = this;
 	
 	        this.control = configs.control;
 	
 	    },
 	
-	    _bind: function(configs) {
+	    _bind: function (configs) {
 	
 	    }
 	};
@@ -4900,7 +4924,7 @@
 /* 24 */
 /***/ function(module, exports) {
 
-	/* 
+	/*
 	 * @Author: Framework7
 	 * @Date:   2016-01-11 22:40:06
 	 * @Last Modified by:   shunjinchan
@@ -4910,7 +4934,7 @@
 	
 	var device = {};
 	
-	(function() {
+	(function () {
 	
 	    var ua = navigator.userAgent;
 	    var android = ua.match(/(Android);?[\s\/]+([\d.]+)?/);
@@ -4933,24 +4957,29 @@
 	        device.android = true;
 	        device.androidChrome = ua.toLowerCase().indexOf('chrome') >= 0;
 	    }
+	
 	    if (ipad || iphone || ipod) {
 	        device.os = 'ios';
 	        device.ios = true;
 	        device.isSafari = true;
 	    }
+	
 	    // iOS
 	    if (iphone && !ipod) {
 	        device.osVersion = iphone[2].replace(/_/g, '.');
 	        device.iphone = true;
 	    }
+	
 	    if (ipad) {
 	        device.osVersion = ipad[2].replace(/_/g, '.');
 	        device.ipad = true;
 	    }
+	
 	    if (ipod) {
 	        device.osVersion = ipod[3] ? ipod[3].replace(/_/g, '.') : null;
 	        device.iphone = true;
 	    }
+	
 	    // iOS 8+ changed UA
 	    if (device.ios && device.osVersion && ua.indexOf('Version/') >= 0) {
 	        if (device.osVersion.split('.')[0] === '10') {
@@ -5001,6 +5030,7 @@
 	        }
 	
 	    }
+	
 	    // Status bar classes
 	    if (device.statusBar) {
 	        classNames.push('with-statusbar-overlay');
@@ -5094,7 +5124,7 @@
 	     * @param  {Object} configs 配置信息
 	     * @return {[Object]}         当前实例
 	     */
-	    conf: function(configs) {
+	    conf: function (configs) {
 	        this.options = $.extend({}, defaults, configs);
 	
 	        return this;
@@ -5104,7 +5134,7 @@
 	     * 开始倒计时，默认每隔一秒执行一次
 	     * @return {[Object]}         当前实例
 	     */
-	    start: function() {
+	    start: function () {
 	        var self = this;
 	
 	        if (this.interval) {
@@ -5114,7 +5144,7 @@
 	        this._update();
 	
 	        if (this.options.interval) {
-	            this.interval = setInterval(function() {
+	            this.interval = setInterval(function () {
 	                self._update();
 	            }, this.options.interval);
 	        }
@@ -5126,13 +5156,14 @@
 	     * 计算时间差
 	     * @return {Object} 时间差
 	     */
-	    getDiffDate: function() {
+	    getDiffDate: function () {
 	        var diff;
 	
 	        if (this.options.diff) {
 	            if (!this.startTime) {
 	                this.startTime = Date.now();
 	            }
+	
 	            if (!this.endTime) {
 	                this.endTime = this.options.diff * 1000 + this.startTime;
 	            }
@@ -5208,11 +5239,12 @@
 	     * 停止倒计时
 	     * @return {Object} 该实例对象
 	     */
-	    stop: function() {
+	    stop: function () {
 	        if (this.interval) {
 	            clearInterval(this.interval);
 	            this.interval = false;
 	        }
+	
 	        return this;
 	    },
 	
@@ -5220,7 +5252,7 @@
 	     * 渲染，只有当存在 container 的时候才执行
 	     * @return {[type]} [description]
 	     */
-	    _render: function() {
+	    _render: function () {
 	        if (this.options.container && this.options.container.length !== 0) {
 	            this.$box = this.options.container;
 	        } else {
@@ -5241,7 +5273,7 @@
 	
 	            countdownYear = '<span class="countdown-year">' +
 	                this._addleadingZero(this.dateData.years) + '</span>' +
-	                '<span class="countdown-text">' + separator +'</span>';
+	                '<span class="countdown-text">' + separator + '</span>';
 	        }
 	
 	        if (this.options.day) {
@@ -5292,12 +5324,12 @@
 	    /**
 	     * 更新
 	     */
-	    _update: function() {
+	    _update: function () {
 	        this.getDiffDate() && this._render();
 	        this.options.onchange && this.options.onchange();
 	    },
 	
-	    _addleadingZero: function(num) {
+	    _addleadingZero: function (num) {
 	        if (num >= 10) return num;
 	
 	        return '0' + String(num);

@@ -37,7 +37,7 @@ Countdown.prototype = {
      * @param  {Object} configs 配置信息
      * @return {[Object]}         当前实例
      */
-    conf: function(configs) {
+    conf: function (configs) {
         this.options = $.extend({}, defaults, configs);
 
         return this;
@@ -47,7 +47,7 @@ Countdown.prototype = {
      * 开始倒计时，默认每隔一秒执行一次
      * @return {[Object]}         当前实例
      */
-    start: function() {
+    start: function () {
         var self = this;
 
         if (this.interval) {
@@ -57,7 +57,7 @@ Countdown.prototype = {
         this._update();
 
         if (this.options.interval) {
-            this.interval = setInterval(function() {
+            this.interval = setInterval(function () {
                 self._update();
             }, this.options.interval);
         }
@@ -69,13 +69,14 @@ Countdown.prototype = {
      * 计算时间差
      * @return {Object} 时间差
      */
-    getDiffDate: function() {
+    getDiffDate: function () {
         var diff;
 
         if (this.options.diff) {
             if (!this.startTime) {
                 this.startTime = Date.now();
             }
+
             if (!this.endTime) {
                 this.endTime = this.options.diff * 1000 + this.startTime;
             }
@@ -151,11 +152,12 @@ Countdown.prototype = {
      * 停止倒计时
      * @return {Object} 该实例对象
      */
-    stop: function() {
+    stop: function () {
         if (this.interval) {
             clearInterval(this.interval);
             this.interval = false;
         }
+
         return this;
     },
 
@@ -163,7 +165,7 @@ Countdown.prototype = {
      * 渲染，只有当存在 container 的时候才执行
      * @return {[type]} [description]
      */
-    _render: function() {
+    _render: function () {
         if (this.options.container && this.options.container.length !== 0) {
             this.$box = this.options.container;
         } else {
@@ -184,7 +186,7 @@ Countdown.prototype = {
 
             countdownYear = '<span class="countdown-year">' +
                 this._addleadingZero(this.dateData.years) + '</span>' +
-                '<span class="countdown-text">' + separator +'</span>';
+                '<span class="countdown-text">' + separator + '</span>';
         }
 
         if (this.options.day) {
@@ -235,12 +237,12 @@ Countdown.prototype = {
     /**
      * 更新
      */
-    _update: function() {
+    _update: function () {
         this.getDiffDate() && this._render();
         this.options.onchange && this.options.onchange();
     },
 
-    _addleadingZero: function(num) {
+    _addleadingZero: function (num) {
         if (num >= 10) return num;
 
         return '0' + String(num);

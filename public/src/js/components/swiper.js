@@ -17,14 +17,14 @@ function Swiper() {}
 Swiper.prototype = {
     constructor: Swiper,
 
-    init: function(configs) {
+    init: function (configs) {
         var self = this;
 
         this.control = configs.control;
 
     },
 
-    _bind: function(configs) {
+    _bind: function (configs) {
 
     }
 };

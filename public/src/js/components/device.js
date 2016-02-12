@@ -1,4 +1,4 @@
-/* 
+/*
  * @Author: Framework7
  * @Date:   2016-01-11 22:40:06
  * @Last Modified by:   shunjinchan
@@ -8,7 +8,7 @@
 
 var device = {};
 
-(function() {
+(function () {
 
     var ua = navigator.userAgent;
     var android = ua.match(/(Android);?[\s\/]+([\d.]+)?/);
@@ -31,24 +31,29 @@ var device = {};
         device.android = true;
         device.androidChrome = ua.toLowerCase().indexOf('chrome') >= 0;
     }
+
     if (ipad || iphone || ipod) {
         device.os = 'ios';
         device.ios = true;
         device.isSafari = true;
     }
+
     // iOS
     if (iphone && !ipod) {
         device.osVersion = iphone[2].replace(/_/g, '.');
         device.iphone = true;
     }
+
     if (ipad) {
         device.osVersion = ipad[2].replace(/_/g, '.');
         device.ipad = true;
     }
+
     if (ipod) {
         device.osVersion = ipod[3] ? ipod[3].replace(/_/g, '.') : null;
         device.iphone = true;
     }
+
     // iOS 8+ changed UA
     if (device.ios && device.osVersion && ua.indexOf('Version/') >= 0) {
         if (device.osVersion.split('.')[0] === '10') {
@@ -99,6 +104,7 @@ var device = {};
         }
 
     }
+
     // Status bar classes
     if (device.statusBar) {
         classNames.push('with-statusbar-overlay');

@@ -9,14 +9,16 @@
  * 校验规则
  */
 var strategies = {
-    isNotEmpty: function(value, errorMsg) {
+    isNotEmpty: function (value, errorMsg) {
         if (value === '') {
             return errorMsg;
         }
     },
-    isChinese: function(value, errorMsg) {
+
+    isChinese: function (value, errorMsg) {
 
     },
+
     /**
      * 身份证号码验证
      * 验证规则：15位或者8位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X
@@ -24,13 +26,14 @@ var strategies = {
      * @param  {String}  errorMsg 错误信息
      * @return {String}          错误信息
      */
-    isIdCard: function(value, errorMsg) {
+    isIdCard: function (value, errorMsg) {
         errorMsg = errorMsg ? errorMsg : '身份证格式错误';
 
         if (!/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
             return errorMsg;
         }
     },
+
     /**
      * 手机号码验证
      * 验证规则：
@@ -38,47 +41,53 @@ var strategies = {
      * @param  {String}  errorMsg 错误信息
      * @return {String}           错误信息
      */
-    isMobile: function(value, errorMsg) {
+    isMobile: function (value, errorMsg) {
         errorMsg = errorMsg ? errorMsg : '手机号码格式错误';
 
         if (!/^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/.test(value)) {
             return errorMsg;
         }
     },
-    isEmail: function(value, errorMsg) {
+
+    isEmail: function (value, errorMsg) {
         errorMsg = errorMsg ? errorMsg : '邮箱地址格式错误';
 
         if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)) {
             return errorMsg;
         }
     },
-    isQq: function(value, errorMsg) {
+
+    isQq: function (value, errorMsg) {
         errorMsg = errorMsg ? errorMsg : 'qq号码格式错误';
 
         if (!/^[1-9]\d{4,9}$/.test(value)) {
             return errorMsg;
         }
     },
-    isPostcode: function(value, errorMsg) {
+
+    isPostcode: function (value, errorMsg) {
         errorMsg = errorMsg ? errorMsg : '邮政编码格式错误';
 
         if (!/^[1-9]\d{5}$/) {
             return errorMsg;
         }
     },
-    password: function(value, errorMsg) {
+
+    password: function (value, errorMsg) {
         errorMsg = errorMsg ? errorMsg : '密码必须是由数字/大写字母/小写字母/标点符号组成，四种都必有，8位以上';
 
         if (!/(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?=.*[A-Z])(?=.*[a-z])(?!.*\n).*$/.test(value)) {
             return errorMsg;
         }
     },
-    minLength: function(value, length, errorMsg) {
+
+    minLength: function (value, length, errorMsg) {
         if (value.length < length) {
             return errorMsg;
         }
     },
-    maxLength: function(value, length, errorMsg) {
+
+    maxLength: function (value, length, errorMsg) {
         if (value.length > length) {
             return errorMsg;
         }
@@ -97,7 +106,7 @@ function Validator() {
 Validator.prototype = {
     constructor: Validator,
 
-    conf: function(configs) {
+    conf: function (configs) {
         this.configs = configs;
     },
 
@@ -106,16 +115,18 @@ Validator.prototype = {
      * @param {dom 对象} dom      需要验证的表单控件
      * @param {Array} rules    验证的规则
      */
-    add: function(dom, rules) {
+    add: function (dom, rules) {
         var self = this;
+        var rule;
 
         // 循环遍历需要验证的规则
-        for (var i = 0, rule; rule = rules[i++];) {
-            (function(rule) {
+        for (var i = 0; i < rules.length; i++) {
+            rule = rules[i];
+            (function (rule) {
                 var strategyAry = rule.strategy.split(':'); // 把 strategy 和参数分开
                 var errorMsg = rule.errorMsg; // 错误信息
 
-                self.cache.push(function() { // 把检验的步骤用空函数包装起来，并且放入 cache
+                self.cache.push(function () { // 把检验的步骤用空函数包装起来，并且放入 cache
                     var strategy = strategyAry.shift();
 
                     strategyAry.unshift(dom.value); // 需要验证的表单控件的值
@@ -131,8 +142,11 @@ Validator.prototype = {
      * 开始验证
      * @return {String} 错误信息
      */
-    start: function() {
-        for (var i = 0, validatorFunc; validatorFunc = this.cache[i++];) {
+    start: function () {
+        var validatorFunc;
+
+        for (var i = 0; i < this.cache.length; i++) {
+            validatorFunc = this.cache[i];
             var errorMsg = validatorFunc();
 
             if (errorMsg) {

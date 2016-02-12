@@ -1,4 +1,4 @@
-(function(win, doc) {
+(function (win, doc) {
 
     var dpr;
     var docEl;
@@ -21,23 +21,26 @@
         rootFontsize = width * 2 / 750 * 50;
 
         // 设置 html 元素的字体大小基准值
-        docEl.style.fontSize = rootFontsize + "px";
+        docEl.style.fontSize = rootFontsize + 'px';
     }
 
     // 给js调用的，某一屏幕宽度下 rootFontsize 和 px 之间的转换函数
-    window.px2rem = function(px) {
+    window.px2rem = function (px) {
         return px / rootFontsize;
     };
-    window.rem2px = function(rem) {
+
+    window.rem2px = function (rem) {
         return rem * rootFontsize;
     };
 
     window.rootFontsize = rootFontsize;
 
     doc.addEventListener('DOMContentLoaded', updateRem, false);
+
     // 在页面调整时更新 rootFontsize
     win.addEventListener('resize', updateRem, false);
+
     // 在页面显示时更新 rootFontsize
     win.addEventListener('pageshow', updateRem, false);
-    
+
 })(window, document);

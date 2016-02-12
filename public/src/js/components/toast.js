@@ -1,4 +1,4 @@
-/* 
+/*
 * @Author: shunjinchan
 * @Date:   2015-10-15 13:34:31
 * @Last Modified by:   shunjinchan
@@ -22,7 +22,8 @@ function Toast() {
     }
 
     this.createTime = new Date();
-    //缓存实例 
+
+    //缓存实例
     instance = this;
 
     return this;
@@ -36,7 +37,7 @@ Toast.prototype = {
      * @param  {String 或者 Object} params，为 string 时默认是 title，为 Object 是配置
      * @return {[type]}         [description]
      */
-    open: function(params) {
+    open: function (params) {
         if (this.isOpen) return;
 
         this._render(params);
@@ -48,7 +49,7 @@ Toast.prototype = {
         this.isOpen = true;
     },
 
-    _render: function(params) {
+    _render: function (params) {
         this.$box = $(defaults.box).appendTo('body');
 
         var self = this;
@@ -70,7 +71,7 @@ Toast.prototype = {
         extraClass && this.$box.addClass(extraClass);
 
         if (timer && typeof timer === 'number') {
-            this.timeID = window.setTimeout(function() {
+            this.timeID = window.setTimeout(function () {
                 self.close();
             }, timer);
         }
@@ -80,13 +81,13 @@ Toast.prototype = {
         this.$backdrop && this.$backdrop.addClass('visible').css('opacity', '0');
     },
 
-    _setSize: function(e) {
+    _setSize: function (e) {
         this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
         this.$box.css('marginLeft', -Math.round(this.$box.outerWidth() / 2 / 1.185) + 'px');
     },
 
-    _bindEvents: function() {
-        this.$backdrop.on('touchmove', function(e) {
+    _bindEvents: function () {
+        this.$backdrop.on('touchmove', function (e) {
             e.preventDefault();
             e.stopPropagation();
         });
@@ -97,7 +98,7 @@ Toast.prototype = {
      * @param  {function} 关闭之后的回调函数
      * @return {[type]}         [description]
      */
-    close: function(callback) {
+    close: function (callback) {
         var self = this;
 
         if (this.$box.length === 0) {
@@ -106,7 +107,7 @@ Toast.prototype = {
 
         this.$backdrop && this.$backdrop.removeClass('visible');
         this.$box.removeClass('transition-in').addClass('transition-out')
-            .transitionEnd(function(e) {
+            .transitionEnd(function (e) {
                 self.$box.off();
                 self.$box.remove();
                 self.$box = null;

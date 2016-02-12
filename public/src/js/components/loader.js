@@ -1,4 +1,4 @@
-/* 
+/*
  * @Author: shunjinchan
  * @Date:   2016-01-03 19:19:17
  * @Last Modified by:   shunjinchan
@@ -23,7 +23,8 @@ function Loader() {
     }
 
     this.createTime = new Date();
-    //缓存实例 
+
+    //缓存实例
     instance = this;
 
     return this;
@@ -37,7 +38,7 @@ Loader.prototype = {
      * @param  {String 或者 Object} params，为 string 时默认是 title，为 Object 是配置
      * @return {[type]}         [description]
      */
-    open: function(params) {
+    open: function (params) {
         if (this.isOpen) return;
 
         this._render(params);
@@ -49,7 +50,7 @@ Loader.prototype = {
         this.isOpen = true;
     },
 
-    _render: function(params) {
+    _render: function (params) {
         this.$box = $(defaults.box).appendTo('body');
 
         var self = this;
@@ -71,7 +72,7 @@ Loader.prototype = {
         extraClass && this.$box.addClass(extraClass);
 
         if (timer && typeof timer === 'number') {
-            this.timeID = window.setTimeout(function() {
+            this.timeID = window.setTimeout(function () {
                 self.close();
             }, timer);
         }
@@ -81,13 +82,13 @@ Loader.prototype = {
         this.$backdrop && this.$backdrop.addClass('visible').css('opacity', '0');
     },
 
-    _setSize: function(e) {
+    _setSize: function (e) {
         this.$box.css('marginTop', -Math.round(this.$box.outerHeight() / 2 / 1.185) + 'px');
         this.$box.css('marginLeft', -Math.round(this.$box.outerWidth() / 2 / 1.185) + 'px');
     },
 
-    _bindEvents: function() {
-        this.$backdrop.on('touchmove', function(e) {
+    _bindEvents: function () {
+        this.$backdrop.on('touchmove', function (e) {
             e.preventDefault();
             e.stopPropagation();
         });
@@ -98,7 +99,7 @@ Loader.prototype = {
      * @param  {function} 关闭之后的回调函数
      * @return {[type]}         [description]
      */
-    close: function(callback) {
+    close: function (callback) {
         var self = this;
 
         if (this.$box.length === 0) {
@@ -107,7 +108,7 @@ Loader.prototype = {
 
         this.$backdrop && this.$backdrop.removeClass('visible');
         this.$box.removeClass('transition-in').addClass('transition-out')
-            .transitionEnd(function(e) {
+            .transitionEnd(function (e) {
                 self.$box.off();
                 self.$box.remove();
                 self.$box = null;
