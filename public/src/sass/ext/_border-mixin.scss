@@ -1,8 +1,8 @@
 /* 
 * @Author: shunjinchan
-* @Date:   2016-01-23 01:01:03
-* @Last Modified by:   shunjinchan
-* @Last Modified time: 2016-01-25 00:34:39
+* @Date:   2016-04-15 11:28:32
+* @Last Modified by:   pigsy.chen
+* @Last Modified time: 2016-04-15 14:49:11
 * 模拟一像素
 * @usage:
 * @media screen and (-webkit-min-device-pixel-ratio: 2) { @include border(bottom, #abcdef) }
@@ -11,49 +11,62 @@
 // 纵向
 %border-portrait {
     background-repeat: repeat-x;
-    -webkit-background-size: 100% 1px; /*no*/
+    background-size: 100% 1px; /*no*/
 }
 // 横向
 %border-landscape {
     background-repeat: repeat-y;
-    -webkit-background-size: 1px 100%; /*no*/
+    background-size: 1px 100%; /*no*/
 }
+
+// @extend %border-portrait; media 里不能用 @@extend
+
 @mixin border($direction: top, $borderColor: $color-border) {
     @media screen and (-webkit-min-device-pixel-ratio: 2) {
         border: 0;
         @if $direction == top {
             background-position: left top;
-            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
-            // @extend border-portrait();
             background-repeat: repeat-x;
-            -webkit-background-size: 100% 1px; /*no*/
+            background-size: 100% 1px; /*no*/
+            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(50%, transparent), color-stop(50%, $borderColor));
+            background-image: -webkit-linear-gradient(bottom, transparent 50%, $borderColor 50%);
+            background-image: linear-gradient(bottom, transparent 50%, $borderColor 50%);
         }
         @else if $direction == bottom {
             background-position: left bottom;
-            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
             background-repeat: repeat-x;
-            -webkit-background-size: 100% 1px; /*no*/
+            background-size: 100% 1px; /*no*/
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, transparent), color-stop(50%, #ddd));
+            background-image: -webkit-linear-gradient(top, transparent 50%, #ddd 50%);
+            background-image: linear-gradient(top, transparent 50%, #ddd 50%);
         }
         @else if $direction == left {
             background-position: left top;
-            background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
             background-repeat: repeat-y;
-            -webkit-background-size: 1px 100%; /*no*/
+            background-size: 1px 100%; /*no*/
+            background-image: -webkit-gradient(linear, right top, left top, color-stop(50%, transparent), color-stop(50%, $borderColor));
+            background-image: -webkit-linear-gradient(right, transparent 50%, $borderColor 50%);
+            background-image: linear-gradient(right, transparent 50%, $borderColor 50%);
         }
         @else if $direction == right {
             background-position: right top;
-            background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
             background-repeat: repeat-y;
-            -webkit-background-size: 1px 100%; /*no*/
+            background-size: 1px 100%; /*no*/
+            background-image: -webkit-gradient(linear, left top, right top, color-stop(50%, transparent), color-stop(50%, $borderColor));
+            background-image: -webkit-linear-gradient(left, transparent 50%, $borderColor 50%);
+            background-image: linear-gradient(left, transparent 50%, $borderColor 50%);
         }
         @else if $direction == tb {
-            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor));
             background-position: top, bottom;
             background-repeat: repeat-x;
-            -webkit-background-size: 100% 1px; /*no*/
+            background-size: 100% 1px; /*no*/
+            background-image: -webkit-gradient(linear, left bottom, left top, color-stop(50%, transparent), color-stop(50%, $borderColor)), -webkit-gradient(linear, left top, left bottom, from(top), color-stop(50%, transparent), color-stop(50%, $borderColor));
+            background-image: -webkit-linear-gradient(bottom, transparent 50%, $borderColor 50%), -webkit-linear-gradient(top, transparent 50%, $borderColor 50%);
+            background-image: linear-gradient(bottom, transparent 50%, $borderColor 50%), linear-gradient(top, transparent 50%, $borderColor 50%);
         }
         @else if $direction == all {
             position: relative;
+            border: 0;
             &::after {
                 content: "";
                 width: 100%;
@@ -61,17 +74,16 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to($borderColor)), -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, $borderColor), to(#ddd));
-                -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
-                background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
-                -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
                 background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%; /*no*/
                 background-repeat: no-repeat;
                 background-position: top, right, bottom, left;
                 padding: 1px; /*no*/
-                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
                 z-index: 10;
                 pointer-events: none;
+                background-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, transparent), color-stop(50%, $borderColor)), -webkit-gradient(linear, left top, left bottom, from(right), color-stop(50%, transparent), color-stop(50%, $borderColor)), -webkit-gradient(linear, left bottom, left top, color-stop(50%, transparent), color-stop(50%, $borderColor)), -webkit-gradient(linear, left top, left bottom, from(left), color-stop(50%, transparent), color-stop(50%, $borderColor));
+                background-image: -webkit-linear-gradient(top, transparent 50%, $borderColor 50%), -webkit-linear-gradient(right, transparent 50%, $borderColor 50%), -webkit-linear-gradient(bottom, transparent 50%, $borderColor 50%), -webkit-linear-gradient(left, transparent 50%, $borderColor 50%);
+                background-image: linear-gradient(top, transparent 50%, $borderColor 50%), linear-gradient(right, transparent 50%, $borderColor 50%), linear-gradient(bottom, transparent 50%, $borderColor 50%), linear-gradient(left, transparent 50%, $borderColor 50%);
             }
         }
     }
