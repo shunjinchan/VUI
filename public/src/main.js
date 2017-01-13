@@ -2,7 +2,7 @@
  * @Author: shunjinchan
  * @Date:   2015-12-25 11:23:14
  * @Last Modified by:   pigsy.chen
- * @Last Modified time: 2016-02-04 00:46:55
+ * @Last Modified time: 2016-07-06 17:33:33
  */
 
 var Zepto = require('./js/lib/zepto.js');
@@ -11,7 +11,7 @@ var Popup = require('./js/components/popup.js');
 var Dialog = require('./js/components/dialog.js');
 var Loader = require('./js/components/loader.js');
 var Toast = require('./js/components/toast.js');
-var Tab = require('./js/components/tab.js');
+// var Tab = require('./js/components/tab.js');
 var Validator = require('./js/components/validator.js');
 var EventEmitter = require('./js/components/eventEmitter.js');
 var Swiper = require('./js/components/swiper.js');
@@ -26,7 +26,7 @@ var popup = new Popup();
 var dialog = new Dialog();
 var loader = new Loader();
 var toast = new Toast();
-var tab = new Tab();
+// var tab = new Tab();
 var validator = new Validator();
 var emitter = new EventEmitter();
 var swiper = new Swiper();
